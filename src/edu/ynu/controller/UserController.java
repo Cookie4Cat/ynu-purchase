@@ -35,7 +35,6 @@ public class UserController {
 			resultMap.put("userType", 0);
 		}
 		return resultMap;
-
 	}
 
 }
