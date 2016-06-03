@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 
-@Repository
 public class TokenDaoImpl implements TokenDao {
     private SessionFactory sessionFactory;
 
