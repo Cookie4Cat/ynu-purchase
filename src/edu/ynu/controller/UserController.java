@@ -3,6 +3,7 @@ package edu.ynu.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.ynu.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,8 @@ import edu.ynu.util.TokenUtil;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TokenService tokenService;
 
 	@RequestMapping("/login")
 	public @ResponseBody Map<Object, Object> login(@RequestBody Map map) throws Exception {
@@ -27,8 +30,7 @@ public class UserController {
 		if (user == null) {
 			resultMap.put("userType", 0);
 		} else if (user.getPassword().equals(password)) {
-			TokenUtil tokenUtil = new TokenUtil();
-			String token = tokenUtil.getToken(username);
+			String token = tokenService.getToken(username);
 			resultMap.put("userType", user.getType());
 			resultMap.put("token", token);
 		} else {

@@ -3,7 +3,7 @@ package edu.ynu.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "assets", schema = "spring_test", catalog = "")
+@Table(name = "assets", schema = "purchase", catalog = "")
 public class AssetsEntity {
     private int id;
     private String name;

@@ -2,7 +2,6 @@ package edu.ynu.dao.impl;
 
 import edu.ynu.dao.TokenDao;
 import edu.ynu.entity.TokenEntity;
-import edu.ynu.entity.UserEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
