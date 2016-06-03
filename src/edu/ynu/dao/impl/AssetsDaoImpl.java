@@ -5,6 +5,7 @@ import edu.ynu.entity.AssetsEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 public class AssetsDaoImpl implements AssetsDao {
     private SessionFactory sessionFactory;

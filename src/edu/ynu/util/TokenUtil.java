@@ -1,28 +1,17 @@
 package edu.ynu.util;
 
+import edu.ynu.dao.impl.TokenDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class TokenUtil {
 
+	@Autowired
+	private TokenDaoImpl tokenDao;
 	public String getToken(String userId) {
-		if (userId.equals("1")) {
-			return "1234";
-		} else if (userId.equals("2")) {
-			return "abcd";
-		}
-		return "null";
-	}
-
-	public boolean validate(String token) {
-		return token.equals("abcd") || token.equals("1234");
+		return tokenDao.getToken(userId);
 	}
 
 	public String getUserFormToken(String token) {
-		switch (token) {
-		case "1234":
-			return "";
-		case "abcd":
-			return "";
-		default:
-			return "";
-		}
+		return tokenDao.getUserIdFormToken(token);
 	}
 }

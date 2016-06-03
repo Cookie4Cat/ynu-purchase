@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import edu.ynu.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +21,19 @@ import edu.ynu.util.TokenUtil;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private TokenService tokenService;
 
 	@RequestMapping("/login")
 	public @ResponseBody Map<Object, Object> login(@RequestBody Map map) throws Exception {
-		String username = (String) map.get("username");
+		String username = (String) map.get("userName");
 		String password = (String) map.get("password");
 		UserEntity user = userService.finUserById(username);
 		Map<Object, Object> resultMap = new HashMap<>();
 		if (user == null) {
 			resultMap.put("userType", 0);
 		} else if (user.getPassword().equals(password)) {
-			TokenUtil tokenUtil = new TokenUtil();
-			String token = tokenUtil.getToken(username);
+			String token = tokenService.getToken(username);
 			resultMap.put("userType", user.getType());
 			resultMap.put("token", token);
 		} else {

@@ -5,6 +5,7 @@ import edu.ynu.entity.UserEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 public class UserDaoImpl implements UserDao{
     private SessionFactory sessionFactory;
@@ -18,6 +19,6 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public UserEntity findUserById(String userId){
-        return (UserEntity) this.currentSession().get(UserEntity.class,Integer.valueOf(userId));
+        return (UserEntity) this.currentSession().get(UserEntity.class,userId);
     }
 }
