@@ -57,7 +57,9 @@
       <property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<tx:annotation-driven/>
-	<bean id="AssetsDao" class="edu.ynu.dao.impl.AssetsDaoImpl"></bean>
-	<bean id="AssetsService" class="edu.ynu.service.impl.AssetsServiceImpl"></bean>
-	<bean id="AssetsController" class="edu.ynu.controller.AssetsController"></bean>
+	<bean id="assetsDao" class="edu.ynu.dao.impl.AssetsDaoImpl"></bean>
+	<bean id="userDao" class="edu.ynu.dao.impl.UserDaoImpl"></bean>
+
+	<bean id="assetsService" class="edu.ynu.service.impl.AssetsServiceImpl"></bean>
+	<bean id="assetsController" class="edu.ynu.controller.AssetsController"></bean>
 </beans>
