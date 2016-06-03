@@ -2,3 +2,6 @@
 .idea
 WebContent
 purchase-sys.iml
+
+.classpath
+.project
