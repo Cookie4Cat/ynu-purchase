@@ -45,4 +45,6 @@ public class TokenDaoImpl implements TokenDao {
         this.currentSession().save(tokenEntity);
         return tokenEntity.getToken();
     }
+    //TODO:重复获取token会重复在数据库中生成token，应先判断是否登陆在生成
+    //TODO:token的生成算法有待解决
 }
