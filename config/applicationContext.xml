@@ -16,16 +16,12 @@
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-
-	<!-- 配置数据源 -->
-	<context:property-placeholder location="db.properties" />
-
 	<!-- 配置DataSource -->
 	<bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
-		<property name="user" value="${jdbc.user}"></property>
-		<property name="password" value="${jdbc.password}"></property>
-		<property name="driverClass" value="${jdbc.driverClass}"></property>
-		<property name="jdbcUrl" value="${jdbc.jdbcUrl}"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="YDk83946759"></property>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://115.28.33.158:3306/purchase"></property>
 	</bean>
 
 	<!-- 配置SessionFactory -->
@@ -47,7 +43,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/spring_test</prop>
+				<prop key="hibernate.connection.url">jdbc:mysql://115.28.33.158:3306/purchase</prop>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
 				<prop key="current_session_context_class">thread</prop>
 				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
