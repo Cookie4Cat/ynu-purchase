@@ -22,7 +22,6 @@
 		<property name="prefix" value="/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	<bean id="sessionFactory2" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"/>
 
 	<!-- 配置静态资源 -->
 	<mvc:default-servlet-handler />
