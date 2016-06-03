@@ -1,5 +1,6 @@
 package edu.ynu.dao.impl;
 
+import edu.ynu.dao.TokenDao;
 import edu.ynu.entity.TokenEntity;
 import edu.ynu.entity.UserEntity;
 import org.hibernate.Query;
@@ -12,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class TokenDaoImpl {
+public class TokenDaoImpl implements TokenDao {
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -23,6 +24,7 @@ public class TokenDaoImpl {
         return this.sessionFactory.getCurrentSession();
     }
 
+    @Override
     public String getUserIdFormToken(String token){
         String hql = "from TokenEntity tokens where tokens.token=:tokenContent";
         Query query = this.currentSession().createQuery(hql);
@@ -35,6 +37,7 @@ public class TokenDaoImpl {
         }
         return null;
     }
+    @Override
     public String getToken(String userId){
         TokenEntity tokenEntity= new TokenEntity();
         tokenEntity.setToken("abcd"+userId);
