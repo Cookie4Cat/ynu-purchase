@@ -1,19 +1,16 @@
 package edu.ynu.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import edu.ynu.entity.AssetsEntity;
+import edu.ynu.entity.UserEntity;
 import edu.ynu.service.UserService;
-import edu.ynu.util.BeanFactory;
-import edu.ynu.util.State;
+import edu.ynu.util.TokenUtil;
 
 @RestController
 @RequestMapping("/user")
@@ -22,18 +19,23 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping("/login")
-	public @ResponseBody State login(@RequestBody Map map) throws Exception {
+	public @ResponseBody Map<Object, Object> login(@RequestBody Map map) throws Exception {
 		String username = (String) map.get("username");
 		String password = (String) map.get("password");
-		User user = userService.finUserById(username);
-		if(user == null ){
-			return BeanFactory.getState("0");
+		UserEntity user = userService.finUserById(username);
+		Map<Object, Object> resultMap = new HashMap<>();
+		if (user == null) {
+			resultMap.put("userType", 0);
+		} else if (user.getPassword().equals(password)) {
+			TokenUtil tokenUtil = new TokenUtil();
+			String token = tokenUtil.getToken(username);
+			resultMap.put("userType", user.getType());
+			resultMap.put("token", token);
+		} else {
+			resultMap.put("userType", 0);
 		}
-		if(user.getPassword().equals(password) ){
-			return BeanFactory.getState(User.get);
-		}
-		return null;
+		return resultMap;
 
-	} 
+	}
 
 }

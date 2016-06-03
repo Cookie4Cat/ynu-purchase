@@ -1,5 +1,7 @@
 package edu.ynu.service;
 
+import edu.ynu.entity.UserEntity;
+
 public interface UserService {
 	
 	/**
@@ -7,7 +9,7 @@ public interface UserService {
 	 * @param userId 用户帐号
 	 * @return 用户实体，若无此用户返回空
 	 */
-	User finUserById(String userId);
+	UserEntity finUserById(String userId);
 	
 	
 	
