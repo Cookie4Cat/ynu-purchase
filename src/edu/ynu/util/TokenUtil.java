@@ -15,14 +15,14 @@ public class TokenUtil {
 		return token.equals("abcd") || token.equals("1234");
 	}
 
-	public int getUserFormToken(String token) {
+	public String getUserFormToken(String token) {
 		switch (token) {
 		case "1234":
-			return 1;
+			return "";
 		case "abcd":
-			return 2;
+			return "";
 		default:
-			return 0;
+			return "";
 		}
 	}
 }
