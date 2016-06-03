@@ -1,7 +1,8 @@
 .settings
 .idea
-WebContent
 purchase-sys.iml
-
+WebContent/WEB-INF/classes
+WebContent/WEB-INF/lib
+WebCOntent/META-INF
 .classpath
 .project
