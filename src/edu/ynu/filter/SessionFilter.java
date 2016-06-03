@@ -1,4 +1,4 @@
-package edu.ynu.dao.filter;
+package edu.ynu.filter;
 
 import java.io.IOException;
 
