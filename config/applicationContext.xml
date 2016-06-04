@@ -62,6 +62,7 @@
 	<bean id="assetsDao" class="edu.ynu.dao.impl.AssetsDaoImpl"></bean>
 	<bean id="userDao" class="edu.ynu.dao.impl.UserDaoImpl"></bean>
 	<bean id="tokenDao" class="edu.ynu.dao.impl.TokenDaoImpl"></bean>
+	<bean id="projectDao" class="edu.ynu.dao.impl.ProjectDaoImpl"></bean>
 
 	<bean id="assetsService" class="edu.ynu.service.impl.AssetsServiceImpl"></bean>
 	<bean id="userService" class="edu.ynu.service.impl.UserServiceImpl"></bean>

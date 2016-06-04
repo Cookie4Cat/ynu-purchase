@@ -20,6 +20,16 @@ public class 采购申报记录 {
 
 	private String 初审意见;
 
+	private String 项目名称;
+
+	public String get项目名称() {
+		return 项目名称;
+	}
+
+	public void set项目名称(String 项目名称) {
+		this.项目名称 = 项目名称;
+	}
+
 	public String get项目编号() {
 		return 项目编号;
 	}
@@ -67,5 +77,4 @@ public class 采购申报记录 {
 	public void set初审意见(String 初审意见) {
 		this.初审意见 = 初审意见;
 	}
-
 }
