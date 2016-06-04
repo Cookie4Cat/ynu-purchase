@@ -13,3 +13,4 @@ WebCOntent/META-INF
 WebContent/public
 WebContent/index.html
 WebContent/login.html
+/config/project.properties
