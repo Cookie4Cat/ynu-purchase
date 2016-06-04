@@ -2,7 +2,7 @@ package edu.ynu.service.impl;
 
 import edu.ynu.dao.UserDao;
 import edu.ynu.entity.UserEntity;
-import edu.ynu.entity.采购申报记录;
+import edu.ynu.message.采购申报记录;
 import edu.ynu.service.UserService;
 
 import java.util.List;

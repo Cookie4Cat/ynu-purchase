@@ -1,4 +1,4 @@
-package edu.ynu.entity;
+package edu.ynu.message;
 
 /**
  * description: 用作教师登录后显示已申报的申报记录
@@ -8,17 +8,17 @@ package edu.ynu.entity;
  */
 public class 采购申报记录 {
 
-	String 项目编号;
+	private String 项目编号;
 
-	String 采购类型;
+	private String 采购类型;
 
-	String 总计金额;
+	private String 总计金额;
 
-	String 上次提交日期;
+	private String 上次提交日期;
 
-	String 当前状态;
+	private String 当前状态;
 
-	String 初审意见;
+	private String 初审意见;
 
 	public String get项目编号() {
 		return 项目编号;

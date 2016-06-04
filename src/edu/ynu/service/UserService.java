@@ -3,7 +3,7 @@ package edu.ynu.service;
 import java.util.List;
 
 import edu.ynu.entity.UserEntity;
-import edu.ynu.entity.采购申报记录;
+import edu.ynu.message.采购申报记录;
 
 public interface UserService {
 
