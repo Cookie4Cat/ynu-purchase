@@ -77,5 +77,4 @@ public class 采购申报记录 {
 	public void set初审意见(String 初审意见) {
 		this.初审意见 = 初审意见;
 	}
-
 }
