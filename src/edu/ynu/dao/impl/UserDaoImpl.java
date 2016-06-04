@@ -19,6 +19,6 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public UserEntity findUserById(String userId){
-        return (UserEntity) this.currentSession().get(UserEntity.class,Integer.valueOf(userId));
+        return (UserEntity) this.currentSession().get(UserEntity.class,userId);
     }
 }

@@ -3,7 +3,14 @@
 purchase-sys.iml
 WebContent/WEB-INF/classes
 WebContent/WEB-INF/lib
+<<<<<<< HEAD
+WebContent/META-INF
+=======
 WebCOntent/META-INF
+>>>>>>> 0ddea287f6b4e721a9d3594fd5ca9206414a583b
 .classpath
 .project
-purchase-declaration-sys.iml
+WebContent/public
+WebContent/index.html
+WebContent/login.html
+/config/project.properties

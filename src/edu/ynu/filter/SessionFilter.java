@@ -22,41 +22,42 @@ public class SessionFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 	        throws ServletException, IOException {
-			ServletContext sc = request.getSession().getServletContext();
-			XmlWebApplicationContext cxt = (XmlWebApplicationContext)WebApplicationContextUtils.getWebApplicationContext(sc);
-			if(cxt != null && cxt.getBean("tokenService") != null && tokenService == null){
-				tokenService = (TokenService) cxt.getBean("tokenService");
+		ServletContext sc = request.getSession().getServletContext();
+		XmlWebApplicationContext cxt = (XmlWebApplicationContext) WebApplicationContextUtils
+		        .getWebApplicationContext(sc);
+		if (cxt != null && cxt.getBean("tokenService") != null && tokenService == null) {
+			tokenService = (TokenService) cxt.getBean("tokenService");
+		}
+
+		String[] NoFilter = new String[] { "login", "public" };
+
+		String uri = request.getRequestURI();
+		// uri中包含NoFilter时不进行过滤，其他情况默认过滤
+		boolean doFilter = true;
+		for (String s : NoFilter) {
+			if (uri.indexOf(s) != -1) {
+				// 如果uri中包含不过滤的uri，则不进行过滤
+				doFilter = false;
+				break;
 			}
+		}
 
-			String[] NoFilter = new String[] { "login" };
+		if (doFilter) {
+			System.out.println(request.getParameter("token"));
+			System.out.println(tokenService);
+			String userFormToken = tokenService.getUserFormToken(request.getParameter("token"));
 
-			String uri = request.getRequestURI();
-			// uri中包含NoFilter时不进行过滤，其他情况默认过滤
-			boolean doFilter = true;
-			for (String s : NoFilter) {
-				if (uri.indexOf(s) != -1) {
-					// 如果uri中包含不过滤的uri，则不进行过滤
-					doFilter = false;
-					break;
-				}
-			}
-
-			if (doFilter) {
-				System.out.println(request.getParameter("token"));
-				System.out.println(tokenService);
-				String userFormToken = tokenService.getUserFormToken(request.getParameter("token"));
-
-				if (userFormToken == null) {
-					response.sendRedirect("/login.html");
-					return;
-				}
-				request.setAttribute("userId", userFormToken);
-				filterChain.doFilter(request, response);
-				return;
-
-			} else {
-				filterChain.doFilter(request, response);
+			if (userFormToken == null) {
+				response.sendRedirect("./login.html");
 				return;
 			}
+			request.setAttribute("userId", userFormToken);
+			filterChain.doFilter(request, response);
+			return;
+
+		} else {
+			filterChain.doFilter(request, response);
+			return;
+		}
 	}
 }
