@@ -41,7 +41,7 @@ public class UserController {
 		return resultMap;
 	}
 
-	@RequestMapping("/user/history/ing")
+	@RequestMapping("/history/ing")
 	public @ResponseBody List<采购申报记录> ing(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
 		return userService.findSubmitHistoryById(userId);
