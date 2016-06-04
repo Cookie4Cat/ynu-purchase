@@ -3,7 +3,7 @@ package edu.ynu.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user", schema = "purchase", catalog = "")
+@Table(name = "user", schema = "purchase")
 public class UserEntity {
 	private String userId;
 	private String username;
