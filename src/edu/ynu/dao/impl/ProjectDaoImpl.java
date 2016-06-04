@@ -2,14 +2,10 @@ package edu.ynu.dao.impl;
 
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
-import edu.ynu.entity.TokenEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
-
-import java.util.Iterator;
 import java.util.List;
 
 public class ProjectDaoImpl implements ProjectDao {
