@@ -1,4 +1,4 @@
-package edu.ynu.entity;
+package edu.ynu.message;
 
 /**
  * description: 用作教师登录后显示已申报的申报记录
