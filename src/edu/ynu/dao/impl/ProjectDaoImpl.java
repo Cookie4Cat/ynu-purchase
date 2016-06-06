@@ -25,4 +25,14 @@ public class ProjectDaoImpl implements ProjectDao {
         List projectList = query.list();
         return projectList;
     }
+
+    @Override
+    public List<ProjectEntity> getProjectsByExample(ProjectEntity example) {
+        return null;
+    }
+
+    @Override
+    public ProjectEntity getProjectById(int id) {
+        return null;
+    }
 }
