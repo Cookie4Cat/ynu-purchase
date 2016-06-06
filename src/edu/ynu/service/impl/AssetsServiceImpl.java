@@ -6,6 +6,8 @@ import edu.ynu.service.AssetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 public class AssetsServiceImpl implements AssetsService {
 
@@ -30,5 +32,10 @@ public class AssetsServiceImpl implements AssetsService {
     @Override
     public AssetsEntity getAssets(int id) {
         return assetsDao.getAssets(id);
+    }
+
+    @Override
+    public List<AssetsEntity> findAll() {
+        return assetsDao.findAll();
     }
 }
