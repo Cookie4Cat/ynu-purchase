@@ -24,7 +24,7 @@ public class BaseDao<T> {
         return this.sessionFactory.getCurrentSession();
     }
 
-    public String getClazzName(){
+    private String getClazzName(){
         return poclazz.getSimpleName();
     }
     public T find(Integer id){
