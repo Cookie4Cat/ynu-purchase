@@ -16,22 +16,22 @@ public class AssetsDaoImpl extends BaseDao<AssetsEntity> implements AssetsDao {
 
     @Override
     public void addAssets(AssetsEntity assets) {
-
+        super.save(assets);
     }
 
     @Override
     public void deleteAssets(int id) {
-
+        super.deleteById(id);
     }
 
     @Override
     public void updateAssets(AssetsEntity assets) {
-
+        super.update(assets);
     }
 
     @Override
     public AssetsEntity getAssets(int id) {
-        return null;
+        return super.find(id);
     }
     @Override
     public List<AssetsEntity> findAll(){
