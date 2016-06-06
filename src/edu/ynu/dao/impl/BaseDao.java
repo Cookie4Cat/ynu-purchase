@@ -11,7 +11,6 @@ import java.util.List;
 public class BaseDao<T> {
     private SessionFactory sessionFactory;
     private Class<T> poclazz;
-    @Autowired
     public BaseDao(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
         Type genericSuperclass = this.getClass().getGenericSuperclass();
@@ -21,7 +20,7 @@ public class BaseDao<T> {
             poclazz = (Class) params[0];
         }
     }
-    private Session currentSession(){
+    public Session currentSession(){
         return this.sessionFactory.getCurrentSession();
     }
 
