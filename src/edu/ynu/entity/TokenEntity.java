@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "token", schema = "purchase", catalog = "")
 public class TokenEntity {
     private int tokenId;
-    private int userId;
+    private String userId;
     private String token;
     private Timestamp dateline;
 
@@ -23,11 +23,11 @@ public class TokenEntity {
 
     @Basic
     @Column(name = "user_id", nullable = false)
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -69,7 +69,7 @@ public class TokenEntity {
     @Override
     public int hashCode() {
         int result = tokenId;
-        result = 31 * result + userId;
+        result = 31 * result + Integer.valueOf(userId);
         result = 31 * result + (token != null ? token.hashCode() : 0);
         result = 31 * result + (dateline != null ? dateline.hashCode() : 0);
         return result;
