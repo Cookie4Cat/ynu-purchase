@@ -3,6 +3,7 @@ package edu.ynu.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 import edu.ynu.service.TokenService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import edu.ynu.entity.UserEntity;
-import edu.ynu.message.采购申报记录;
+import edu.ynu.message.purchaseHistoryRecord;
 import edu.ynu.service.UserService;
 
 @RestController
@@ -42,9 +43,21 @@ public class UserController {
 	}
 
 	@RequestMapping("/history/ing")
-	public @ResponseBody List<采购申报记录> ing(HttpServletRequest request) throws Exception {
+	public @ResponseBody List<purchaseHistoryRecord> ing(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		return userService.findSubmitHistoryById(userId);
+		List<purchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
+		Predicate<purchaseHistoryRecord> p = (n) -> n.getProType().equals("采购完成");
+		findSubmitHistoryById.removeIf(p);
+		return findSubmitHistoryById;
+	}
+
+	@RequestMapping("/history/completed")
+	public @ResponseBody List<purchaseHistoryRecord> completed(HttpServletRequest request) throws Exception {
+		String userId = (String) request.getAttribute("userId");
+		List<purchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
+		Predicate<purchaseHistoryRecord> p = (n) -> !n.getProType().equals("采购完成");
+		findSubmitHistoryById.removeIf(p);
+		return findSubmitHistoryById;
 	}
 
 }
