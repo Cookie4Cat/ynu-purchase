@@ -6,9 +6,6 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Created by Administrator on 2016/6/4.
- */
 @Entity
 @Table(name = "item", schema = "purchase")
 public class ItemEntity {
