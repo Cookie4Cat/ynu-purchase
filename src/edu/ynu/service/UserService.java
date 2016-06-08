@@ -5,7 +5,7 @@ import java.util.Map;
 
 import edu.ynu.entity.UserEntity;
 import edu.ynu.message.PurchaseApplySubmit;
-import edu.ynu.message.purchaseHistoryRecord;
+import edu.ynu.message.PurchaseHistoryRecord;
 
 public interface UserService {
 
@@ -21,7 +21,7 @@ public interface UserService {
 	 * @param UserId 教师ID
 	 * @return 记录实体列表
 	 */
-	List<purchaseHistoryRecord> findSubmitHistoryById(String userId);
+	List<PurchaseHistoryRecord> findSubmitHistoryById(String userId);
 
 	/**
 	 * description:采购申请信息登记草稿存储
