@@ -10,6 +10,7 @@ import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.message.PurchaseItem;
 import edu.ynu.service.UserService;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -155,6 +156,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Object> downloadPurchaseApplySheet(String projectId) {
-        return null;
+        Map<String,Object> map = new HashMap<>();
+        File file = new File("test.pdf");
+        map.put("paf测试文件",file);
+        return map;
     }
 }
