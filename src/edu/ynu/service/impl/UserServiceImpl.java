@@ -4,11 +4,13 @@ import edu.ynu.dao.ProjectDao;
 import edu.ynu.dao.UserDao;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.entity.UserEntity;
-import edu.ynu.message.purchaseHistoryRecord;
+import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
 	@Override
-	public List<purchaseHistoryRecord> findSubmitHistoryById(String userId) {
+	public List<PurchaseHistoryRecord> findSubmitHistoryById(String userId) {
 
-        List<purchaseHistoryRecord> historyList = new ArrayList<>();
+        List<PurchaseHistoryRecord> historyList = new ArrayList<>();
         List<ProjectEntity> projectList = projectDao.getProjectsByUID(userId);
         for(ProjectEntity project : projectList){
-            purchaseHistoryRecord record = new purchaseHistoryRecord();
+            PurchaseHistoryRecord record = new PurchaseHistoryRecord();
             record.setProjectId(project.getProjectId());
             record.setProName(project.getProjectName());
             record.setSuggestion(project.getComment());
@@ -44,4 +46,24 @@ public class UserServiceImpl implements UserService {
         }
         return historyList;
 	}
+
+    @Override
+    public Integer storePurchaseApplyDraft(String userId, PurchaseApplySubmit pas) {
+        return null;
+    }
+
+    @Override
+    public Integer submitPurchaseApply(String userId, PurchaseApplySubmit pas) {
+        return null;
+    }
+
+    @Override
+    public List<PurchaseApplySubmit> findStoredPurchaseApplyDraft(String userId) {
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> downloadPurchaseApplySheet(String projectId) {
+        return null;
+    }
 }
