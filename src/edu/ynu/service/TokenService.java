@@ -1,6 +1,6 @@
 package edu.ynu.service;
 
 public interface TokenService {
-    public String getToken(String userId);
-    public String getUserFormToken(String token);
+    String getToken(String userId);
+    String getUserFormToken(String token);
 }
