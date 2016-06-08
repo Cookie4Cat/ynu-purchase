@@ -9,6 +9,8 @@ import java.util.List;
  * @version 1.0
  */
 public class PurchaseApplySubmit {
+	//项目id
+	private String projectId;
 	// 采购类型
 	private String purchaseType;
 	// 项目名称
@@ -27,6 +29,14 @@ public class PurchaseApplySubmit {
 	private String reason;
 	//采购项目清单
 	List<PurchaseItem> table;
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
+	}
 
 	public String getPurchaseTyp() {
 		return purchaseType;
