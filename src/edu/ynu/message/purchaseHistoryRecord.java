@@ -6,7 +6,7 @@ package edu.ynu.message;
  * @since 2016年6月3日 下午11:00:10
  * @version 1.0
  */
-public class purchaseHistoryRecord {
+public class PurchaseHistoryRecord {
 
 	private String projectId;
 
