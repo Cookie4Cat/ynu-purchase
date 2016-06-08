@@ -35,7 +35,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     }
 
     @Override
-    public void savePurchaseApply(String userId, ProjectEntity projectEntity) {
+    public void savePurchaseApply(ProjectEntity projectEntity) {
         super.save(projectEntity);
     }
 
