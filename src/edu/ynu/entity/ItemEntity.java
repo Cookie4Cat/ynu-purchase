@@ -12,11 +12,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "item", schema = "purchase")
 public class ItemEntity {
+    // 采购设备的主键;
     private int id;
+    // 采购设备的名称;
     private String itemName;
+    // 采购该设备的数量;
     private String count;
+    // 设备的单价;
     private String price;
+    // 交货地址;
     private String deliverySite;
+    // 计量单位;
+    private String unit;
+    // 预算总计;
+    private String total;
+    // 所属的采购项目;
     private ProjectEntity project;
 
     @Id
@@ -68,6 +78,26 @@ public class ItemEntity {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    @Basic
+    @Column(name = "total", nullable = false, length = 45)
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    @Basic
+    @Column(name = "unit", nullable = false, length = 45)
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     //双向绑定

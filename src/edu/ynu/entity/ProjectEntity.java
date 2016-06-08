@@ -14,21 +14,41 @@ import java.util.Set;
 @Entity
 @Table(name = "purchase_project", schema = "purchase")
 public class ProjectEntity {
+    // 采购项目的主键
     private int id;
+    // 采购项目的ID
     private String projectId;
+    // 用户的ID
     private String userId;
+    // 申请人的名字
     private String proposerName;
+    // 申请人的电话
+    private String proposerMobile;
+    // 申请人的固定电话
     private String proposerTel;
+    // 经办人的名字
     private String agentName;
+    // 经办人的电话
+    private String agentMobile;
+    // 经办人的固定电话
     private String agentTel;
+    // 采购项目的名称
     private String projectName;
+    // 采购类型
     private String purchaseType;
+    // 总预算
     private String sum;
+    // 资金来源
     private String fundSource;
+    // 购置理由
     private String applyReason;
+    // 登记日期
     private String submitTime;
+    // 初审意见
     private String comment;
+    // 采购项目的状态
     private String status;
+    // 所包含的采购设备
     private Set<ItemEntity> items = new HashSet<ItemEntity>();
 
     @Id
@@ -60,6 +80,16 @@ public class ProjectEntity {
 
     public void setAgentName(String agentName) {
         this.agentName = agentName;
+    }
+
+    @Basic
+    @Column(name = "agent_mobile", nullable = false, length = 45)
+    public String getAgentMobile() {
+        return agentMobile;
+    }
+
+    public void setAgentMobile(String agentMobile) {
+        this.agentMobile = agentMobile;
     }
 
     @Basic
@@ -130,6 +160,16 @@ public class ProjectEntity {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    @Basic
+    @Column(name = "proposer_mobile", nullable = false, length = 45)
+    public String getProposerMobile() {
+        return proposerMobile;
+    }
+
+    public void setProposerMobile(String proposerMobile) {
+        this.proposerMobile = proposerMobile;
     }
 
     @Basic
