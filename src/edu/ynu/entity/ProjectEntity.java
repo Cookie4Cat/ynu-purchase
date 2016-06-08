@@ -8,9 +8,6 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Administrator on 2016/6/4.
- */
 @Entity
 @Table(name = "purchase_project", schema = "purchase")
 public class ProjectEntity {
