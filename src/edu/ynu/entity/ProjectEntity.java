@@ -1,6 +1,7 @@
 package edu.ynu.entity;
 
 import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -204,7 +205,7 @@ public class ProjectEntity {
     //双向绑定
     //配置project实体与item实体一对多的关系
     @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.DELETE})
+    @Cascade(value = {CascadeType.ALL})
     public Set<ItemEntity> getItems() {
         return items;
     }
