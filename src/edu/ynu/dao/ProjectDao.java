@@ -27,20 +27,12 @@ public interface ProjectDao {
     List<ProjectEntity> getProjectsByExample(ProjectEntity example);
 
     /***
-     * 保存项目申请草稿
-     * @param userId 用户ID
-     * @param projectEntity 项目实体
-     * @return 1：成功，0：失败
-     */
-    Integer savePurchaseApplyDraft(String userId,ProjectEntity projectEntity);
-
-    /***
      * 提交项目申请表
      * @param userId 用户ID
      * @param projectEntity 项目实体
      * @return 1：成功，0：失败
      */
-    Integer savePurchaseApply(String userId,ProjectEntity projectEntity);
+    void savePurchaseApply(String userId,ProjectEntity projectEntity);
 
     /***
      * 根据用户ID返回项目申请书草稿
