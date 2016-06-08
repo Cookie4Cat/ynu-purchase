@@ -35,4 +35,19 @@ public class ProjectDaoImpl implements ProjectDao {
     public ProjectEntity getProjectById(int id) {
         return null;
     }
+
+    @Override
+    public Integer savePurchaseApplyDraft(String userId, ProjectEntity projectEntity) {
+        return null;
+    }
+
+    @Override
+    public Integer savePurchaseApply(String userId, ProjectEntity projectEntity) {
+        return null;
+    }
+
+    @Override
+    public List<ProjectEntity> findProjectsDraftByUID(String userId) {
+        return null;
+    }
 }
