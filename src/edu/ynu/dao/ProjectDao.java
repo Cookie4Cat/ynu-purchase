@@ -45,7 +45,7 @@ public interface ProjectDao {
     /***
      * 根据用户ID返回项目申请书草稿
      * @param userId 用户ID
-     * @return 项目草稿List
+     * @return 项目草稿列表
      */
     List<ProjectEntity> findProjectsDraftByUID(String userId);
 
