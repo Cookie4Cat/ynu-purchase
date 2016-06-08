@@ -12,23 +12,41 @@ import java.util.Set;
 @Entity
 @Table(name = "purchase_project", schema = "purchase")
 public class ProjectEntity {
+    // 采购项目的主键
     private int id;
+    // 采购项目的ID
     private String projectId;
+    // 用户的ID
     private String userId;
+    // 申请人的名字
     private String proposerName;
+    // 申请人的电话
     private String proposerMobile;
+    // 申请人的固定电话
     private String proposerTel;
+    // 经办人的名字
     private String agentName;
+    // 经办人的电话
     private String agentMobile;
+    // 经办人的固定电话
     private String agentTel;
+    // 采购项目的名称
     private String projectName;
+    // 采购类型
     private String purchaseType;
+    // 总预算
     private String sum;
+    // 资金来源
     private String fundSource;
+    // 购置理由
     private String applyReason;
+    // 登记日期
     private String submitTime;
+    // 初审意见
     private String comment;
+    // 采购项目的状态
     private String status;
+    // 所包含的采购设备
     private Set<ItemEntity> items = new HashSet<ItemEntity>();
 
     @Id
@@ -43,7 +61,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = true, length = 45)
+    @Column(name = "user_id", length = 45)
     public String getUserId() {
         return userId;
     }
@@ -53,7 +71,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "agent_name", nullable = true, length = 45)
+    @Column(name = "agent_name", length = 45)
     public String getAgentName() {
         return agentName;
     }
@@ -63,7 +81,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "agent_mobile", nullable = true, length = 45)
+    @Column(name = "agent_mobile", length = 45)
     public String getAgentMobile() {
         return agentMobile;
     }
@@ -73,7 +91,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "agent_tel", nullable = true, length = 45)
+    @Column(name = "agent_tel", length = 45)
     public String getAgentTel() {
         return agentTel;
     }
@@ -83,7 +101,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "apply_reason", nullable = true, length = 500)
+    @Column(name = "apply_reason", length = 500)
     public String getApplyReason() {
         return applyReason;
     }
@@ -93,7 +111,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "comment", nullable = true, length = 500)
+    @Column(name = "comment",  length = 500)
     public String getComment() {
         return comment;
     }
@@ -103,7 +121,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "fund_source", nullable = true, length = 200)
+    @Column(name = "fund_source", length = 200)
     public String getFundSource() {
         return fundSource;
     }
@@ -113,7 +131,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "project_id", nullable = true, length = 100)
+    @Column(name = "project_id", length = 100)
     public String getProjectId() {
         return projectId;
     }
@@ -123,7 +141,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "proposer_name", nullable = true, length = 45)
+    @Column(name = "proposer_name", length = 45)
     public String getProposerName() {
         return proposerName;
     }
@@ -133,7 +151,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "project_name", nullable = true, length = 45)
+    @Column(name = "project_name", length = 45)
     public String getProjectName() {
         return projectName;
     }
@@ -143,7 +161,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "proposer_mobile", nullable = true, length = 45)
+    @Column(name = "proposer_mobile", length = 45)
     public String getProposerMobile() {
         return proposerMobile;
     }
@@ -153,7 +171,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "proposer_tel", nullable = true, length = 45)
+    @Column(name = "proposer_tel", length = 45)
     public String getProposerTel() {
         return proposerTel;
     }
@@ -163,7 +181,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "purchase_type", nullable = true, length = 45)
+    @Column(name = "purchase_type", length = 45)
     public String getPurchaseType() {
         return purchaseType;
     }
@@ -173,7 +191,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "status", nullable = true, length = 45)
+    @Column(name = "status", length = 45)
     public String getStatus() {
         return status;
     }
@@ -183,7 +201,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "submit_time", nullable = true, length = 100)
+    @Column(name = "submit_time", length = 100)
     public String getSubmitTime() {
         return submitTime;
     }
@@ -193,7 +211,7 @@ public class ProjectEntity {
     }
 
     @Basic
-    @Column(name = "sum", nullable = true, length = 45)
+    @Column(name = "sum", length = 45)
     public String getSum() {
         return sum;
     }
