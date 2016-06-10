@@ -7,6 +7,8 @@ package edu.ynu.message;
  * @version 1.0
  */
 public class PurchaseItem {
+	//id
+	private Integer id;
 	// 类型
 	private String type;
 	// 通用名称
@@ -22,6 +24,13 @@ public class PurchaseItem {
 	// 交货地点
 	private String address;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getType() {
 		return type;
 	}

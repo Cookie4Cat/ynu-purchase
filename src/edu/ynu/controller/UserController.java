@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import edu.ynu.entity.UserEntity;
-import edu.ynu.message.purchaseHistoryRecord;
+import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.UserService;
 
 @RestController
@@ -43,19 +43,19 @@ public class UserController {
 	}
 
 	@RequestMapping("/history/ing")
-	public @ResponseBody List<purchaseHistoryRecord> ing(HttpServletRequest request) throws Exception {
+	public @ResponseBody List<PurchaseHistoryRecord> ing(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		List<purchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
-		Predicate<purchaseHistoryRecord> p = (n) -> n.getProType().equals("采购完成");
+		List<PurchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
+		Predicate<PurchaseHistoryRecord> p = (n) -> n.getProType().equals("采购完成");
 		findSubmitHistoryById.removeIf(p);
 		return findSubmitHistoryById;
 	}
 
 	@RequestMapping("/history/completed")
-	public @ResponseBody List<purchaseHistoryRecord> completed(HttpServletRequest request) throws Exception {
+	public @ResponseBody List<PurchaseHistoryRecord> completed(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		List<purchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
-		Predicate<purchaseHistoryRecord> p = (n) -> !n.getProType().equals("采购完成");
+		List<PurchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryById(userId);
+		Predicate<PurchaseHistoryRecord> p = (n) -> !n.getProType().equals("采购完成");
 		findSubmitHistoryById.removeIf(p);
 		return findSubmitHistoryById;
 	}
