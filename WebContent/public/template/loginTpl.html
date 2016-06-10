@@ -1,0 +1,20 @@
+<div class="col-md-4 col-md-offset-4 login">
+    <form novalidate name="loginForm" ng-submit="user.loginCheck()">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" ng-model="user.email" class="form-control" id="exampleInputEmail1" required placeholder="Email">
+            <span class="errorMessage" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">无效的邮箱格式！</span>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" ng-model="user.password" class="form-control" id="exampleInputPassword1" ng-minlength="6" ng-maxlength="12" required placeholder="Password">
+            <span class="errorMessage" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">6-12位密码！</span>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="rememberMe"> 记住我
+            </label>
+        </div>
+        <button type="submit" class="btn btn-default" ng-disabled="loginForm.password.$invalid || loginForm.email.$invalid">登录</button>
+    </form>
+</div>

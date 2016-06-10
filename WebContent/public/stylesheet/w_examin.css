@@ -1,0 +1,13 @@
+.center h3 {
+  text-align: center;
+}
+.center td {
+  vertical-align: middle;
+}
+.center .search form {
+  text-align: center;
+  padding: 20px 0;
+}
+.center .search form .form-group {
+  padding-right: 10px;
+}

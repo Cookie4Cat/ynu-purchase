@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="./public/stylesheet/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./public/stylesheet/font-awesome.min.css">
+    <link rel="stylesheet" href="./public/stylesheet/DBW_login.css">
+</head>
+
+<body ng-app="login">
+    <div class="header1">
+        <div id="showDate"></div>
+    </div>
+    <div class="header2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="margin-top: 10px;"><img src="./public/images/DBW_LOGO.png" alt=""></div>
+                <div class="" style="margin-top: 40px;">
+                    <h1 class="head">采购申报平台</h1></div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="shadow col-md-12 ">
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-5  k4">
+                        <div class="k9">
+                            <h1 class="k2">公告</h1></div>
+                        <ul class="list1">
+                            <li>
+                                [2015-09-10] 2015年12月全国大学英语 四、六级考试报名的通知
+                            </li>
+                            <li>
+                                [2015-06-23] 欢迎广大学生选修我校新引进的慕课课程和网络课程
+                            </li>
+                            <li>
+                                [2015-06-15] 关于2015年春季学期学生选课的通知
+                            </li>
+                            <li>
+                                [2015-03-05] 2015年6月全国大学英语 四、六级考试报名的通知
+                            </li>
+                            <li>
+                                [2015-01-15] 欢迎广大学生选修我校新引进的慕课课程和网络课程
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 col-md-offset-2  k4" ng-controller="loginController">
+                        <div class="k9">
+                            <h1 class="k2">登陆</h1></div>
+                        <form ng-submit="loginCheck()" novalidate>
+                            <input type="hidden" value="1" ng-model="userType" name="userType" id="myname" />
+                            <div class="input-group login1">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-user"></i></div>
+                                <input type="text" class="form-control" ng-model="username" name="username" id="exampleInputAmount" placeholder="Username" style="width: 80%">
+                            </div>
+                            <div class="input-group login1" style="margin-top: 30px">
+                                <div class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></div>
+                                <input type="password" class="form-control" ng-model="password" name="password" id="exampleInputAmount2" placeholder="Password" style="width: 80%">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-group-justified login2" style="width: 60%">提交</button>
+                            <br>
+                            <button class="btn btn-group-justified btn-danger login3" onclick="location='' " type="button" style="width: 60%">忘记密码</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright © 2016 Designed by the UI development team
+            <br> National Demonstration College Of Software ,Yun Nan University .</p>
+    </div>
+    <script src="./public/js/jquery.min.js"></script>
+    <script src="./public/js/bootstrap.min.js"></script>
+    <script src="./public/js/angular.js"></script>
+    <script>
+    $('#package_1,#package_2,#package_3').click(function() {
+        $(".status").removeClass("bianse");
+        $(this).addClass("bianse");
+        console.log("点击了");
+    });
+
+    function choose(n) {
+        $("#myname").val(n);
+        console.log("myname" + n);
+    }
+
+    $(function() {
+        setInterval("getTime();", 1000);
+    });
+
+    function getTime() {
+        var myDate = new Date();
+        var date = myDate.toLocaleDateString();
+        var hours = myDate.getHours();
+        var minutes = myDate.getMinutes();
+        var seconds = myDate.getSeconds();
+        $("#showDate").html("<h5 class='time'>" + "<a class='time2'>问题反馈</a>" + "   " + "<a class='time2'>联系我们</a>" + " " + hours + ":" + minutes + ":" + seconds + "</h5>");
+    }
+    var app = angular.module("login", []);
+    app.controller("loginController", function($http, $scope) {
+        $scope.loginCheck = function() {
+            var userType = $("#myname").val();
+            $http({
+                url: "./user/login",
+                method: "post",
+                data: {
+                    // userType: userType,
+                    userName: $scope.username,
+                    password: $scope.password
+                }
+            }).success(function(response) {
+          
+                switch (response.userType) {
+          
+                    case 1:
+                        location.href = "./index.html#/teaViewHanding";
+                        break;
+                    case 2:
+                        location.href = "/index.html#/ExaIndex";
+                        break;
+                    case 3:
+                        location.href = "/index.html#/operatorIndex";
+                        break;
+
+                }
+            })
+
+        }
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<link rel="stylesheet" type="text/css" href="/public/stylesheet/w_examin.css">
+<div class="ExaIndex">
+    <h2 class="page-header subhead">申报记录历史</h2>
+    <div class="col-md-2 col-md-offset-10">
+        <div class="dropdown">
+            <button class="btn btn-default" data-toggle="dropdown" type="button">
+                功能列表 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#/ExaIndex">首页</a></li>
+                <li><a href="#/approvalHistory">历史申报记录</a></li>
+                <li class="divider"></li>
+                <li><a href="#/approvalClassify1">各单位设备购买统计</a></li>
+                <li><a href="#/approvalClassify2">各方式采购统计</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row center">
+        <div class="search">
+            <form class="form-inline" ng-submit="searchUser()">
+                <div class="form-group">
+                    <label for="exampleInputName2">项目编号</label>
+                    <input type="text" class="form-control" name="name" ng-model="name" id="exampleInputName2" placeholder="输入项目编号">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">采购类型</label>
+                    <select name="status" id="" class="form-control" ng-model="status">
+                        <option value="">不限</option>
+                        <option value="">C-工程</option>
+                        <option value="0">S-服务</option>
+                        <!-- <option value="1">待立项</option> -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">审批状态</label>
+                    <select name="status2" id="" class="form-control" ng-model="status2">
+                     <option value="">待立项</option>
+                        <option value="">正式立项</option>
+                        <option value="0">采购中</option>
+                        <option value="1">采购完成</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <form class="form-horizontal">
+            <div class="form-group" style="text-align:center;">
+                <div class="table-responsive col-md-10 col-md-offset-1">
+                    <table class="table table-striped table-hover table-bordered">
+                        <tr class="info">
+                            <td align="center" valign="">序号</td>
+                            <td align="center" valign="">项目编号</td>
+                            <td align="center" valign="">采购类型</td>
+                            <td align="center" valign="">总计金额（万元）</td>
+                            <td align="center" valign="">提交日期</td>
+                            <td align="center" valign="">上次更新日期</td>
+                            <td align="center" valign="">项目状态</td>
+                            <td align="center" valign="">查看详细信息</td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">1</td>
+                            <td align="center" valign="">20160517-01</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">32</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">2</td>
+                            <td align="center" valign="">20160514-04</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">88</td>
+                            <td align="center" valign="">2016-03-05</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr class="warning">
+                            <td align="center" valign="">3</td>
+                            <td align="center" valign="">20160509-05</td>
+                            <td align="center" valign="">S-服务</td>
+                            <td align="center" valign="">45</td>
+                            <td align="center" valign="">2016-02-03</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">4</td>
+                            <td align="center" valign="">20160412-23</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">88</td>
+                            <td align="center" valign="">2016-01-018</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">5</td>
+                            <td align="center" valign="">20160412-23</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">6</td>
+                            <td align="center" valign="">2016-01-018</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">6</td>
+                            <td align="center" valign="">20160412-23</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">15</td>
+                            <td align="center" valign="">2016-01-08</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info" type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">7</td>
+                            <td align="center" valign="">20160412-23</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">7</td>
+                            <td align="center" valign="">2016-01-08</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待立项</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8 col-md-offset-4">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

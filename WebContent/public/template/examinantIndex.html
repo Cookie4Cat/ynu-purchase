@@ -1,0 +1,163 @@
+<link rel="stylesheet" type="text/css" href="/public/stylesheet/w_examin.css">
+<div class="ExaIndex">
+    <h2 class="page-header subhead">申报记录表</h2>
+    <div class="form-group">
+        <div class="col-md-2 col-md-offset-10">
+            <div class="dropdown">
+                <button class="btn btn-default" data-toggle="dropdown" type="button">
+                    功能列表 <span class="caret"></span>
+                </button>
+                 <ul class="dropdown-menu">
+                <li><a href="#/ExaIndex">首页</a></li>
+                <li><a href="#/approvalHistory">历史申报记录</a></li>
+                <li class="divider"></li>
+                <li><a href="#/approvalClassify1">各单位设备购买统计</a></li>
+                <li><a href="#/approvalClassify2">各方式采购统计</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row center">
+        <div class="search">
+            <form class="form-inline" ng-submit="searchUser()">
+                <div class="form-group">
+                    <label for="exampleInputName2">项目编号</label>
+                    <input type="text" class="form-control" name="name" ng-model="name" id="exampleInputName2" placeholder="">
+                </div>
+             <!--    <div class="form-group">
+                    <label for="exampleInputEmail2">邮箱</label>
+                    <input type="text" class="form-control" name="email" ng-model="email" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                </div> -->
+                 <div class="form-group">
+                    <label for="exampleInputEmail2">采购类型</label>
+                    <select name="status" id="" class="form-control" ng-model="status"> <option value="">不限</option>
+                        <option value="">C-工程</option>
+                        <option value="0">S-服务</option>
+                        <!-- <option value="1">待立项</option> -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail2">当前状态</label>
+                    <select name="status" id="" class="form-control" ng-model="status">
+                        <option value="">不限</option>
+                        <option value="0">待初审</option>
+                        <option value="1">初审被驳</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">查询</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+      
+            <div class="form-group" style="text-align:center;">
+                <div class="table-responsive col-md-10 col-md-offset-1">
+                    <table class="table table-striped table-hover table-bordered">
+                        <tr class="info">
+                            <td align="center" valign="">序号</td>
+                            <td align="center" valign="">项目编号</td>
+                            <td align="center" valign="">采购类型</td>
+                            <td align="center" valign="">总计金额（万元）</td>
+                            <td align="center" valign="">上次提交日期</td>
+                            <td align="center" valign="">当前状态</td>
+                            <td align="center" valign="">查看详细信息</td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">1</td>
+                            <td align="center" valign="">20160517-01</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">32</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">2</td>
+                            <td align="center" valign="">20160514-04</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">88</td>
+                            <td align="center" valign="">2016-03-05</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                           <tr>
+                            <td align="center" valign="">1</td>
+                            <td align="center" valign="">20160517-01</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">32</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">2</td>
+                            <td align="center" valign="">20160514-04</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">88</td>
+                            <td align="center" valign="">2016-03-05</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                           <tr>
+                            <td align="center" valign="">1</td>
+                            <td align="center" valign="">20160517-01</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">32</td>
+                            <td align="center" valign="">2016-05-04</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="">2</td>
+                            <td align="center" valign="">20160514-04</td>
+                            <td align="center" valign="">C-工程</td>
+                            <td align="center" valign="">88</td>
+                            <td align="center" valign="">2016-03-05</td>
+                            <td align="center" valign="">待初审</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/ExaDetail'">查看</button>
+                            </td>
+                        </tr>
+                      
+                       
+                       
+                        
+                    </table>
+                </div>
+            </div>
+        <div class="form-group">
+        <div class="col-md-8 col-md-offset-4">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>

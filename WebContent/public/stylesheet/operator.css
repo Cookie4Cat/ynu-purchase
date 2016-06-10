@@ -1,0 +1,42 @@
+.operatorIndex .ntd{
+	height: 50px;
+    vertical-align:middle;
+}
+.operatorIndex .checkbox{
+vertical-align:middle; 
+margin-top:0;
+}
+.operatorHistory .ntd{
+	height: 50px;
+    vertical-align:middle;
+}
+.operatorHistoryDetail .ntd{
+	height: 50px;
+    vertical-align:middle;
+}
+.negRusult .ntd{
+	height: 50px;
+    vertical-align:middle;
+}
+
+.subhead{
+    display: block;
+    background-color: #2a6496;
+    width:27%;
+    height: 40px;
+    border-radius: 20px 20px 20px 20px;
+    text-align: center;
+    color:white;
+    vertical-align: middle;
+}
+
+.subhead2{
+    display: block;
+    background-color: #2a6496;
+    width:27%;
+    height: 30px;
+    border-radius: 20px 20px 20px 20px;
+    text-align: center;
+    color:white;
+    vertical-align: middle;
+}

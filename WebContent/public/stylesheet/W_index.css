@@ -1,0 +1,31 @@
+.newCol{
+	float:left;
+	font-size:16px;
+	cursor:pointer;
+	color:#000093;
+
+}
+nav li p{
+	line-height:65px;
+}
+.subhead{
+	display: block;
+	background-color: #2a6496;
+	width:27%;
+	height: 40px;
+	border-radius: 20px 20px 20px 20px;
+	text-align: center;
+	color:white;
+	vertical-align: middle;
+}
+
+.subhead2{
+	display: block;
+	background-color: #2a6496;
+	width:27%;
+	height: 30px;
+	border-radius: 20px 20px 20px 20px;
+	text-align: center;
+	color:white;
+	vertical-align: middle;
+}

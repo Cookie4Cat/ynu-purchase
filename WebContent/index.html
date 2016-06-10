@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>前端原型设计</title>
+    <link rel="stylesheet" href="./public/stylesheet/bootstrap.min.css">
+    <link href="./public/stylesheet/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="./public/stylesheet/W_index.css">
+    <link rel="stylesheet" href="public/stylesheet/ljh_teacher.css">
+     <link rel="stylesheet" href="public/stylesheet/operator.css">
+    <link rel="stylesheet" href="public/stylesheet/common.css">
+    <!-- 自己写的css文件 -->
+</head>
+
+<body>
+    <div class="container main" style="background-color: #ECECFF">
+        <navbar> </navbar>
+        <div class="container">
+            <div ng-view class="mainPad">
+            </div>
+        </div>
+    </div>
+   <foot></foot>
+    <script src="./public/js/jquery.min.js"></script>
+    <script src="./public/js/bootstrap.min.js"></script>
+    <script src="./public/js/angular.js"></script>
+    <script src="./public/js/angular.route.min.js"></script>
+    <script src="./public/js/RH_index.js"></script>
+    <script src="./public/js/common.js"></script>
+    <!-- 自己写的js文件 -->
+</body>
+
+</html>

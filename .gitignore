@@ -1,17 +1,20 @@
 .settings
 .idea
 purchase-sys.iml
-WebContent/WEB-INF/classes
-WebContent/WEB-INF/lib
-<<<<<<< HEAD
-WebContent/META-INF
-=======
-WebCOntent/META-INF
->>>>>>> 0ddea287f6b4e721a9d3594fd5ca9206414a583b
+WebContent/WEB-INF/classes/
+WebContent/META-INF/
 .classpath
 .project
-WebContent/public
-WebContent/index.html
-WebContent/login.html
 /config/project.properties
 purchase-declaration-sys.iml
+WebContent/WEB-INF/lib/
+#忽略
+.sass-cache/
+
+#忽略
+node_modules/
+
+#忽略
+tmp/
+
+.settings/
