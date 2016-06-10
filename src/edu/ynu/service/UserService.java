@@ -53,4 +53,21 @@ public interface UserService {
 	 */
 	Map<String, Object> downloadPurchaseApplySheet(String projectId);
 
+	/**
+	 * description: 分页查询已完成的申报项目(ProType = 采购完成)
+	 * @param userId 
+	 * @param numPerGet 每页显示条目数
+	 * @param page 当前请求页数
+	 * @return 记录实体列表
+	 */
+	List<PurchaseHistoryRecord> findSubmitHistoryByIdCompleted(String userId, Integer CountPerGet, Integer page);
+
+	/**
+	 * description: 分页查询未完成的申报项目(ProType ！= 采购完成)
+	 * @param userId 
+	 * @param numPerGet 每页显示条目数
+	 * @param page 当前请求页数
+	 * @return 记录实体列表
+	 */
+	List<PurchaseHistoryRecord> findSubmitHistoryByIdUnCompleted(String userId, Integer CountPerGet, Integer page);
 }
