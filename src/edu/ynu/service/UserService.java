@@ -56,7 +56,7 @@ public interface UserService {
 	/**
 	 * description: 分页查询已完成的申报项目(ProType = 采购完成)
 	 * @param userId 
-	 * @param numPerGet 每页显示条目数
+	 * @param CountPerGet 每页显示条目数
 	 * @param page 当前请求页数
 	 * @return 记录实体列表
 	 */
@@ -65,7 +65,7 @@ public interface UserService {
 	/**
 	 * description: 分页查询未完成的申报项目(ProType ！= 采购完成)
 	 * @param userId 
-	 * @param numPerGet 每页显示条目数
+	 * @param CountPerGet 每页显示条目数
 	 * @param page 当前请求页数
 	 * @return 记录实体列表
 	 */
