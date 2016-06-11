@@ -19,16 +19,10 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     @Override
     public List<ProjectEntity> getProjectsByUID(String userId) {
         String hql = "from ProjectEntity projects where projects.userId=:userIdContent";
-        List projectList = null;
-        try {
         Query query = this.currentSession().createQuery(hql);
         query.setString("userIdContent",userId);
-        projectList = query.list();
-        }catch (RuntimeException e){
-            throw e;
-        }finally {
-            return projectList;
-        }
+        List projectList = query.list();
+        return projectList;
     }
 
     @Override
@@ -59,38 +53,28 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> findProjectsByUidAndStatus(String userId, String status, Integer pageCount, Integer pageNum) {
-        List<ProjectEntity> projects = null;
         String hql = "from ProjectEntity projects where projects.status=:status and projects.userId=:userId";
-        try{
-            Query query = this.currentSession().createQuery(hql);
-            query.setFirstResult((pageNum - 1) * pageCount);
-            query.setMaxResults(pageCount);
-            query.setString("userId",userId);
-            query.setString("status",status);
-            projects = query.list();
-        }catch (RuntimeException e){
-            throw e;
-        }finally {
-            return projects;
-        }
+        Query query = this.currentSession().createQuery(hql);
+        query.setFirstResult((pageNum - 1) * pageCount);
+        query.setMaxResults(pageCount);
+        query.setString("userId",userId);
+        query.setString("status",status);
+        List projects = query.list();
+        return projects;
     }
 
     @Override
     public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
-      List<ProjectEntity> projectList = null;
-        String status = "采购完成";
-        String hql = "from ProjectEntity projects where projects.status!=:statusContext and projects.userId=:userId";
-        try{
-            Query query = this.currentSession().createQuery(hql);
-            query.setFirstResult((pageNum - 1) * pageCount);
-            query.setMaxResults(pageCount);
-            query.setString("userId",userId);
-            query.setString("statusContext",status);
-            projectList = query.list();
-        }catch (RuntimeException e){
-            throw e;
-        }finally {
-            return projectList;
-        }
+        String status1 = "采购完成";
+        String status2 = "草稿";
+        String hql = "from ProjectEntity projects where projects.status!=:status1 and projects.status!=:status2 and projects.userId=:userId";
+        Query query = this.currentSession().createQuery(hql);
+        query.setFirstResult((pageNum - 1) * pageCount);
+        query.setMaxResults(pageCount);
+        query.setString("userId",userId);
+        query.setString("status1",status1);
+        query.setString("status2",status2);
+        List projectList = query.list();
+        return projectList;
     }
 }
