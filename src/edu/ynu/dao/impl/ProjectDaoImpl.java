@@ -50,4 +50,13 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         return projectDrafts;
     }
 
+    @Override
+    public List<ProjectEntity> findProjectsByUidAndStatus(String userId, String status, Integer pageCount, Integer pageNum) {
+        return null;
+    }
+
+    @Override
+    public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
+        return null;
+    }
 }
