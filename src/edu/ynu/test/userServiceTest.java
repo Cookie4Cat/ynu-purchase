@@ -70,4 +70,18 @@ public class userServiceTest {
 			}
 		}
 	}
+	@Test
+	public void findProjectComplete(){
+		List<PurchaseHistoryRecord> records = userService.findSubmitHistoryByIdCompleted("laohuang",1,1);
+		for(PurchaseHistoryRecord record:records){
+			System.out.println(record.getProName());
+		}
+	}
+	@Test
+	public void findProjectUnComplete(){
+		List<PurchaseHistoryRecord> records = userService.findSubmitHistoryByIdUnCompleted("laohuang",1,1);
+		for(PurchaseHistoryRecord record:records){
+			System.out.println(record.getProName());
+		}
+	}
 }
