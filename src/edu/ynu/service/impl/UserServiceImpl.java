@@ -114,12 +114,10 @@ public class UserServiceImpl implements UserService {
     public UserEntity finUserById(String userId) {
         return  userDao.findUserById(userId);
     }
-    @Override
-    public List<PurchaseHistoryRecord> findSubmitHistoryById(String userId) {
 
+    private List<PurchaseHistoryRecord> transformToRecordMessage(List<ProjectEntity> entityList){
         List<PurchaseHistoryRecord> historyList = new ArrayList<>();
-        List<ProjectEntity> projectList = projectDao.getProjectsByUID(userId);
-        for(ProjectEntity project : projectList){
+        for(ProjectEntity project : entityList){
             PurchaseHistoryRecord record = new PurchaseHistoryRecord();
             record.setProjectId(project.getProjectId());
             record.setProName(project.getProjectName());
@@ -132,6 +130,13 @@ public class UserServiceImpl implements UserService {
         }
         return historyList;
     }
+
+    @Override
+    public List<PurchaseHistoryRecord> findSubmitHistoryById(String userId) {
+        List<ProjectEntity> projectList = projectDao.getProjectsByUID(userId);
+        return transformToRecordMessage(projectList);
+    }
+
     @Override
     public Integer storePurchaseApplyDraft(String userId, PurchaseApplySubmit pas) {
         return savePurchaseApply(userId,pas,"草稿");
@@ -160,5 +165,17 @@ public class UserServiceImpl implements UserService {
         File file = new File("test.pdf");
         map.put("paf测试文件",file);
         return map;
+    }
+
+    @Override
+    public List<PurchaseHistoryRecord> findSubmitHistoryByIdCompleted(String userId, Integer CountPerGet, Integer page) {
+        List<ProjectEntity> entityList = projectDao.findProjectsByUidAndStatus(userId,"采购完成",CountPerGet,page);
+        return transformToRecordMessage(entityList);
+    }
+
+    @Override
+    public List<PurchaseHistoryRecord> findSubmitHistoryByIdUnCompleted(String userId, Integer CountPerGet, Integer page) {
+        List<ProjectEntity> entityList = projectDao.findProjectsUnComplete(userId,CountPerGet,page);
+        return transformToRecordMessage(entityList);
     }
 }
