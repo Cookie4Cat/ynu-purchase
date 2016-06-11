@@ -1,5 +1,6 @@
 package edu.ynu.dao.impl;
 
+import com.sun.xml.internal.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
@@ -18,10 +19,16 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     @Override
     public List<ProjectEntity> getProjectsByUID(String userId) {
         String hql = "from ProjectEntity projects where projects.userId=:userIdContent";
+        List projectList = null;
+        try {
         Query query = this.currentSession().createQuery(hql);
         query.setString("userIdContent",userId);
-        List projectList = query.list();
-        return projectList;
+        projectList = query.list();
+        }catch (RuntimeException e){
+            throw e;
+        }finally {
+            return projectList;
+        }
     }
 
     @Override
@@ -52,11 +59,38 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> findProjectsByUidAndStatus(String userId, String status, Integer pageCount, Integer pageNum) {
-        return null;
+        List<ProjectEntity> projects = null;
+        String hql = "from ProjectEntity projects where projects.status=:status and projects.userId=:userId";
+        try{
+            Query query = this.currentSession().createQuery(hql);
+            query.setFirstResult((pageNum - 1) * pageCount);
+            query.setMaxResults(pageCount);
+            query.setString("userId",userId);
+            query.setString("status",status);
+            projects = query.list();
+        }catch (RuntimeException e){
+            throw e;
+        }finally {
+            return projects;
+        }
     }
 
     @Override
     public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
-        return null;
+      List<ProjectEntity> projectList = null;
+        String status = "采购完成";
+        String hql = "from ProjectEntity projects where projects.status!=:statusContext and projects.userId=:userId";
+        try{
+            Query query = this.currentSession().createQuery(hql);
+            query.setFirstResult((pageNum - 1) * pageCount);
+            query.setMaxResults(pageCount);
+            query.setString("userId",userId);
+            query.setString("statusContext",status);
+            projectList = query.list();
+        }catch (RuntimeException e){
+            throw e;
+        }finally {
+            return projectList;
+        }
     }
 }
