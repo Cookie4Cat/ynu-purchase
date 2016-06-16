@@ -28,7 +28,6 @@ public interface ProjectDao {
 
     /***
      * 保存项目申请表
-     * @param userId 用户ID
      * @param projectEntity 项目实体
      * @return 1：成功，0：失败
      */
@@ -52,12 +51,43 @@ public interface ProjectDao {
     List<ProjectEntity> findProjectsByUidAndStatus(String userId,String status,Integer pageCount,Integer pageNum);
 
     /***
+     * 根据用户ID和项目状态返回project个数（为分页做准备
+     * @param userId 用户id
+     * @param status 状态
+     * @return
+     */
+    Integer countProjectsByUidAndStatus(String userId,String status);
+    /***
      * 根据用户ID,返回未完成采购（status!=采购完成）的project实体列表
      * @param userId 用户ID
      * @param pageCount 每页个数
-     * @param pageNum 页码C
+     * @param pageNum 页码
      * @return project实体列表
      */
     List<ProjectEntity> findProjectsUnComplete(String userId,Integer pageCount,Integer pageNum);
+
+    /***
+     * 根据userId返回未完成project个数
+     * @param userId 用户ID
+     * @return projects个数
+     */
+    Integer countProjectsUnComplete(String userId);
+    /***
+     * 根据用户id和项目的状态列表返回项目实体列表
+     * @param userId 用户Id
+     * @param statusList 状态列表
+     * @param pageCount 每页个数
+     * @param pageNum 页码
+     * @return project实体列表
+     */
+    List<ProjectEntity> findProjectListByUidAndStatus(String userId,String[] statusList,Integer pageCount,Integer pageNum);
+
+    /***
+     * 根据用户id,和project状态信息列表返回个数
+     * @param userId 用户id
+     * @param statusList 状态列表
+     * @return project个数
+     */
+    Integer countProjectListByUidAndStatus(String userId,String[] statusList);
 
 }
