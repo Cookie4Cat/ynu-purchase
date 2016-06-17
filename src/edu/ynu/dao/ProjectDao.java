@@ -29,7 +29,6 @@ public interface ProjectDao {
     /***
      * 保存项目申请表
      * @param projectEntity 项目实体
-     * @return 1：成功，0：失败
      */
     void savePurchaseApply(ProjectEntity projectEntity);
 
@@ -40,23 +39,6 @@ public interface ProjectDao {
      */
     List<ProjectEntity> findProjectsDraftByUID(String userId);
 
-    /***
-     * 根据用户ID和项目状态返回project实体列表
-     * @param userId 用户ID
-     * @param status 项目状态
-     * @param pageCount 每页个数
-     * @param pageNum 页码
-     * @return project实体列表
-     */
-    List<ProjectEntity> findProjectsByUidAndStatus(String userId,String status,Integer pageCount,Integer pageNum);
-
-    /***
-     * 根据用户ID和项目状态返回project个数（为分页做准备
-     * @param userId 用户id
-     * @param status 状态
-     * @return
-     */
-    Integer countProjectsByUidAndStatus(String userId,String status);
     /***
      * 根据用户ID,返回未完成采购（status!=采购完成）的project实体列表
      * @param userId 用户ID
