@@ -46,6 +46,8 @@ public class ProjectEntity {
     private String comment;
     // 采购项目的状态
     private String status;
+    //打印文件的url
+    private String fileUrl;
     // 所包含的采购设备
     private Set<ItemEntity> items = new HashSet<ItemEntity>();
 
@@ -218,6 +220,16 @@ public class ProjectEntity {
 
     public void setSum(String sum) {
         this.sum = sum;
+    }
+
+    @Basic
+    @Column(name = "file_url", length = 45)
+    public String getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
     //双向绑定

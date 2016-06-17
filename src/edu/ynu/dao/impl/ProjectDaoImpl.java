@@ -110,6 +110,8 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     public List<ProjectEntity> findProjectListByUidAndStatus(String userId, String[] statusList, Integer pageCount, Integer pageNum) {
         String hql = "from ProjectEntity project where project.userId=:userId and project.status in :statusList";
         Query query = this.currentSession().createQuery(hql);
+        query.setFirstResult((pageNum - 1) * pageCount);
+        query.setMaxResults(pageCount);
         query.setString("userId",userId);
         query.setParameterList("statusList",statusList);
         List projectList = query.list();
