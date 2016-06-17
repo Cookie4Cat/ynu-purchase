@@ -77,4 +77,42 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         List projectList = query.list();
         return projectList;
     }
+
+    @Override
+    public Integer countProjectListByUidAndStatus(String userId, String[] statusList) {
+        String hql = "select count(*) from ProjectEntity project where project.userId=:userId and project.status in :statusList";
+         Query query = this.currentSession().createQuery(hql);
+         query.setString("userId",userId);
+         query.setParameterList("statusList",statusList);
+         Integer count = query.executeUpdate();
+        return count;
+    }
+
+    @Override
+    public Integer countProjectsByUidAndStatus(String userId, String status) {
+        return null;
+    }
+
+    @Override
+    public Integer countProjectsUnComplete(String userId) {
+        String status1 = "采购完成";
+        String status2 = "草稿";
+        String hql = "select count(*) from ProjectEntity projects where projects.status!=:status1 and projects.status!=:status2 and projects.userId=:userId";
+        Query query = this.currentSession().createQuery(hql);
+        query.setString("userId",userId);
+        query.setString("status1",status1);
+        query.setString("status2",status2);
+        Integer count = query.executeUpdate();
+        return count;
+    }
+
+    @Override
+    public List<ProjectEntity> findProjectListByUidAndStatus(String userId, String[] statusList, Integer pageCount, Integer pageNum) {
+        String hql = "from ProjectEntity project where project.userId=:userId and project.status in :statusList";
+        Query query = this.currentSession().createQuery(hql);
+        query.setString("userId",userId);
+        query.setParameterList("statusList",statusList);
+        List projectList = query.list();
+        return projectList;
+    }
 }
