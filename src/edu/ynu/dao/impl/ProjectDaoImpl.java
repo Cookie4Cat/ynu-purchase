@@ -1,12 +1,9 @@
 package edu.ynu.dao.impl;
 
-import com.sun.xml.internal.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -52,18 +49,6 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     }
 
     @Override
-    public List<ProjectEntity> findProjectsByUidAndStatus(String userId, String status, Integer pageCount, Integer pageNum) {
-        String hql = "from ProjectEntity projects where projects.status=:status and projects.userId=:userId";
-        Query query = this.currentSession().createQuery(hql);
-        query.setFirstResult((pageNum - 1) * pageCount);
-        query.setMaxResults(pageCount);
-        query.setString("userId",userId);
-        query.setString("status",status);
-        List projects = query.list();
-        return projects;
-    }
-
-    @Override
     public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
         String status1 = "采购完成";
         String status2 = "草稿";
@@ -86,11 +71,6 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
          query.setParameterList("statusList",statusList);
          Integer count = query.executeUpdate();
         return count;
-    }
-
-    @Override
-    public Integer countProjectsByUidAndStatus(String userId, String status) {
-        return null;
     }
 
     @Override
