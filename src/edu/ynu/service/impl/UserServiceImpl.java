@@ -169,7 +169,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<PurchaseHistoryRecord> findSubmitHistoryByIdCompleted(String userId, Integer CountPerGet, Integer page) {
-        List<ProjectEntity> entityList = projectDao.findProjectsByUidAndStatus(userId,"采购完成",CountPerGet,page);
+        String[] status = {"采购完成"};
+        List<ProjectEntity> entityList = projectDao.findProjectListByUidAndStatus(userId,status,CountPerGet,page);
         return transformToRecordMessage(entityList);
     }
 
