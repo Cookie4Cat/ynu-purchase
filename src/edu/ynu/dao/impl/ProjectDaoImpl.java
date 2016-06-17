@@ -1,12 +1,12 @@
 package edu.ynu.dao.impl;
 
-import com.sun.xml.internal.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
+
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
-import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
-import org.hibernate.type.IntegerType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
