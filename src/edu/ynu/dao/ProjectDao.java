@@ -41,6 +41,13 @@ public interface ProjectDao {
     List<ProjectEntity> findProjectsDraftByUID(String userId);
 
     /***
+     * 保存草稿
+     * @param userId 用户id
+     * @param entity 草稿实体
+     */
+    void saveProjectDraftByUID(String userId,ProjectEntity entity);
+
+    /***
      * 根据用户ID,返回未完成采购（status!=采购完成）的project实体列表
      * @param userId 用户ID
      * @param pageCount 每页个数
