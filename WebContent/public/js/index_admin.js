@@ -41,11 +41,11 @@
             })
             .when("/ExaIndex", {
                 templateUrl: "/public/template/examinantIndex.html",
-                //controller: "workController"
+                controller: "exaController"
             })
             .when("/ExaDetail", {
                 templateUrl: "/public/template/ExaDetail.html",
-                //controller: "workController"
+                controller: "exaDetailController"
             })
             .when("/operatorIndex", {
                 templateUrl: "/public/template/operatorIndex.html",
@@ -89,7 +89,7 @@
             })
             .when("/projectVerify", {
                 templateUrl: "/public/template/projectVerify.html",
-                //controller: "proworkController"
+                controller: "projectVerifyController"
             })
             .otherwise({ redirectTo: "/index" });
 
@@ -100,14 +100,97 @@
      */
     //token 服务
 
-        app.controller('appController', function($scope,$http) {
+    //index
+    app.controller('appController', function($scope, $http) {
         $http({
-            url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
-            method:"get",
-        }).success(function(response){
+            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1",
+            method: "get",
+        }).success(function(response) {
             $scope.historyItems = response;
         })
-        
+        $scope.query = function() {
+            $http({
+                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&purchaseType=" + $scope.purchaseType + "&proType=" + $scope.proType,
+                method: "get",
+            }).success(function(response) {
+                $scope.historyItems = response;
+            })
+        }
+        $scope.view=function(projectid){
+
+            window.location.href='#/projectVerify?projectId='+projectid;
+        }
+    });
+    //exaController
+    app.controller('exaController', function($scope, $http) {
+        $http({
+            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1",
+            method: "get",
+        }).success(function(response) {
+            $scope.historyItems = response;
+        })
+        $scope.query = function() {
+            $http({
+                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&purchaseType=" + $scope.purchaseType + "&proType=" + $scope.proType,
+                method: "get",
+            }).success(function(response) {
+                $scope.historyItems = response;
+            })
+        }
+        $scope.view=function(projectid){
+
+            window.location.href='#/ExaDetail?projectId='+projectid;
+        }
+
     });
 
+    //exaDetailController
+    app.controller('exaDetailController', function($scope, $http) {
+        var url = window.location.toString();
+        var num = url.substring(url.lastIndexOf('=') + 1, url.length);
+        $scope.projectId = num;
+        $http({
+            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1" + "&projectId=" + $scope.projectId,
+            method: "get",
+        }).success(function(response) {
+            $scope.historyItems = response;
+        })
+        $scope.approve = function() {
+            $http({
+                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&result=批准",
+                method: "get",
+            }).success(function(response) {
+                $scope.data = response;
+            })
+        }
+        $scope.refuse = function() {
+                $http({
+                    url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&result=驳回",
+                    method: "get",
+                }).success(function(response) {
+                    $scope.data = response;
+                })
+        }
+    });
+
+    //projectVerifyController
+    app.controller('exaDetailController', function($scope, $http) {
+        var url = window.location.toString();
+        var num = url.substring(url.lastIndexOf('=') + 1, url.length);
+        $scope.projectId = num;
+        $http({
+            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1" + "&projectId=" + $scope.projectId,
+            method: "get",
+        }).success(function(response) {
+            $scope.historyItems = response;
+        })
+        $scope.verify = function() {
+            $http({
+                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId ,
+                method: "get",
+            }).success(function(response) {
+                $scope.data = response;
+            })
+        }
+    });
 }(angular, window);

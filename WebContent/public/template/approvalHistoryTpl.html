@@ -20,27 +20,28 @@
             <form class="form-inline" ng-submit="searchUser()">
                 <div class="form-group">
                     <label for="exampleInputName2">项目编号</label>
-                    <input type="text" class="form-control" name="name" ng-model="name" id="exampleInputName2" placeholder="输入项目编号">
+                    <input type="text" class="form-control" name="name" ng-model="projectId" id="exampleInputName2" placeholder="输入项目编号">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail2">采购类型</label>
-                    <select name="status" id="" class="form-control" ng-model="status">
-                        <option value="">不限</option>
-                        <option value="">C-工程</option>
-                        <option value="0">S-服务</option>
+                    <select name="status" id="" class="form-control" ng-model="purchaseType">
+                        <option value="0">不限</option>
+                        <option value="1">C-工程</option>
+                        <option value="2">S-服务</option>
                         <!-- <option value="1">待立项</option> -->
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail2">审批状态</label>
-                    <select name="status2" id="" class="form-control" ng-model="status2">
-                        <option value="">待立项</option>
-                        <option value="">正式立项</option>
-                        <option value="0">采购中</option>
-                        <option value="1">采购完成</option>
+                    <select name="status2" id="" class="form-control" ng-model="proType">
+                        <option value="0">不限</option>
+                        <option value="1">待立项</option>
+                        <option value="2">未加入采购计划</option>
+                        <option value="3">未采购</option>
+                        <option value="4">采购完成</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-success">查询</button>
+                <button type="submit" class="btn btn-success" ng-click="query()">查询</button>
             </form>
         </div>
     </div>
@@ -66,7 +67,9 @@
                             <td>{{history.time}}</td>
                             <td>{{history.proType}}</td>
                             <td align="center" valign="">
-                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                                <button class="btn btn-info " type="button" ng-click="view(history.projectId)">查看</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
             </div>

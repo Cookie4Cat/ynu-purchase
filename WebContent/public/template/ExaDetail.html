@@ -20,30 +20,30 @@ small {
         <table>
             <tr>
                 <td>
-                    <h5>项目名称: <small>云南大学软件学院设备采购项目</small></h5></td>
+                    <h5>项目名称: <small>{{historyItems.projectName}}</small></h5></td>
                 <td>
-                    <h5>采购类型: <small>进口</small></h5></td>
+                    <h5>采购类型: <small>{{historyItems.purchaseType}}</small></h5></td>
                 <td></td>
             </tr>
             <tr>
                 <td>
-                    <h5>项目负责人: <small>王某某</small></h5></td>
+                    <h5>项目负责人: <small>{{historyItems.leader}}</small></h5></td>
                 <td>
-                    <h5>电话: <small>123 5634 7890</small></h5></td>
+                    <h5>电话: <small>{{historyItems.m_tel}}</small></h5></td>
                 <td>
-                    <h5>固话: <small>54332233</small></h5></td>
+                    <h5>固话: <small>{{historyItems.s_tel}}</small></h5></td>
             </tr>
             <tr>
                 <td>
-                    <h5>项目总预算: <small>44.34万</small></h5></td>
+                    <h5>项目总预算: <small>{{historyItems.totalMoney}}</small></h5></td>
                 <td>
-                    <h5>资金来源: <small>第三方</small></h5></td>
+                    <h5>资金来源: <small>{{historyItems.comeFrom}}</small></h5></td>
                 <td>
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <h5>申报理由: <small>44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万44.34万</small></h5></td>
+                    <h5>申报理由: <small>{{historyItems.reason}}</small></h5></td>
             </tr>
         </table>
         <!--    <label class="col-md-2 control-label">项目名称：</label>
@@ -95,64 +95,27 @@ small {
                         <td class="td">通用名称</td>
                         <td class="td">数量</td>
                         <td class="td">计量单位</td>
-                        <td class="td">预算单价（万元）</td>
-                        <td class="td">合计金额（万元）</td>
+                        <td class="td">预算单价（元）</td>
+                        <td class="td">合计金额（元）</td>
                         <td class="td">交货地点</td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>教学</td>
-                        <td class="td">IBM服务器</td>
-                        <td class="td">10</td>
-                        <td class="td">台</td>
-                        <td class="td">30</td>
-                        <td class="td">300</td>
-                        <td class="td">云南大学</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>办公</td>
-                        <td class="td">IBM服务器</td>
-                        <td class="td">10</td>
-                        <td class="td">台</td>
-                        <td class="td">30</td>
-                        <td class="td">300</td>
-                        <td class="td">云南大学</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>教学</td>
-                        <td class="td">IBM服务器</td>
-                        <td class="td">10</td>
-                        <td class="td">台</td>
-                        <td class="td">30</td>
-                        <td class="td">300</td>
-                        <td class="td">云南大学</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>科研</td>
-                        <td class="td">IBM服务器</td>
-                        <td class="td">10</td>
-                        <td class="td">台</td>
-                        <td class="td">30</td>
-                        <td class="td">300</td>
-                        <td class="td">云南大学</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>科研</td>
-                        <td class="td">IBM服务器</td>
-                        <td class="td">10</td>
-                        <td class="td">台</td>
-                        <td class="td">30</td>
-                        <td class="td">300</td>
-                        <td class="td">云南大学</td>
-                    </tr>
+                        <tr ng-repeat="history in historyItems">
+                            <td>{{$index+1}}</td>
+                            <td>{{history.table.type}}</td>
+                            <td>{{history.table.name}}</td>
+                            <td>{{history.table.count}}</td>
+                            <td>{{history.table.unit}}</td>
+                            <td>{{history.table.budget}}</td>
+                            <td>{{history.table.totalMoney_real}}</td>
+                            <td>{{history.table.address}}</td>
+                            <td align="center" valign="">
+                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
+                            </td>
+                        </tr>
                 </table>
             </div>
         </div>
-        <div class="form-group">
+<!--         <div class="form-group">
             <div class="col-md-8 col-md-offset-4">
                 <ul class="pagination">
                     <li>
@@ -174,20 +137,20 @@ small {
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="" class="col-md-2 control-label">初审意见：</label>
                 <div class="col-md-8">
-                    <textarea name="" id="" rows="5" class="form-control" placeholder="无论批准还是驳回，申请方均将收到您的意见。"></textarea>
+                    <textarea name="" id="" rows="5" class="form-control" ng-model="suggestion" placeholder="无论批准还是驳回，申请方均将收到您的意见。"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-2 col-md-offset-4">
-                    <button class="btn btn-md btn-success" type="button">批准</button>
+                    <button class="btn btn-md btn-success" ng-click="approve()" type="button">批准</button>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-danger btn-md" type="button">驳回</button>
+                    <button class="btn btn-danger btn-md" ng-click="refuse()" type="button">驳回</button>
                 </div>
             </div>
         </form>
