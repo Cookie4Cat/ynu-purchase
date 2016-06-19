@@ -106,7 +106,7 @@
                     <tr class="col_item" ng-repeat="item in items">
                         <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
                         <td>
-                            <select class="form-control" ng-model=" item['类型']" ng-show="xianshi">
+                            <select class="form-control" ng-model=" item['type']" ng-show="xianshi">
                                 <option>教学</option>
                                 <option>科研</option>
                                 <option>办公</option>
@@ -114,22 +114,22 @@
                             <h5 ng-hide="xianshi" ng-bind="replace" style="vertical-align: middle"></h5>
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;" ng-model="item['通用名称']">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['name']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;" ng-model="item['数量']">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['count']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;" ng-model="item['计量单位']">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['unit']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;" ng-model="item['预算单价']">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['budget']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;" ng-model="item['合计金额']">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['totalMoney_real']">
                         </td>
                         <td class="td">
-                            <input type="text" style="height: 34px;" ng-model="item['交货地点']">
+                            <input type="text" style="height: 34px;" ng-model="item['address']">
                         </td>
                         <td class="td" style="height: 34px;vertical-align: middle">
                             <i class="glyphicon glyphicon-plus" ng-click="addItem()" style="cursor: pointer;"></i>

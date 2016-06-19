@@ -110,27 +110,68 @@
         }
 
     }])
-    app.service("pageSet",function(){
+    app.service("setPage", function() {
+        return {
+            init: function(pages, callback) {
 
+                var lastPage = document.getElementById("lastPage");
+                var fNode = document.getElementById("ul");
+                for (var i = 1; i <= pages; i++) {
+                    var newNode = document.createElement("li");
+                    var AElement = document.createElement("a");
+                    var textnode = document.createTextNode(i);
+                    AElement.appendChild(textnode);
+                    newNode.appendChild(AElement);
+                    newNode.addEventListener("click", function() {
+
+                        var index = i;
+                        return function() {
+                            callback(index);
+                        }
+                    }())
+                    fNode.insertBefore(newNode, lastPage);
+
+                }
+
+            }
+        }
     })
-    app.controller("handingController", function($scope, $http) {
+    app.controller("handingController", function($scope, $http, setPage) {
         $http({
-                url: " ?token=" + tokenhandler.getToken(),
+                url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=1",
                 method: "get"
             }
-
         ).success(function(response) {
-            $scope.handle = response.data;
+            $scope.handle = response;
         });
         // 测试数据
-       
+        $http({
+            url: "",
+            method: "get"
+        }).success(function(response) {
+            $scope.pages = response;
+            setPage.init(response, chagePages);
+
+            function chagePages(page) {
+                $http({
+                        url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=" + page,
+                        method: "get"
+                    }
+
+                ).success(function(response) {
+                    $scope.handle = response;
+                });
+
+            }
+        })
+
         $scope.methods = {
             showDetail: function(message) {
                 console.log(message)
                 $scope.message = message; //切换toggle里面的message
             },
             download: function(id) {
-                // 下载申请表 
+                // 下载申请表
                 $http({
                     url: "  ?projectId=" + id, //+"&token=" + tokenHander.getToken(),
                     method: "get"
@@ -142,13 +183,12 @@
         }
 
     })
-
-    app.controller('CheckMessageController', function($scope) {
+    app.controller('CheckMessageController', function($scope,$http) {
         $http({
-            url:" ",
+            url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
             method:"get",
         }).success(function(response){
-            $scope.historyItems = response.data;
+            $scope.historyItems = response;
         })
         
         $scope.methods = {
@@ -186,13 +226,13 @@
 
         $rootScope.addItem = function() {
             var item = {};
-            item['类型'] = "";
-            item['通用名称'] = "";
-            item['数量'] = "";
-            item['计量单位'] = "";
-            item['预算单价'] = "";
-            item['合计金额'] = "";
-            item['交货地点'] = "";
+            item['type'] = "";
+            item['name'] = "";
+            item['count'] = "";
+            item['unit'] = "";
+            item['budget'] = "";
+            item['totalMoney_real'] = "";
+            item['address'] = "";
             $scope.items.push(item);
         }
         $scope.addItem();
@@ -213,18 +253,17 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "XXX",
+                    url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
-                        token: "abc1234",
-                        "采购类型": $scope.form.type,
-                        "项目名称": $scope.form.name,
-                        "项目负责人": $scope.form.leader,
-                        "电话": $scope.form.telephone,
-                        "固话": $scope.form.guhua,
-                        "预算总额": $scope.form.money,
-                        "资金来源": $scope.form.source,
-                        "购置理由": $scope.form.reason,
+                        "purchaseType": $scope.form.type,
+                        "projectName": $scope.form.name,
+                        "leader": $scope.form.leader,
+                        "m_tel": $scope.form.telephone,
+                        "s_tel": $scope.form.guhua,
+                        "totalMoney_pre": $scope.form.money,
+                        "comeFrom": $scope.form.source,
+                        "reason": $scope.form.reason,
                         "table": $scope.items
                     }
                 }).success(function(response) {
@@ -245,18 +284,17 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "XXX",
+                    url: "/" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
-                        token: "abc1234",
-                        "采购类型": $scope.form.type,
-                        "项目名称": $scope.form.name,
-                        "项目负责人": $scope.form.leader,
-                        "电话": $scope.form.telephone,
-                        "固话": $scope.form.guhua,
-                        "预算总额": $scope.form.money,
-                        "资金来源": $scope.form.source,
-                        "购置理由": $scope.form.reason,
+                        "purchaseType": $scope.form.type,
+                        "projectName": $scope.form.name,
+                        "leader": $scope.form.leader,
+                        "m_tel": $scope.form.telephone,
+                        "s_tel": $scope.form.guhua,
+                        "totalMoney_pre": $scope.form.money,
+                        "comeFrom": $scope.form.source,
+                        "reason": $scope.form.reason,
                         "table": $scope.items
                     }
                 }).success(function(response) {

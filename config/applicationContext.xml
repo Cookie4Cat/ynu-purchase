@@ -67,6 +67,7 @@
 	<bean id="assetsService" class="edu.ynu.service.impl.AssetsServiceImpl"></bean>
 	<bean id="userService" class="edu.ynu.service.impl.UserServiceImpl"></bean>
 	<bean id="tokenService" class="edu.ynu.service.impl.TokenServiceImpl"></bean>
+	<bean id="teacherService" class="edu.ynu.service.impl.TeacherServiceImpl"></bean>
 
 	<bean id="userController" class="edu.ynu.controller.UserController"></bean>
 	<bean id="assetsController" class="edu.ynu.controller.AssetsController"></bean>
