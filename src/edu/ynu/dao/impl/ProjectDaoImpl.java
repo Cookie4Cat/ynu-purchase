@@ -1,9 +1,12 @@
 package edu.ynu.dao.impl;
 
+import com.sun.xml.internal.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
@@ -48,6 +51,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         return projectDrafts;
     }
 
+
     @Override
     public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
         String status1 = "采购完成";
@@ -72,6 +76,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
          Integer count = query.executeUpdate();
         return count;
     }
+
 
     @Override
     public Integer countProjectsUnComplete(String userId) {
@@ -100,6 +105,12 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public void saveProjectDraftByUID(String userId, ProjectEntity entity) {
-
+         List<ProjectEntity> projects = this.findProjectsDraftByUID(userId);
+        if (projects == null){
+            super.save(entity);
+        }else {
+             entity.setId(projects.get(0).getId());
+             super.update(entity);
+        }
     }
 }
