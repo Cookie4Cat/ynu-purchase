@@ -5,6 +5,8 @@ import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.List;
 
 public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao {
@@ -139,10 +141,11 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     public List<ProjectEntity> findProjectListByStatus(String[] statusList, Integer countPerPage, Integer currentPage) {
         String hql = "FROM ProjectEntity project where status in :status";
         Query query = currentSession().createQuery(hql);
-        query.setFirstResult((countPerPage-1)*countPerPage);
+        query.setFirstResult((currentPage-1)*countPerPage);
         query.setMaxResults(countPerPage);
         query.setParameterList("status",statusList);
         List projects = query.list();
+        System.out.println(projects.size());
         return projects;
     }
 
