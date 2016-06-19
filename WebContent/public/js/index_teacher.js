@@ -110,27 +110,68 @@
         }
 
     }])
-    app.service("pageSet",function(){
+    app.service("setPage", function() {
+        return {
+            init: function(pages, callback) {
 
+                var lastPage = document.getElementById("lastPage");
+                var fNode = document.getElementById("ul");
+                for (var i = 1; i <= pages; i++) {
+                    var newNode = document.createElement("li");
+                    var AElement = document.createElement("a");
+                    var textnode = document.createTextNode(i);
+                    AElement.appendChild(textnode);
+                    newNode.appendChild(AElement);
+                    newNode.addEventListener("click", function() {
+
+                        var index = i;
+                        return function() {
+                            callback(index);
+                        }
+                    }())
+                    fNode.insertBefore(newNode, lastPage);
+
+                }
+
+            }
+        }
     })
-    app.controller("handingController", function($scope, $http) {
+    app.controller("handingController", function($scope, $http, setPage) {
         $http({
-                url: " ?token=" + tokenhandler.getToken(),
+                url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=1",
                 method: "get"
             }
-
         ).success(function(response) {
-            $scope.handle = response.data;
+            $scope.handle = response;
         });
         // 测试数据
-       
+        $http({
+            url: "",
+            method: "get"
+        }).success(function(response) {
+            $scope.pages = response;
+            setPage.init(response, chagePages);
+
+            function chagePages(page) {
+                $http({
+                        url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=" + page,
+                        method: "get"
+                    }
+
+                ).success(function(response) {
+                    $scope.handle = response;
+                });
+
+            }
+        })
+
         $scope.methods = {
             showDetail: function(message) {
                 console.log(message)
                 $scope.message = message; //切换toggle里面的message
             },
             download: function(id) {
-                // 下载申请表 
+                // 下载申请表
                 $http({
                     url: "  ?projectId=" + id, //+"&token=" + tokenHander.getToken(),
                     method: "get"
@@ -142,13 +183,12 @@
         }
 
     })
-
-    app.controller('CheckMessageController', function($scope) {
+    app.controller('CheckMessageController', function($scope,$http) {
         $http({
-            url:" ",
+            url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
             method:"get",
         }).success(function(response){
-            $scope.historyItems = response.data;
+            $scope.historyItems = response;
         })
         
         $scope.methods = {
@@ -213,7 +253,7 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "/" + "?token=" + sessionStorage.getItem("token"),
+                    url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
                         "purchaseType": $scope.form.type,
