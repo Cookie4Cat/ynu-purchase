@@ -311,25 +311,18 @@
         }
         $scope.loadDraft = function() {
             $http({
-                url: "XXX",
-                method: "Get",
-                data: {
-                    token: "abc1234",
-                }
+                url: "teacher/PurchaseApplySheet/draft" + "?token=" + sessionStorage.getItem("token"),
+                method: "Get"
             }).success(function(response) {
-                $scope.form.type = response.urchaseType;
-                $scope.form.name = response.urchaseType;
-                $scope.form.leader = response.urchaseType;
-                $scope.form.telephone = response.urchaseType;
-                $scope.form.guhua = response.urchaseType;
-                $scope.form.money = response.urchaseType;
-                $scope.form.source = response.urchaseType;
-                $scope.form.reason = response.urchaseType;
-                $scope.items = [];
+                $scope.form.type = response.purchaseType;
+                $scope.form.name = response.projectName;
+                $scope.form.leader = response.leader;
+                $scope.form.telephone = response.m_tel;
+                $scope.form.guhua = response.s_tel;
+                $scope.form.money = response.totalMoney_pre;
+                $scope.form.source = response.comeFrom;
+                $scope.form.reason = response.reason;
                 $scope.items = response.table;
-                for (var i = 1; i++; i <= response.table.length) {
-                    $rootScope.addItem();
-                }
             })
         }
         $scope.change = function() {
