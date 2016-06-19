@@ -80,4 +80,48 @@ public interface ProjectDao {
      */
     Integer countProjectListByUidAndStatus(String userId,String[] statusList);
 
+    /***
+     * 根据状态返回project列表个数
+     * @param statusList 状态列表
+     * @return 个数
+     */
+    Integer countProjectListByStatus(String[] statusList);
+
+    /***
+     * 根据状态分页返回project列表
+     * @param statusList 状态
+     * @param countPerPage 每页个数
+     * @param currentPage 页码
+     * @return 列表
+     */
+    List<ProjectEntity> findProjectListByStatus(String[] statusList,Integer countPerPage,Integer currentPage);
+
+    /***
+     * 根据条件返回project列表
+     * @param projectId 项目id 例如K2016050401
+     * @param type      类型
+     * @param status    状态
+     * @return project列表
+     */
+    List<ProjectEntity> findProjectsByCondition(String projectId,String type,String status);
+
+    /***
+     * 根据projectId返回entity
+     * @param projectId pid
+     * @return project实体
+     */
+    ProjectEntity findProjectByPId(String projectId);
+
+    /***
+     * 添加初审意见
+     * @param projectId pid
+     * @param suggestion 意见
+     */
+    void addSuggestion(String projectId,String suggestion);
+
+    /***
+     * 立项
+     * @param projectId pid
+     */
+    void setProjectUp(String projectId);
 }
