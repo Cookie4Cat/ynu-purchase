@@ -1,19 +1,13 @@
 package edu.ynu.dao.impl;
 
-import com.sun.xml.internal.bind.v2.model.annotation.RuntimeInlineAnnotationReader;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.engine.spi.PersistenceContext;
-import org.hibernate.event.spi.EventSource;
-import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao {
-    private  SessionFactory sessionFactory;
     @Autowired
     public ProjectDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
@@ -72,11 +66,11 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     @Override
     public Integer countProjectListByUidAndStatus(String userId, String[] statusList) {
         String hql = "select count(*) from ProjectEntity project where project.userId=:userId and project.status in :statusList";
-         Query query = this.currentSession().createQuery(hql);
-         query.setString("userId",userId);
-         query.setParameterList("statusList",statusList);
-         Integer count = query.executeUpdate();
-        return count;
+        Query query = this.currentSession().createQuery(hql);
+        query.setString("userId",userId);
+        query.setParameterList("statusList",statusList);
+        Long count = (Long)query.list().get(0);
+        return count.intValue();
     }
 
 
@@ -89,8 +83,8 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         query.setString("userId",userId);
         query.setString("status1",status1);
         query.setString("status2",status2);
-        Integer count = query.executeUpdate();
-        return count;
+        Long count = (Long)query.list().get(0);
+        return count.intValue();
     }
 
     @Override
@@ -137,8 +131,8 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         String hql ="SELECT count(*) from ProjectEntity project where status in :status";
         Query query = currentSession().createQuery(hql);
         query.setParameterList("status",statusList);
-        Integer count = query.executeUpdate();
-        return count;
+        Long count = (Long)query.list().get(0);
+        return count.intValue();
     }
 
     @Override
