@@ -66,7 +66,7 @@ public class MapUtil {
     }
     public static void mapEntity(final ProjectEntity entity,PurchaseApplySubmit message){
         message.setProjectId(entity.getProjectId());
-        message.setLeader(entity.getProjectName());
+        message.setLeader(entity.getProposerName());
         message.setM_tel(entity.getAgentMobile());
         message.setS_tel(entity.getProposerTel());
         message.setProjectName(entity.getProjectName());
