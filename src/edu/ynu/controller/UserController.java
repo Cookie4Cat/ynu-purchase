@@ -59,7 +59,4 @@ public class UserController {
 		findSubmitHistoryById.removeIf(p);
 		return findSubmitHistoryById;
 	}
-	
-	
-
 }
