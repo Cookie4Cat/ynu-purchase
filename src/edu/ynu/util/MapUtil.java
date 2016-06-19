@@ -80,5 +80,14 @@ public class MapUtil {
         mapItem2Message(itemSet,itemList);
         message.setTable(itemList);
     }
+    public static List<PurchaseApplySubmit> transfromToMessageList(List<ProjectEntity> entityList){
+        List<PurchaseApplySubmit> messageList = new ArrayList<>();
+        for(ProjectEntity entity:entityList){
+            PurchaseApplySubmit message = new PurchaseApplySubmit();
+            mapEntity(entity,message);
+            messageList.add(message);
+        }
+        return messageList;
+    }
 
 }
