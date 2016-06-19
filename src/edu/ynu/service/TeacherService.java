@@ -1,5 +1,7 @@
 package edu.ynu.service;
 
+import edu.ynu.message.PurchaseApplySubmit;
+
 public interface TeacherService {
 
 	/**
@@ -15,5 +17,9 @@ public interface TeacherService {
 	 * @return 页数
 	 */
 	Integer findSubmitHistoryByIdUnCompletedPageCount(String userId);
+
+	Integer saveDraftByUID(String userId, PurchaseApplySubmit submit);
+
+	Integer findDraftByUID(String userId);
 
 }
