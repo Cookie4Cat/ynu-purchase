@@ -97,4 +97,9 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         List projectList = query.list();
         return projectList;
     }
+
+    @Override
+    public void saveProjectDraftByUID(String userId, ProjectEntity entity) {
+
+    }
 }
