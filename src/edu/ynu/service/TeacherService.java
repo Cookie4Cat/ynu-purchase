@@ -20,6 +20,6 @@ public interface TeacherService {
 
 	Integer saveDraftByUID(String userId, PurchaseApplySubmit submit);
 
-	Integer findDraftByUID(String userId);
+	PurchaseApplySubmit findDraftByUID(String userId);
 
 }
