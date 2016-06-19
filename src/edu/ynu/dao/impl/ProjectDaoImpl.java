@@ -6,6 +6,8 @@ import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.spi.PersistenceContext;
+import org.hibernate.event.spi.EventSource;
 import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -106,11 +108,15 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     @Override
     public void saveProjectDraftByUID(String userId, ProjectEntity entity) {
          List<ProjectEntity> projects = this.findProjectsDraftByUID(userId);
-        if (projects == null){
+        if (projects.size()==0){
+            entity.setUserId(userId);
+            entity.setStatus("草稿");
             super.save(entity);
         }else {
-             entity.setId(projects.get(0).getId());
-             super.update(entity);
+            super.delete(projects.get(0));
+            entity.setUserId(userId);
+            entity.setStatus("草稿");
+            super.save(entity);
         }
     }
 }
