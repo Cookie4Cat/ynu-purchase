@@ -119,4 +119,66 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
             super.save(entity);
         }
     }
+
+    @Override
+    public void addSuggestion(String projectId, String suggestion) {
+        String hlq = "FROM ProjectEntity  project where project.projectId = :pid";
+        Query query = currentSession().createQuery(hlq);
+        query.setString("pid",projectId);
+        List<ProjectEntity> projects = query.list();
+        if(projects.size()>0){
+            projects.get(0).setComment(suggestion);
+            super.update(projects.get(0));
+        }
+    }
+
+    @Override
+    public Integer countProjectListByStatus(String[] statusList) {
+        String hql ="SELECT count(*) from ProjectEntity project where status in :status";
+        Query query = currentSession().createQuery(hql);
+        query.setParameterList("status",statusList);
+        Integer count = query.executeUpdate();
+        return count;
+    }
+
+    @Override
+    public List<ProjectEntity> findProjectListByStatus(String[] statusList, Integer countPerPage, Integer currentPage) {
+        String hql = "FROM ProjectEntity project where status in :status";
+        Query query = currentSession().createQuery(hql);
+        query.setFirstResult((countPerPage-1)*countPerPage);
+        query.setMaxResults(countPerPage);
+        query.setParameterList("status",statusList);
+        List projects = query.list();
+        return projects;
+    }
+
+    @Override
+    public List<ProjectEntity> findProjectsByCondition(String projectId, String type, String status) {
+        return null;
+    }
+
+    @Override
+    public ProjectEntity findProjectByPId(String projectId) {
+        String hlq = "FROM ProjectEntity  project where project.projectId = :pid";
+        Query query = currentSession().createQuery(hlq);
+        query.setString("pid",projectId);
+        List<ProjectEntity> projects = query.list();
+        if (projects.size()==1){
+            return projects.get(0);
+        }else {
+            return null;
+        }
+    }
+
+    @Override
+    public void setProjectUp(String projectId) {
+        String hlq = "FROM ProjectEntity  project where project.projectId = :pid";
+        Query query = currentSession().createQuery(hlq);
+        query.setString("pid",projectId);
+        List<ProjectEntity> projects = query.list();
+        if(projects.size()>0){
+            projects.get(0).setStatus("已立项");
+            super.update(projects.get(0));
+        }
+    }
 }
