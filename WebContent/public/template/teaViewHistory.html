@@ -1,5 +1,5 @@
 <div class="">
-    <form class="form-horizontal" ng-controller="CheckMessageController">
+    <form class="form-horizontal">
         <div class="form-group">
             <div class="col-md-8 col-md-offset-1">
                 <div class="btn-group" data-toggle="buttons" style="margin-top:3%;margin-bottom: 3%;">
@@ -28,77 +28,24 @@
                         <td>查看初审意见</td>
                         <td>下载申请表</td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>20160517_01</td>
-                        <td>C-工程</td>
-                        <td>32</td>
-                        <td>2016-05-04</td>
-                        <td>采购完成</td>
+                    <tr ng-repeat="history in historyItems">
+                        <td>{{$index+1}}</td>
+                        <td>{{history.projectId}}</td>
+                        <td>{{history.purchaseType}}</td>
+                        <td>{{history.totalMoney}}</td>
+                        <td>{{history.time}}</td>
+                        <td>{{history.proType}}</td>
                         <td>
-                            <button class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1">查看
+                            <button class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(history.suggestion,history.projectId)">查看
                             </button>
                         </td>
                         <td>
                             <button class="btn btn-info " type="button">下载</button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>20160514_04</td>
-                        <td>C-工程</td>
-                        <td>88</td>
-                        <td>2016-03-05</td>
-                        <td>采购完成</td>
-                        <td>
-                            <button class="btn btn-info " type="button">查看</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info " type="button">下载</button>
-                        </td>
-                    </tr>
-                    <tr class="">
-                        <td>3</td>
-                        <td>20160509_05</td>
-                        <td>S-服务</td>
-                        <td>45</td>
-                        <td>2016-02-03</td>
-                        <td>采购完成</td>
-                        <td>
-                            <button class="btn btn-info " type="button">查看</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info " type="button">下载</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>20160412_23</td>
-                        <td>C-工程</td>
-                        <td>88</td>
-                        <td>2016-01-018</td>
-                        <td>采购完成</td>
-                        <td>
-                            <button class="btn btn-info " type="button">查看</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info " type="button">下载</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>20160412_23</td>
-                        <td>C-工程</td>
-                        <td>6</td>
-                        <td>2016-01-018</td>
-                        <td>采购完成</td>
-                        <td>
-                            <button class="btn btn-info " type="button">查看</button>
-                        </td>
-                        <td>
-                            <button class="btn btn-info " type="button">下载</button>
-                        </td>
-                    </tr>
+              
+           
+          
 
 
                 </table>
@@ -117,18 +64,18 @@
                     <h4 class="modal-title" id="myModalLabel">初审意见</h4>
                 </div>
                 <div class="modal-body">
-                    预计经费过多,存在不需要的物品
+                     {{pro.message}}
                 </div>
                 <hr/>
                 <div class="timeline">
                     <ul>
-                        <li>未立项</li>
-                        <li>采购中</li>
-                        <li class="active">采购完成</li>
+                        <li ng-class="{active:pro.status==1}">未立项</li>
+                        <li ng-class="{active:pro.status==2}">采购中</li>
+                        <li ng-class="{active:1}">采购完成</li>
                     </ul>
 
                 </div>
-                <div class="contractNO">合同编号:100000000000</div>
+                <div class="contractNO">合同编号:{{pro.id}}</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
                 </div>

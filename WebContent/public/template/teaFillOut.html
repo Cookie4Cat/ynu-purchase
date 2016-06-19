@@ -1,7 +1,7 @@
 <div class="teaIndex">
-
     <form class="form-horizontal">
-        <div class="col-md-12 col-md-offset-1">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
             <div class="btn-group" data-toggle="buttons" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
                 <label class="btn btn-primary ">
                     <input type="radio" name="options" id="option1" autocomplete="off" checked><a href="#/teaViewHanding"class="LittleNav">查看待处理</a>
@@ -14,65 +14,78 @@
                 </label>
             </div>
         </div>
+        <div class="col-md-4">
 
-        <div class="form-group">
+        </div>
+        </div>
+
+
+        <div class="form-group" >
             <label class="col-md-2 control-label" for="">采购类型</label>
             <div class="col-md-10">
                 <label class="radio-inline">G-货物（</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">国产</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="form.type" ng-change="change()" >国产</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">进口）</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="form.type" ng-change="change()">进口）</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">C-工程</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="form.type" ng-change="change()">C-工程</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">S-服务</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="form.type" ng-change="change()">S-服务</label>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-1">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon1"  >项目名称</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon1">
+                    <span class="input-group-addon biaodan" id="basic-addon1">项目名称</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon1"  ng-model="form.name" >
+
                 </div>
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
-            <div class="col-md-4 col-md-offset-1">
+            <div class="col-md-3 col-md-offset-1">
             <div class="input-group ">
             <span class="input-group-addon biaodan" id="basic-addon2" >项目负责人</span>
-            <input type="text" class="form-control"aria-describedby="basic-addon2">
+            <input type="text" class="form-control"aria-describedby="basic-addon2" ng-model="form.leader">
             </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon3" >负责人电话</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3">
+                    <input type="text" class="form-control"aria-describedby="basic-addon3" ng-model="form.telephone">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon9" >固定电话</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="form.guhua">
                 </div>
             </div>
 
         </div>
         <div class="row" style="margin-top: 10px">
-            <div class="col-md-4 col-md-offset-1">
+            <div class="col-md-3 col-md-offset-1">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon4" >预算总额</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon4">
+                    <input type="text" class="form-control"aria-describedby="basic-addon4" ng-model="form.money">
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon5"  >资金来源</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon5">
+                    <input type="text" class="form-control"aria-describedby="basic-addon5" ng-model="form.source">
                 </div>
             </div>
 
         </div>
-        <div class="col-md-8" style="margin-top: 10px;margin-left: 7%;width:69%">
+        <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
             <div class="input-group ">
                 <span class="input-group-addon biaodan" id="basic-addon6">购置理由</span>
-                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7"></textarea>
+                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7" ng-model="form.reason"></textarea>
             </div>
         </div>
         <div class="form-group" style="TEXT-ALIGN: center;">
@@ -90,68 +103,55 @@
                         <td class="td"style="height: 30px;vertical-align: middle">添加</td>
                         <td class="td"style="height: 30px;vertical-align: middle">删除</td>
                     </tr>
-                    <tr class="col_item">
-                        <td style="height: 34px;vertical-align: middle">1</td>
+                    <tr class="col_item" ng-repeat="item in items">
+                        <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
                         <td>
-                            <select class="form-control">
+                            <select class="form-control" ng-model=" item['类型']" ng-show="xianshi">
                                 <option>教学</option>
                                 <option>科研</option>
                                 <option>办公</option>
                             </select>
+                            <h5 ng-hide="xianshi" ng-bind="replace" style="vertical-align: middle"></h5>
                         </td>
                         <td class="td">
-                                <input type="text"  size="8" style="height: 34px;">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['通用名称']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['数量']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['计量单位']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['预算单价']">
                         </td>
                         <td class="td">
-                            <input type="text"  size="8" style="height: 34px;">
+                            <input type="text"  size="8" style="height: 34px;" ng-model="item['合计金额']">
                         </td>
                         <td class="td">
-                            <input type="text" style="height: 34px;">
+                            <input type="text" style="height: 34px;" ng-model="item['交货地点']">
                         </td>
                         <td class="td" style="height: 34px;vertical-align: middle">
-                            <i class="glyphicon glyphicon-plus" onclick="addCol()"></i>
+                            <i class="glyphicon glyphicon-plus" ng-click="addItem()" style="cursor: pointer;"></i>
                         </td>
                         <td class="td" style="height: 34px;vertical-align: middle">
-                            <i class="glyphicon glyphicon-minus"onclick="delCol()"></i>
+                            <i class="glyphicon glyphicon-minus"ng-click="removeItem($index)"  style="cursor: pointer;"></i>
                         </td>
                     </tr>
-  
+
                 </table>
             </div>
         </div>
-        <script>
-            function addCol(){
-                
-
-                var currentNum =$(".col_item").length + 1;
-                 var newNode ='<tr class="col_item"><td>'+currentNum+'</td><td><select class="form-control"><option>教学</option><option>科研</option><option>办公</option></select></td><td class="td"><input type="text" / size="8" style="height: 34px;"></td><td class="td"><input type="text" / size="8" style="height: 34px;"></td><td class="td"><input type="text" / size="8" style="height: 34px;"></td><td class="td"><input type="text" / size="8" style="height: 34px;"></td><td class="td"><input type="text" / size="8" style="height: 34px;"></td><td class="td"><input type="text" style="height: 34px;" /></td><td class="td" style="height: 34px;vertical-align: middle"><i class="glyphicon glyphicon-plus" onclick="addCol()"></i></td><td class="td" style="height: 34px;vertical-align: middle"><i class="glyphicon glyphicon-minus"onclick="delCol()"></i></td></tr>';
-                 $("table").append(newNode);
-
-            }
-
-        </script>
-        <script>
-            function delCol(){
-                var $tr=$("table tr:last").remove();
-            }
-
-        </script>
- 
+       <div class="row col-md-4 col-md-offset-8" style="margin-top: -20px;">
+        <button class="btn btn-default" style="margin-right: 6%" ng-click="draftSubmit()">保存草稿</button>
+        <button class="btn btn-default" ng-click="loadDraft()">载入草稿</button>
+       </div>
         <div class="form-group" style="margin-top: 50px">
             <div class="col-md-2 col-md-offset-4">
-                <button class="btn btn-success " type="button" style="width: 70%;">提交</button>
+                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="formSubmit()">提交</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-danger " type="button" style="width: 70%;">清空</button>
+                <button class="btn btn-danger " type="button" style="width: 70%;" ng-click="clear()">清空</button>
             </div>
 
         </div>
