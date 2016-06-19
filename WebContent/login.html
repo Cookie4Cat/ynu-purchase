@@ -114,26 +114,26 @@
                     password: $scope.password
                 }
             }).success(function(response) {
-                if(response.token){
-                    sessionStorage.set("token",response.token);
+                if (response.token) {
+                    sessionStorage.setItem("token", response.token);
+                    response
                     switch (response.userType) {
-          
-                    case 1:
-                        location.href = "./index_teacher.html#/teaViewHanding";
-                        break;
-                    case 2:
-                        location.href = "/index_admin.html#/ExaIndex";
-                        break;
-                    case 3:
-                        location.href = "/index_record.html#/operatorIndex";
-                        break;
-
-                }else{
+                        case 2:
+                            location.href = "./index_teacher.html#/teaViewHanding";
+                            break;
+                        case 1:
+                            location.href = "./index_admin.html#/ExaIndex";
+                            break;
+                        case 3:
+                            location.href = "./index_record.html#/operatorIndex";
+                            break;
+                    }
+                } else {
                     location.reload(true);
                 }
-                }
-          
-                 
+
+
+
             })
 
         }
