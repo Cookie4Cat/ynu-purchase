@@ -76,16 +76,14 @@ public class teacherController {
 	public @ResponseBody Integer PurchaseApplySheetSubmit(HttpServletRequest request,
 														  @RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		System.out.println("project:" + purchaseApplySheet.getProjectName());
-		System.out.println("table:"+purchaseApplySheet.getTable());
 		return userService.submitPurchaseApply(userId, purchaseApplySheet);
 	}
 
 	@RequestMapping("/PurchaseApplySheet/submitDraft")
 	public @ResponseBody Integer PurchaseApplySheetSubmitDraft(HttpServletRequest request,
-	        PurchaseApplySubmit purchaseApplySheet) throws Exception {
+															   @RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		return userService.storePurchaseApplyDraft(userId, purchaseApplySheet);
+		return teacherService.saveDraftByUID(userId,purchaseApplySheet);
 	}
 
 	@RequestMapping("/PurchaseApplySheet/draft")
