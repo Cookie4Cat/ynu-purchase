@@ -30,7 +30,10 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public Integer saveDraftByUID(String userId, PurchaseApplySubmit submit) {
-        return null;
+        ProjectEntity entity = new ProjectEntity();
+        MapUtil.mapMessage(submit,entity);
+        projectDao.saveProjectDraftByUID(userId,entity);
+        return 1;
     }
 
     @Override
