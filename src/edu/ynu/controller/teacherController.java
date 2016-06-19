@@ -9,9 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
@@ -76,8 +74,10 @@ public class teacherController {
 
 	@RequestMapping("/PurchaseApplySheet/submit")
 	public @ResponseBody Integer PurchaseApplySheetSubmit(HttpServletRequest request,
-	        PurchaseApplySubmit purchaseApplySheet) throws Exception {
+														  @RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
 		String userId = (String) request.getAttribute("userId");
+		System.out.println("project:" + purchaseApplySheet.getProjectName());
+		System.out.println("table:"+purchaseApplySheet.getTable());
 		return userService.submitPurchaseApply(userId, purchaseApplySheet);
 	}
 
