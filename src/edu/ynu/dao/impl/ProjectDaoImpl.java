@@ -51,17 +51,6 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         return projectDrafts;
     }
 
-    @Override
-    public List<ProjectEntity> findProjectsByUidAndStatus(String userId, String status, Integer pageCount, Integer pageNum) {
-        String hql = "from ProjectEntity projects where projects.status=:status and projects.userId=:userId";
-        Query query = this.currentSession().createQuery(hql);
-        query.setFirstResult((pageNum - 1) * pageCount);
-        query.setMaxResults(pageCount);
-        query.setString("userId",userId);
-        query.setString("status",status);
-        List projects = query.list();
-        return projects;
-    }
 
     @Override
     public List<ProjectEntity> findProjectsUnComplete(String userId, Integer pageCount, Integer pageNum) {
@@ -88,10 +77,6 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         return count;
     }
 
-    @Override
-    public Integer countProjectsByUidAndStatus(String userId, String status) {
-        return null;
-    }
 
     @Override
     public Integer countProjectsUnComplete(String userId) {
@@ -120,6 +105,12 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public void saveProjectDraftByUID(String userId, ProjectEntity entity) {
-
+         List<ProjectEntity> projects = this.findProjectsDraftByUID(userId);
+        if (projects == null){
+            super.save(entity);
+        }else {
+             entity.setId(projects.get(0).getId());
+             super.update(entity);
+        }
     }
 }
