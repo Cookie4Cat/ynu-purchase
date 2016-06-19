@@ -186,13 +186,13 @@
 
         $rootScope.addItem = function() {
             var item = {};
-            item['类型'] = "";
-            item['通用名称'] = "";
-            item['数量'] = "";
-            item['计量单位'] = "";
-            item['预算单价'] = "";
-            item['合计金额'] = "";
-            item['交货地点'] = "";
+            item['type'] = "";
+            item['name'] = "";
+            item['count'] = "";
+            item['unit'] = "";
+            item['budget'] = "";
+            item['totalMoney_real'] = "";
+            item['address'] = "";
             $scope.items.push(item);
         }
         $scope.addItem();
@@ -213,18 +213,17 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "XXX",
+                    url: "/" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
-                        token: "abc1234",
-                        "采购类型": $scope.form.type,
-                        "项目名称": $scope.form.name,
-                        "项目负责人": $scope.form.leader,
-                        "电话": $scope.form.telephone,
-                        "固话": $scope.form.guhua,
-                        "预算总额": $scope.form.money,
-                        "资金来源": $scope.form.source,
-                        "购置理由": $scope.form.reason,
+                        "purchaseType": $scope.form.type,
+                        "projectName": $scope.form.name,
+                        "leader": $scope.form.leader,
+                        "m_tel": $scope.form.telephone,
+                        "s_tel": $scope.form.guhua,
+                        "totalMoney_pre": $scope.form.money,
+                        "comeFrom": $scope.form.source,
+                        "reason": $scope.form.reason,
                         "table": $scope.items
                     }
                 }).success(function(response) {
@@ -245,18 +244,17 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "XXX",
+                    url: "/" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
-                        token: "abc1234",
-                        "采购类型": $scope.form.type,
-                        "项目名称": $scope.form.name,
-                        "项目负责人": $scope.form.leader,
-                        "电话": $scope.form.telephone,
-                        "固话": $scope.form.guhua,
-                        "预算总额": $scope.form.money,
-                        "资金来源": $scope.form.source,
-                        "购置理由": $scope.form.reason,
+                        "purchaseType": $scope.form.type,
+                        "projectName": $scope.form.name,
+                        "leader": $scope.form.leader,
+                        "m_tel": $scope.form.telephone,
+                        "s_tel": $scope.form.guhua,
+                        "totalMoney_pre": $scope.form.money,
+                        "comeFrom": $scope.form.source,
+                        "reason": $scope.form.reason,
                         "table": $scope.items
                     }
                 }).success(function(response) {
