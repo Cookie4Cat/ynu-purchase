@@ -284,7 +284,7 @@
                 console.log($scope.form, $scope.items, $scope.form.type);
 
                 $http({
-                    url: "/" + "?token=" + sessionStorage.getItem("token"),
+                    url: "/teacher/PurchaseApplySheet/submitDraft" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: {
                         "purchaseType": $scope.form.type,
