@@ -300,9 +300,7 @@
                 }).success(function(response) {
                     if (response == "1") {
                         alert('已成功提交');
-                        $timeout(function() {
-                            location.href = "#/teaViewHanding";
-                        }, 3000);
+                        location.href = "#/teaViewHanding";
                     } else if (response == "2") {
                         alert('ERROR');
                     }
