@@ -3,6 +3,7 @@ package edu.ynu.util;
 import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.message.PurchaseItem;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MapUtil {
+public class TransformUtil {
     private static Double toDouble(String real){
         if(real==null){
             return 0d;
@@ -44,7 +45,8 @@ public class MapUtil {
             itemList.add(pi);
         }
     }
-    public static void mapMessage(final PurchaseApplySubmit message, ProjectEntity entity){
+    public static ProjectEntity toEntity(final PurchaseApplySubmit message){
+        ProjectEntity entity = new ProjectEntity();
         entity.setProposerName(message.getLeader());
         entity.setProposerMobile(message.getM_tel());
         entity.setProposerTel(message.getS_tel());
@@ -63,8 +65,10 @@ public class MapUtil {
         entity.setAgentName("代理人名字");
         entity.setAgentMobile("代理人电话");
         entity.setAgentTel("代理人固话");
+        return entity;
     }
-    public static void mapEntity(final ProjectEntity entity,PurchaseApplySubmit message){
+    public static PurchaseApplySubmit toMessage(final ProjectEntity entity){
+        PurchaseApplySubmit message = new PurchaseApplySubmit();
         message.setProjectId(entity.getProjectId());
         message.setLeader(entity.getProposerName());
         message.setM_tel(entity.getAgentMobile());
@@ -79,15 +83,28 @@ public class MapUtil {
         List<PurchaseItem> itemList = new ArrayList<>();
         mapItem2Message(itemSet,itemList);
         message.setTable(itemList);
+        return message;
     }
-    public static List<PurchaseApplySubmit> transfromToMessageList(List<ProjectEntity> entityList){
+    public static List<PurchaseApplySubmit> transformToMessageList(List<ProjectEntity> entityList){
         List<PurchaseApplySubmit> messageList = new ArrayList<>();
         for(ProjectEntity entity:entityList){
-            PurchaseApplySubmit message = new PurchaseApplySubmit();
-            mapEntity(entity,message);
-            messageList.add(message);
+            messageList.add(toMessage(entity));
         }
         return messageList;
     }
-
+    public static List<PurchaseHistoryRecord> transformToRecordMessage(List<ProjectEntity> entityList){
+        List<PurchaseHistoryRecord> historyList = new ArrayList<>();
+        for(ProjectEntity project : entityList){
+            PurchaseHistoryRecord record = new PurchaseHistoryRecord();
+            record.setProjectId(project.getProjectId());
+            record.setProName(project.getProjectName());
+            record.setSuggestion(project.getComment());
+            record.setTime(project.getSubmitTime());
+            record.setTotalMoney(project.getSum());
+            record.setProType(project.getStatus());
+            record.setPurchaseType(project.getPurchaseType());
+            historyList.add(record);
+        }
+        return historyList;
+    }
 }
