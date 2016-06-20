@@ -154,13 +154,13 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     @Override
     public List<ProjectEntity> findProjectsByCondition(String projectId, String type, String status) {
         Criteria criteria = currentSession().createCriteria(ProjectEntity.class);
-        if (projectId != ""){
+        if (projectId != null){
         criteria.add(Restrictions.eq("projectId",projectId));
         }
-        if(type != "") {
+        if(type != null) {
             criteria.add(Restrictions.eq("purchaseType", type));
         }
-        if (status != "") {
+        if (status != null) {
             criteria.add(Restrictions.eq("status", status));
         }
         List<ProjectEntity> projects = criteria.list();
