@@ -172,12 +172,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
         String hlq = "FROM ProjectEntity  project where project.projectId = :pid";
         Query query = currentSession().createQuery(hlq);
         query.setString("pid",projectId);
-        List<ProjectEntity> projects = query.list();
-        if (projects.size()==1){
-            return projects.get(0);
-        }else {
-            return null;
-        }
+        return (ProjectEntity)query.uniqueResult();
     }
 
     @Override
