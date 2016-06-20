@@ -25,6 +25,8 @@ public class ItemEntity {
     private String total;
     // 所属的采购项目;
     private ProjectEntity project;
+    // 采购设备的类型
+    private String type;
 
     @Id
     @GeneratedValue
@@ -95,6 +97,16 @@ public class ItemEntity {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    @Basic
+    @Column(name = "type", length = 45)
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     //双向绑定
