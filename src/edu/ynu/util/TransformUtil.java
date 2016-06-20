@@ -42,6 +42,7 @@ public class TransformUtil {
             pi.setAddress(ie.getDeliverySite());
             pi.setUnit(ie.getUnit());
             pi.setBudget(toDouble(ie.getPrice()));
+            pi.setType(ie.getType());
             itemList.add(pi);
         }
     }
