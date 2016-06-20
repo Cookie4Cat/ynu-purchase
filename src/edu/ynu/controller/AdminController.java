@@ -25,7 +25,7 @@ public class AdminController {
         return adminService.findAllProjects(CountPerPage,currentPage);
     }
 
-    @RequestMapping(value = "/projects",method = RequestMethod.POST)
+    @RequestMapping(value = "/projects/search",method = RequestMethod.GET)
     public List<PurchaseApplySubmit> findAllByCondition (String projectId,String type,String status)throws Exception{
         return adminService.findAllByCondition(projectId,type,status);
     }
