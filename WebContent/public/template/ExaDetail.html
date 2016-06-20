@@ -22,7 +22,7 @@ small {
                 <td>
                     <h5>项目名称: <small>{{historyItems.projectName}}</small></h5></td>
                 <td>
-                    <h5>采购类型: <small>{{historyItems.purchaseType}}</small></h5></td>
+                    <h5>采购类型: <small>{{historyItems.purchaseTyp}}</small></h5></td>
                 <td></td>
             </tr>
             <tr>
@@ -35,7 +35,7 @@ small {
             </tr>
             <tr>
                 <td>
-                    <h5>项目总预算: <small>{{historyItems.totalMoney}}</small></h5></td>
+                    <h5>项目总预算: <small>{{historyItems.totalMoney_pre}}</small></h5></td>
                 <td>
                     <h5>资金来源: <small>{{historyItems.comeFrom}}</small></h5></td>
                 <td>
@@ -46,45 +46,6 @@ small {
                     <h5>申报理由: <small>{{historyItems.reason}}</small></h5></td>
             </tr>
         </table>
-        <!--    <label class="col-md-2 control-label">项目名称：</label>
-        <div class="col-md-6">
-            <input type="text" class="form-control" id="username" placeholder="云南大学软件学院设备采购" readonly>
-        </div>
-        <label class="col-md-2 control-label">采购类型：</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control" id="username" placeholder="进口" readonly>
-        </div>
-    </div>
-    <div>
-        <label class="col-md-2 control-label">项目负责人：</label>
-        <div class="col-md-2">
-            <input type="text" class="form-control" id="username" placeholder="sr" readonly>
-        </div>
-        <label class="col-md-1 control-label">电话：</label>
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="username" placeholder="13117311831" readonly>
-        </div>
-        <label class="col-md-1 control-label">固话：</label>
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="username" placeholder="4283368" readonly>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-md-2 control-label">预算总额（万元）：</label>
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="username" placeholder="33" readonly>
-        </div>
-        <label class="col-md-2 control-label">资金来源：</label>
-        <div class="col-md-3">
-            <input type="text" class="form-control" id="username" placeholder="第三方" readonly>
-        </div>
-    </div> -->
-        <!--  <div class="form-group">
-        <label for="" class="col-md-2 control-label">购置理由：</label>
-        <div class="col-md-8">
-            <textarea name="" id="" rows="5" class="form-control" placeholder="软件学院急需一批设备以培养高新技术人才" readonly></textarea>
-        </div>
-    </div> -->
         <div class="form-group" style="TEXT-ALIGN: center;">
             <h3 class="subhead2" style="margin-left:38% ">采购项目清单</h3>
             <div class="table-responsive col-md-10 col-md-offset-1">
@@ -99,15 +60,15 @@ small {
                         <td class="td">合计金额（元）</td>
                         <td class="td">交货地点</td>
                     </tr>
-                        <tr ng-repeat="history in historyItems">
+                        <tr ng-repeat="item in historyItems.table">
                             <td>{{$index+1}}</td>
-                            <td>{{history.table.type}}</td>
-                            <td>{{history.table.name}}</td>
-                            <td>{{history.table.count}}</td>
-                            <td>{{history.table.unit}}</td>
-                            <td>{{history.table.budget}}</td>
-                            <td>{{history.table.totalMoney_real}}</td>
-                            <td>{{history.table.address}}</td>
+                            <td>{{item.type}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.count}}</td>
+                            <td>{{item.unit}}</td>
+                            <td>{{item.budget}}</td>
+                            <td>{{item.totalMoney_real}}</td>
+                            <td>{{item.address}}</td>
                             <td align="center" valign="">
                                 <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
                             </td>
@@ -115,29 +76,6 @@ small {
                 </table>
             </div>
         </div>
-<!--         <div class="form-group">
-            <div class="col-md-8 col-md-offset-4">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div> -->
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="" class="col-md-2 control-label">初审意见：</label>
