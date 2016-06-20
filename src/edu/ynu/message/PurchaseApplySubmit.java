@@ -29,9 +29,19 @@ public class PurchaseApplySubmit {
 	private String reason;
 	//项目状态
 	private String status;
+	//提交时间
+	private String updateTime;
 
 	//采购项目清单
 	List<PurchaseItem> table;
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 
 	public String getProjectId() {
 		return projectId;
