@@ -3,9 +3,8 @@ package edu.ynu.service.impl;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
-import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.TeacherService;
-import edu.ynu.util.MapUtil;
+import edu.ynu.util.TransformUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,15 +22,12 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public PurchaseApplySubmit findDraftByUID(String userId) {
         List<ProjectEntity> draft = projectDao.findProjectsDraftByUID(userId);
-        PurchaseApplySubmit submit = new PurchaseApplySubmit();
-        MapUtil.mapEntity(draft.get(0),submit);
-        return submit;
+        return TransformUtil.toMessage(draft.get(0));
     }
 
     @Override
     public Integer saveDraftByUID(String userId, PurchaseApplySubmit submit) {
-        ProjectEntity entity = new ProjectEntity();
-        MapUtil.mapMessage(submit,entity);
+        ProjectEntity entity = TransformUtil.toEntity(submit);
         projectDao.saveProjectDraftByUID(userId,entity);
         return 1;
     }
