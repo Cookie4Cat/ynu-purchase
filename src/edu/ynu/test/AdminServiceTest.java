@@ -32,4 +32,9 @@ public class AdminServiceTest {
             System.out.println(p.getLeader());
         }
     }
+    @Test
+    public void testFindOne(){
+        PurchaseApplySubmit applySubmit = adminService.findOneProject("k9528");
+        System.out.println(applySubmit.getLeader());
+    }
 }
