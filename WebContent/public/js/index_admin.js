@@ -103,9 +103,10 @@
     //index
     app.controller('appController', function($scope, $http) {
         $http({
-            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1",
+            url: "/admin/projects?token=" + sessionStorage.getItem("token") + "&currentPage=1",
             method: "get",
         }).success(function(response) {
+            console.log(response);
             $scope.historyItems = response;
         })
         $scope.query = function() {
@@ -123,8 +124,9 @@
     });
     //exaController
     app.controller('exaController', function($scope, $http) {
+        console.log("i am here");
         $http({
-            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1",
+            url: "/admin/projects?token=" + sessionStorage.getItem("token") + "&currentPage=1",
             method: "get",
         }).success(function(response) {
             $scope.historyItems = response;
@@ -149,10 +151,12 @@
         var url = window.location.toString();
         var num = url.substring(url.lastIndexOf('=') + 1, url.length);
         $scope.projectId = num;
+        console.log("i am here");
         $http({
-            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1" + "&projectId=" + $scope.projectId,
+            url: "/admin/projects/" + $scope.projectId + "?token="+ sessionStorage.getItem("token") ,
             method: "get",
         }).success(function(response) {
+            console.log(response);
             $scope.historyItems = response;
         })
         $scope.approve = function() {
@@ -173,24 +177,24 @@
         }
     });
 
-    //projectVerifyController
-    app.controller('exaDetailController', function($scope, $http) {
-        var url = window.location.toString();
-        var num = url.substring(url.lastIndexOf('=') + 1, url.length);
-        $scope.projectId = num;
-        $http({
-            url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1" + "&projectId=" + $scope.projectId,
-            method: "get",
-        }).success(function(response) {
-            $scope.historyItems = response;
-        })
-        $scope.verify = function() {
-            $http({
-                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId ,
-                method: "get",
-            }).success(function(response) {
-                $scope.data = response;
-            })
-        }
-    });
+    // //projectVerifyController
+    // app.controller('exaDetailController', function($scope, $http) {
+    //     var url = window.location.toString();
+    //     var num = url.substring(url.lastIndexOf('=') + 1, url.length);
+    //     $scope.projectId = num;
+    //     $http({
+    //         url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&currentPage=1" + "&projectId=" + $scope.projectId,
+    //         method: "get",
+    //     }).success(function(response) {
+    //         $scope.historyItems = response;
+    //     })
+    //     $scope.verify = function() {
+    //         $http({
+    //             url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId ,
+    //             method: "get",
+    //         }).success(function(response) {
+    //             $scope.data = response;
+    //         })
+    //     }
+    // });
 }(angular, window);
