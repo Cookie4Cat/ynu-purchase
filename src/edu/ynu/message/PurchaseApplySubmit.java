@@ -27,6 +27,9 @@ public class PurchaseApplySubmit {
 	private String comeFrom;
 	// 购置理由
 	private String reason;
+	//项目状态
+	private String status;
+
 	//采购项目清单
 	List<PurchaseItem> table;
 
@@ -108,6 +111,14 @@ public class PurchaseApplySubmit {
 
 	public void setTable(List<PurchaseItem> table) {
 		this.table = table;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
