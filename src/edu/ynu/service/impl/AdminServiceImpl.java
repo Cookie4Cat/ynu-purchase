@@ -36,9 +36,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public PurchaseApplySubmit findOneProject(String projectId) {
         ProjectEntity entity = projectDao.findProjectByPId(projectId);
-        PurchaseApplySubmit message = new PurchaseApplySubmit();
-        TransformUtil.mapEntity(entity,message);
-        return message;
+        return TransformUtil.toMessage(entity);
     }
 
     @Override
