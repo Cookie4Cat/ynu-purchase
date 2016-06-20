@@ -25,4 +25,11 @@ public class AdminServiceTest {
             System.out.println(p.getLeader());
         }
     }
+    @Test
+    public void  testFindAllByCondition(){
+        List<PurchaseApplySubmit> list = adminService.findAllByCondition("k9528","","待立项");
+        for(PurchaseApplySubmit p:list){
+            System.out.println(p.getLeader());
+        }
+    }
 }
