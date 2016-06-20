@@ -78,6 +78,8 @@ public class TransformUtil {
         message.setTotalMoney_pre(toDouble(entity.getSum()));
         message.setComeFrom(entity.getFundSource());
         message.setReason(entity.getApplyReason());
+        message.setStatus(entity.getStatus());
+        message.setUpdateTime(entity.getSubmitTime());
         //转换设备列表
         Set<ItemEntity> itemSet = entity.getItems();
         List<PurchaseItem> itemList = new ArrayList<>();
