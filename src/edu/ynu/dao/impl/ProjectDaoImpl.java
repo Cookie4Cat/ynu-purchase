@@ -2,8 +2,10 @@ package edu.ynu.dao.impl;
 
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.plaf.synth.SynthTextAreaUI;
@@ -151,7 +153,18 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> findProjectsByCondition(String projectId, String type, String status) {
-        return null;
+        Criteria criteria = currentSession().createCriteria(ProjectEntity.class);
+        if (projectId != ""){
+        criteria.add(Restrictions.eq("projectId",projectId));
+        }
+        if(type != "") {
+            criteria.add(Restrictions.eq("purchaseType", type));
+        }
+        if (status != "") {
+            criteria.add(Restrictions.eq("status", status));
+        }
+        List<ProjectEntity> projects = criteria.list();
+        return projects;
     }
 
     @Override
