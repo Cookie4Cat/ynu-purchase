@@ -29,7 +29,9 @@ public class UserServiceImpl implements UserService {
         String now = String.valueOf(new Timestamp(new Date().getTime()));  //当前时间
         projectEntity.setSubmitTime(now);
         projectEntity.setStatus(status);
-        projectEntity.setProjectId("项目编号");
+        Random random = new Random();
+        String projectNum = "k" + random.nextInt(9000);
+        projectEntity.setProjectId(projectNum);
         try{
             projectDao.savePurchaseApply(projectEntity);
         }catch (Exception e){
@@ -85,7 +87,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<PurchaseHistoryRecord> findSubmitHistoryByIdUnCompleted(String userId, Integer CountPerGet, Integer page) {
-        List<ProjectEntity> entityList = projectDao.findProjectsUnComplete(userId,CountPerGet,page);
+        String[] status = {"待审核","初审被驳","待立项"};
+        List<ProjectEntity> entityList = projectDao.findProjectListByStatus(status,CountPerGet,page);
         return TransformUtil.transformToRecordMessage(entityList);
     }
 }
