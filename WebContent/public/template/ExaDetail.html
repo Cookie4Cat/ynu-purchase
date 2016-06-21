@@ -17,7 +17,7 @@ small {
 <div class="ExaDetail">
     <h2 class="page-header subhead">采购申请详细信息</h2>
     <div class="form-group">
-        <table>
+        <table style="margin-left: auto;margin-right: auto">
             <tr>
                 <td>
                     <h5>项目名称: <small>{{historyItems.projectName}}</small></h5></td>
@@ -69,9 +69,9 @@ small {
                             <td>{{item.budget}}</td>
                             <td>{{item.totalMoney_real}}</td>
                             <td>{{item.address}}</td>
-                            <td align="center" valign="">
-                                <button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>
-                            </td>
+                            <!--<td align="center" valign="">-->
+                                <!--<button class="btn btn-info " type="button" onclick="javascript:window.location.href='#/projectVerify'">查看</button>-->
+                            <!--</td>-->
                         </tr>
                 </table>
             </div>
@@ -80,7 +80,7 @@ small {
             <div class="form-group">
                 <label for="" class="col-md-2 control-label">初审意见：</label>
                 <div class="col-md-8">
-                    <textarea name="" id="" rows="5" class="form-control" ng-model="suggestion" placeholder="无论批准还是驳回，申请方均将收到您的意见。"></textarea>
+                    <textarea name="" id="" rows="5" class="form-control" ng-model="suggestion" placeholder="无论批准还是驳回，申请方均将收到您的意见。" required></textarea>
                 </div>
             </div>
             <div class="form-group">
