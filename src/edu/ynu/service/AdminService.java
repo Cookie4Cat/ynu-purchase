@@ -10,6 +10,6 @@ public interface AdminService {
     List<PurchaseApplySubmit> findAllProjects(Integer countPerPage,Integer currentPage);
     List<PurchaseApplySubmit> findAllByCondition(String projectId,String type,String status);
     PurchaseApplySubmit findOneProject(String projectId);
-    Integer addProjectSuggestion(String projectId,String suggestion);
+    Integer addProjectSuggestion(String projectId,String suggestion,String result);
     Integer setProjectUp(String projectId);
 }
