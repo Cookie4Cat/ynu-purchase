@@ -222,7 +222,6 @@
     app.controller('teaFormCtr', function($scope, $http, $timeout, $rootScope) {
         $scope.form = {};
         $scope.items = [];
-        $scope.form.token = 'abc1234';
 
         $rootScope.addItem = function() {
             var item = {};
@@ -300,6 +299,7 @@
                 }).success(function(response) {
                     if (response == "1") {
                         alert('已成功提交');
+                        console.log($scope.items);
                         location.href = "#/teaViewHanding";
                     } else if (response == "2") {
                         alert('ERROR');
@@ -321,6 +321,7 @@
                 $scope.form.source = response.comeFrom;
                 $scope.form.reason = response.reason;
                 $scope.items = response.table;
+                $scope.xianshi = true;
             })
         }
         $scope.change = function() {
@@ -330,9 +331,15 @@
             } else if ($scope.form.type == "C-工程") {
                 $scope.xianshi = false;
                 $scope.replace = "C-工程"
+                for(var i in $scope.items){
+                    items[i].type = "C-工程";
+                }
             } else if ($scope.form.type == "S-服务") {
                 $scope.xianshi = false;
                 $scope.replace = "S-服务"
+                for(var j in $scope.items){
+                    items[j].type = "S-服务";
+                }
             }
         }
 
