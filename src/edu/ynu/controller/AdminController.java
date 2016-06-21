@@ -36,8 +36,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/projects/{id}/suggestion",method = RequestMethod.POST)
-    public Integer addProjectSuggestion(@PathVariable String id,String suggestion)throws Exception{
-        return adminService.addProjectSuggestion(id,suggestion);
+    public Integer addProjectSuggestion(@PathVariable String id,String suggestion,String result)throws Exception{
+        return adminService.addProjectSuggestion(id,suggestion,result);
     }
     @RequestMapping(value = "/projects/{id}/setup",method = RequestMethod.POST)
     public Integer setProjectUp(@PathVariable String id)throws Exception{
