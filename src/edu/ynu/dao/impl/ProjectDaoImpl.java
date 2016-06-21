@@ -119,13 +119,14 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     }
 
     @Override
-    public void addSuggestion(String projectId, String suggestion) {
+    public void addSuggestion(String projectId, String suggestion,String status) {
         String hlq = "FROM ProjectEntity  project where project.projectId = :pid";
         Query query = currentSession().createQuery(hlq);
         query.setString("pid",projectId);
         List<ProjectEntity> projects = query.list();
         if(projects.size()>0){
             projects.get(0).setComment(suggestion);
+            projects.get(0).setStatus(status);
             super.update(projects.get(0));
         }
     }
