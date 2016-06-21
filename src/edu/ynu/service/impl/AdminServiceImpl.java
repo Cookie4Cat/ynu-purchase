@@ -22,7 +22,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<PurchaseApplySubmit> findAllProjects(Integer countPerPage, Integer currentPage) {
-        String[] statusList= {"待立项","待初审"};
+        String[] statusList= {"待立项","待审核"};
         List<ProjectEntity> entityList = projectDao.findProjectListByStatus(statusList,countPerPage,currentPage);
         return TransformUtil.transformToMessageList(entityList);
     }
@@ -40,8 +40,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Integer addProjectSuggestion(String projectId, String suggestion) {
-        projectDao.addSuggestion(projectId,suggestion);
+    public Integer addProjectSuggestion(String projectId, String suggestion,String result) {
+        if(result.equals("approve")){
+            projectDao.addSuggestion(projectId,suggestion,"待立项");
+        }else {
+            projectDao.addSuggestion(projectId,suggestion,"初审被驳");
+        }
         return 1;//success
     }
 
