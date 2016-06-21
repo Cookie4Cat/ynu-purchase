@@ -161,18 +161,32 @@
         })
         $scope.approve = function() {
             $http({
-                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&result=批准",
-                method: "get",
+                url: "/admin/projects/"+$scope.projectId+"/suggestion?token=" + sessionStorage.getItem("token")+
+                "&suggestion=" + $scope.suggestion + "&result=approve",
+                method: "post",
             }).success(function(response) {
                 $scope.data = response;
+                if(response == 1){
+                    alert("操作成功");
+                    location.href = "/index_admin.html#/ExaIndex";
+                }else{
+                    alert("运行出错");
+                }
             })
         }
         $scope.refuse = function() {
                 $http({
-                    url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&result=驳回",
-                    method: "get",
+                    url: "/admin/projects/"+$scope.projectId+"/suggestion?token=" + sessionStorage.getItem("token")+
+                    "&suggestion=" + $scope.suggestion + "&result=refuse",
+                    method: "post",
                 }).success(function(response) {
                     $scope.data = response;
+                    if(response == 1){
+                        alert("操作成功");
+                        location.href = "/index_admin.html#/ExaIndex";
+                    }else{
+                        alert("运行出错");
+                    }
                 })
         }
     });
