@@ -29,6 +29,7 @@ public class TransformUtil {
             item.setUnit(pi.getUnit());
             item.setPrice(String.valueOf(pi.getBudget()));
             item.setProject(pe);
+            item.setType(pi.getType());
             itemSet.add(item);
         }
     }
