@@ -107,9 +107,9 @@
                         <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
                         <td>
                             <select class="form-control" ng-model=" item['type']" ng-show="xianshi">
-                                <option>教学</option>
-                                <option>科研</option>
-                                <option>办公</option>
+                                <option value="教学">教学</option>
+                                <option value="科研">科研</option>
+                                <option value="办公">办公</option>
                             </select>
                             <h5 ng-hide="xianshi" ng-bind="replace" style="vertical-align: middle"></h5>
                         </td>
