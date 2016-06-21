@@ -117,7 +117,7 @@ public interface ProjectDao {
      * @param projectId pid
      * @param suggestion 意见
      */
-    void addSuggestion(String projectId,String suggestion);
+    void addSuggestion(String projectId,String suggestion,String status);
 
     /***
      * 立项
