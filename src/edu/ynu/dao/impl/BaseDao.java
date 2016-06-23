@@ -65,11 +65,17 @@ public class BaseDao<T>  {
     public Integer countByCriteria(DetachedCriteria detachedCriteria){
         Criteria criteria = detachedCriteria.getExecutableCriteria(currentSession());
         criteria.setProjection(Projections.rowCount());
-        return (Integer)criteria.list().get(0);
+        Long count =  (Long)criteria.list().get(0);
+        return count.intValue();
     }
     public T findByCriteria(DetachedCriteria detachedCriteria){
         Criteria criteria = detachedCriteria.getExecutableCriteria(currentSession());
         List<T> list = criteria.list();
         return  list.size() == 0 ? null : list.get(0);
+    }
+    public List<T> listByCriteria(DetachedCriteria detachedCriteria){
+        Criteria criteria = detachedCriteria.getExecutableCriteria(currentSession());
+        List<T> list = criteria.list();
+        return list;
     }
 }
