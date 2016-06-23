@@ -2,6 +2,7 @@ package edu.ynu.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
@@ -49,5 +50,14 @@ public class BaseDao<T> {
     public void deleteById(Integer id){
         T entity = (T)currentSession().get(poclazz,id);
         currentSession().delete(entity);
+    }
+    public List<T> listByCriteria(DetachedCriteria criteria,Integer countPerPage,Integer pageNum){
+        return null;
+    }
+    public Integer countByCriteria(DetachedCriteria criteria){
+        return null;
+    }
+    public T findByCriteria(DetachedCriteria criteria){
+        return null;
     }
 }
