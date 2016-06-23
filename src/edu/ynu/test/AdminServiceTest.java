@@ -13,6 +13,10 @@ public class AdminServiceTest {
     private ApplicationContext ctx;
     private AdminService adminService;
 
+    private void print(Object str){
+        System.out.println(str);
+    }
+
     @Before
     public void setUp() {
         ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -34,7 +38,11 @@ public class AdminServiceTest {
     }
     @Test
     public void testFindOne(){
-        PurchaseApplySubmit applySubmit = adminService.findOneProject("k9528");
-        System.out.println(applySubmit.getLeader());
+        adminService.findAllProjectsCount();
+    }
+    @Test
+    public void testFindAllCount(){
+        Integer count = adminService.findAllProjectsCount();
+        print(count);
     }
 }
