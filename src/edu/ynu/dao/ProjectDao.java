@@ -128,6 +128,7 @@ public interface ProjectDao {
 
     List<ProjectEntity> listByCriteria(DetachedCriteria criteria,Integer countPerPage,Integer pageNum);
     Integer countByCriteria(DetachedCriteria criteria);
+    List<ProjectEntity> listByCriteria(DetachedCriteria criteria);
     ProjectEntity findByCriteria(DetachedCriteria criteria);
     void deleteById(Integer id);
     void update(ProjectEntity projectEntity);
