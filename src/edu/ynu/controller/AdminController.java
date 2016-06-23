@@ -36,11 +36,13 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/projects/{id}/suggestion",method = RequestMethod.POST)
-    public Integer addProjectSuggestion(@PathVariable String id,String suggestion,String result)throws Exception{
-        return adminService.addProjectSuggestion(id,suggestion,result);
+    public Integer addProjectSuggestion(@PathVariable String id,String content,String result)throws Exception{
+        adminService.addProjectSuggestion(id,content,result);
+        return 1;
     }
     @RequestMapping(value = "/projects/{id}/setup",method = RequestMethod.POST)
-    public Integer setProjectUp(@PathVariable String id)throws Exception{
-        return adminService.setProjectUp(id);
+    public Integer setProjectUp(@PathVariable String id) throws Exception{
+        adminService.setProjectUp(id);
+        return 1;
     }
 }
