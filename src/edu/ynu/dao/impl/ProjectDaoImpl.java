@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.util.List;
 
 public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao {

@@ -1,6 +1,7 @@
 package edu.ynu.dao;
 
 import edu.ynu.entity.ProjectEntity;
+import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
 
@@ -124,4 +125,8 @@ public interface ProjectDao {
      * @param projectId pid
      */
     void setProjectUp(String projectId);
+
+    List<ProjectEntity> listByCriteria(DetachedCriteria criteria,Integer countPerPage,Integer pageNum);
+    Integer countByCriteria(DetachedCriteria criteria);
+    ProjectEntity findByCriteria(DetachedCriteria criteria);
 }
