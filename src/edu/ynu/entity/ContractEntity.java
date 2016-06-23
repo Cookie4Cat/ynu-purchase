@@ -1,12 +1,9 @@
 package edu.ynu.entity;
 
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity
@@ -14,7 +11,6 @@ import java.util.Set;
 public class ContractEntity {
     private int id;
     private String contractId;
-    private Set<PlanEntity> planEntities = new HashSet<PlanEntity>();
 
     @Id
     @GeneratedValue
@@ -37,13 +33,4 @@ public class ContractEntity {
         this.contractId = contractId;
     }
 
-    @OneToMany(mappedBy = "contractEntity", fetch = FetchType.EAGER)
-    @Cascade(value = {org.hibernate.annotations.CascadeType.ALL})
-    public Set<PlanEntity> getPlanEntities() {
-        return planEntities;
-    }
-
-    public void setPlanEntities(Set<PlanEntity> planEntities) {
-        this.planEntities = planEntities;
-    }
 }
