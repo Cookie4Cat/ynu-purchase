@@ -1,6 +1,8 @@
 package edu.ynu.service.impl;
 
 import edu.ynu.dao.ProjectDao;
+import edu.ynu.dao.impl.BaseDao;
+import edu.ynu.dao.impl.ProjectDaoImpl;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.TeacherService;
