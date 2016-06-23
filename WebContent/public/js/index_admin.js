@@ -162,7 +162,7 @@
         $scope.approve = function() {
             $http({
                 url: "/admin/projects/"+$scope.projectId+"/suggestion?token=" + sessionStorage.getItem("token")+
-                "&suggestion=" + $scope.suggestion + "&result=approve",
+                "&content=" + $scope.suggestion + "&result=approve",
                 method: "post",
             }).success(function(response) {
                 $scope.data = response;
