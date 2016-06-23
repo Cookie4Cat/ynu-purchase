@@ -5,6 +5,8 @@ import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.AdminService;
 import edu.ynu.util.TransformUtil;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,41 +19,62 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Integer findAllProjectsCount() {
         String[] statusList= {"待立项","待初审"};
-        return projectDao.countProjectListByStatus(statusList);
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.in("status",statusList));
+        return projectDao.countByCriteria(dc);
     }
 
     @Override
     public List<PurchaseApplySubmit> findAllProjects(Integer countPerPage, Integer currentPage) {
         String[] statusList= {"待立项","待审核"};
-        List<ProjectEntity> entityList = projectDao.findProjectListByStatus(statusList,countPerPage,currentPage);
-        return TransformUtil.transformToMessageList(entityList);
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.in("status",statusList));
+        List<ProjectEntity> list = projectDao.listByCriteria(dc,countPerPage,currentPage);
+        return TransformUtil.transformToMessageList(list);
     }
 
     @Override
     public List<PurchaseApplySubmit> findAllByCondition(String projectId, String type, String status) {
-        List<ProjectEntity> entityList = projectDao.findProjectsByCondition(projectId,type,status);
-        return TransformUtil.transformToMessageList(entityList);
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        if(projectId!=null){
+            dc.add(Restrictions.eq("projectId",projectId));
+        }
+        if(type!=null){
+            dc.add(Restrictions.eq("type",type));
+        }
+        if(status!=null){
+            dc.add(Restrictions.eq("status",status));
+        }
+        List<ProjectEntity> list = projectDao.listByCriteria(dc);
+        return TransformUtil.transformToMessageList(list);
     }
-
+    private ProjectEntity findOneProjectEntity(String projectId){
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.eq("projectId",projectId));
+        return projectDao.findByCriteria(dc);
+    }
     @Override
     public PurchaseApplySubmit findOneProject(String projectId) {
-        ProjectEntity entity = projectDao.findProjectByPId(projectId);
-        return TransformUtil.toMessage(entity);
+        return TransformUtil.toMessage(findOneProjectEntity(projectId));
     }
 
     @Override
-    public Integer addProjectSuggestion(String projectId, String suggestion,String result) {
+    public void addProjectSuggestion(String projectId, String suggestion,String result) {
+
+        ProjectEntity entity = findOneProjectEntity(projectId);
+        entity.setComment(suggestion);
         if(result.equals("approve")){
-            projectDao.addSuggestion(projectId,suggestion,"待立项");
+            entity.setStatus("待立项");
         }else {
-            projectDao.addSuggestion(projectId,suggestion,"初审被驳");
+            entity.setStatus("初审被驳");
         }
-        return 1;//success
+        projectDao.update(entity);
     }
 
     @Override
-    public Integer setProjectUp(String projectId) {
-        projectDao.setProjectUp(projectId);
-        return 1;//success
+    public void setProjectUp(String projectId) {
+        ProjectEntity entity = findOneProjectEntity(projectId);
+        entity.setStatus("已立项");
+        projectDao.update(entity);
     }
 }
