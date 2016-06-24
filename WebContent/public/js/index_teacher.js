@@ -29,11 +29,15 @@
             })
             .when("/TeaHistory", {
                 templateUrl: "./public/template/teaViewHistory.html",
-                controller: "CheckMessageController"
+                controller: "historyController"
             })
             .when("/teaViewHanding", {
                 templateUrl: "./public/template/teaViewHanding.html",
                 controller: "handingController"
+            })
+            .when("/teaViewDetail", {
+                templateUrl: "./public/template/teaViewDetail.html",
+                controller: "viewProjectController"
             })
             .when("/check", {
                 templateUrl: "./public/template/financial_checkTpl.html",
@@ -98,44 +102,6 @@
      *  王浩 2016-06-12
      *  起始
      */
-    //token 服务
-    app.service('tokenHander', ['', function() {
-        return {
-            setToken: function(token) {
-                return sessionStorage.set("token", token);
-            },
-            getToken: function() {
-                return sessionStorage.getItem("token");
-            }
-        }
-
-    }])
-    app.service("setPage", function() {
-        return {
-            init: function(pages, callback) {
-
-                var lastPage = document.getElementById("lastPage");
-                var fNode = document.getElementById("ul");
-                for (var i = 1; i <= pages; i++) {
-                    var newNode = document.createElement("li");
-                    var AElement = document.createElement("a");
-                    var textnode = document.createTextNode(i);
-                    AElement.appendChild(textnode);
-                    newNode.appendChild(AElement);
-                    newNode.addEventListener("click", function() {
-
-                        var index = i;
-                        return function() {
-                            callback(index);
-                        }
-                    }())
-                    fNode.insertBefore(newNode, lastPage);
-
-                }
-
-            }
-        }
-    })
     app.controller("handingController", function($scope, $http) {
         $scope.currentPageNum = 1;
         $http.get("/teacher/projects/handling/count?token" + sessionStorage.getItem("token"))
@@ -170,52 +136,53 @@
             console.log(pageNum);
             $scope.currentPageNum = pageNum;
         };
+        
+        $scope.showProject = function (projectId) {
+            location.href = "/index_teacher.html#/teaViewDetail?projectId="+projectId;
+        };
+        $scope.showCurrentProject = function () {
+            console.log("show " + $scope.currentProjectId);
+            history.go(0);
+            $scope.showProject($scope.currentProjectId);
+        };
+        $scope.resubmitProject = function () {
+            console.log("resubmit " + $scope.currentProjectId);
+        };
+
         $scope.getProjectList($scope.currentPageNum);
 
         $scope.methods = {
-            showDetail: function(message,action) {
+            showDetail: function(message,projectId,action) {
                 console.log(message);
                 $scope.message = message;
                 $scope.action = action;
+                $scope.currentProjectId = projectId;
             }
         }
 
     });
-    app.controller('CheckMessageController', function($scope,$http) {
-        $http({
-            url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
-            method:"get",
-        }).success(function(response){
-            $scope.historyItems = response;
-        })
-        
-        $scope.methods = {
-            showDetail: function(message, id) {
-                $scope.pro = {
-                    message: message,
-                    id: id
-                }
-            },
-            download: function(id) {
-                // 下载申请表 
-                $http({
-                    url: "  ?projectId=" + id, //+"&token=" + tokenHander.getToken(),
-                    method: "get"
-                }).success(function(response) {
-                    // do something
-                })
-            }
+    app.controller('viewProjectController',function ($scope,$http) {
+        {
+            var url = window.location.toString();
+            var projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
+            $scope.projectId = projectId;
+            $http({
+                url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
+                method:"get"
+            }).success(function(response){
+                $scope.project = response;
+                $scope.xianshi = true;
+            })
         }
     });
-
 /**
  * 结束
  */
 
 
-    app.controller("indexController", function($scope, $http) {
-        location.href = "/login.html";
-    })
+    app.controller("historyController", function($scope, $http) {
+        $http() 
+    });
 
     app.controller('teaFormCtr', function($scope, $http, $timeout, $rootScope) {
         $scope.form = {};
@@ -279,7 +246,7 @@
             if (confirm('是否确定存入草稿？')) {
 
                 console.log($scope.form, $scope.items, $scope.form.type);
-
+                
                 $http({
                     url: "/teacher/PurchaseApplySheet/submitDraft" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
@@ -297,14 +264,31 @@
                 }).success(function(response) {
                     if (response == "1") {
                         alert('已成功提交');
-                        console.log($scope.items);
                         location.href = "#/teaViewHanding";
-                    } else if (response == "2") {
+                    } else{
                         alert('ERROR');
                     }
                 })
             }
-        }
+        };
+        $scope.change = function() {
+            if ($scope.form.type == "国产" || $scope.form.type == "进口") {
+                $scope.xianshi = true;
+
+            } else if ($scope.form.type == "C-工程") {
+                $scope.xianshi = false;
+                $scope.replace = "C-工程";
+                for(var i in $scope.items){
+                    $scope.items[i].type = "C-工程";
+                }
+            } else if ($scope.form.type == "S-服务") {
+                $scope.xianshi = false;
+                $scope.replace = "S-服务";
+                for(var j in $scope.items){
+                    $scope.items[j].type = "S-服务";
+                }
+            }
+        };
         $scope.loadDraft = function() {
             $http({
                 url: "teacher/PurchaseApplySheet/draft" + "?token=" + sessionStorage.getItem("token"),
@@ -320,40 +304,13 @@
                 $scope.form.reason = response.reason;
                 $scope.items = response.table;
                 $scope.xianshi = true;
+                if($scope.items.length == 0){
+                    $scope.items.push({});
+                }
+                $scope.change();
+                console.log(response);
+                console.log($scope.form.type);
             })
-        }
-        $scope.change = function() {
-            if ($scope.form.type == "国产" || $scope.form.type == "进口") {
-                $scope.xianshi = true;
-             
-            } else if ($scope.form.type == "C-工程") {
-                $scope.xianshi = false;
-                $scope.replace = "C-工程"
-                for(var i in $scope.items){
-                    items[i].type = "C-工程";
-                }
-            } else if ($scope.form.type == "S-服务") {
-                $scope.xianshi = false;
-                $scope.replace = "S-服务"
-                for(var j in $scope.items){
-                    items[j].type = "S-服务";
-                }
-            }
-        }
-
-
-
-    });
-
-    app.controller('opHistoryController', function($scope) {
-        // $scope.bold = "bold";
-        $scope.key = '';
-        $scope.data = [
-            { id: "cg20160517-04", totalMoney: "32,434", updataTime: "2016-01-17" },
-            { id: "cg20150517-04", totalMoney: "32,434", updataTime: "2016-01-17" },
-            { id: "ck20160517-04", totalMoney: "32,434", updataTime: "2016-01-17" },
-            { id: "cy20130517-04", totalMoney: "32,434", updataTime: "2016-01-17" },
-            { id: "cy20130517-04", totalMoney: "32,434", updataTime: "2016-01-17" },
-        ];
+        };
     });
 }(angular, window);
