@@ -73,7 +73,7 @@ public class TransformUtil {
         PurchaseApplySubmit message = new PurchaseApplySubmit();
         message.setProjectId(entity.getProjectId());
         message.setLeader(entity.getProposerName());
-        message.setM_tel(entity.getAgentMobile());
+        message.setM_tel(entity.getProposerMobile());
         message.setS_tel(entity.getProposerTel());
         message.setProjectName(entity.getProjectName());
         message.setPurchaseType(entity.getPurchaseType());
