@@ -28,9 +28,6 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private ProjectDao projectDao;
-    public static void main(String[] args){
-
-    }
     private String getCurrentProjectId(){
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
