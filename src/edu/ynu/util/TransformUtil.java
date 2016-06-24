@@ -53,7 +53,7 @@ public class TransformUtil {
         entity.setProposerMobile(message.getM_tel());
         entity.setProposerTel(message.getS_tel());
         entity.setProjectName(message.getProjectName());
-        entity.setPurchaseType(message.getPurchaseTyp());
+        entity.setPurchaseType(message.getPurchaseType());
         entity.setSum(String.valueOf(message.getTotalMoney_pre()));
         entity.setFundSource(message.getComeFrom());
         entity.setApplyReason(message.getReason());
@@ -76,12 +76,14 @@ public class TransformUtil {
         message.setM_tel(entity.getAgentMobile());
         message.setS_tel(entity.getProposerTel());
         message.setProjectName(entity.getProjectName());
-        message.setPurchaseTyp(entity.getPurchaseType());
+        message.setPurchaseType(entity.getPurchaseType());
         message.setTotalMoney_pre(toDouble(entity.getSum()));
         message.setComeFrom(entity.getFundSource());
         message.setReason(entity.getApplyReason());
         message.setStatus(entity.getStatus());
         message.setUpdateTime(entity.getSubmitTime());
+        message.setFileUrl(entity.getFileUrl());
+        message.setSuggestion(entity.getComment());
         //转换设备列表
         Set<ItemEntity> itemSet = entity.getItems();
         List<PurchaseItem> itemList = new ArrayList<>();
