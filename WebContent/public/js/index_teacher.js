@@ -136,53 +136,51 @@
             }
         }
     })
-    app.controller("handingController", function($scope, $http, setPage) {
-        $http({
-                url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=1",
-                method: "get"
-            }
-        ).success(function(response) {
-            $scope.handle = response;
-        });
-        // 测试数据
-        $http({
-            url: "",
-            method: "get"
-        }).success(function(response) {
-            $scope.pages = response;
-            setPage.init(response, chagePages);
+    app.controller("handingController", function($scope, $http) {
+        $scope.currentPageNum = 1;
+        $http.get("/teacher/projects/handling/count?token" + sessionStorage.getItem("token"))
+            .success(function(response){
+                console.log("response " + response);
+                $scope.indexList = [];
+                $scope.pageNum = Math.ceil(response/8);
+                if($scope.pageNum<=1){
+                    $scope.hidePagination = true;
+                }
+                for(var i=0;i<$scope.pageNum;i++){
+                    $scope.indexList.push(i+1);
+                }
 
-            function chagePages(page) {
-                $http({
-                        url: "/teacher/history/unCompleted?token=" + sessionStorage.getItem("token") + "&currentPage=" + page,
-                        method: "get"
-                    }
-
-                ).success(function(response) {
+            });
+        $scope.getProjectList = function (currentPageNum) {
+            $http.get("/teacher/projects/handling?token=" + sessionStorage.getItem("token")
+                    + "&pageNum=" + currentPageNum + "&countPerPage=8")
+                .success(function (response) {
+                    console.log("response " + response);
                     $scope.handle = response;
                 });
-
+        };
+        $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
             }
-        })
+            $scope.getProjectList(pageNum);
+            console.log(pageNum);
+            $scope.currentPageNum = pageNum;
+        };
+        $scope.getProjectList($scope.currentPageNum);
 
         $scope.methods = {
-            showDetail: function(message) {
-                console.log(message)
-                $scope.message = message; //切换toggle里面的message
-            },
-            download: function(id) {
-                // 下载申请表
-                $http({
-                    url: "  ?projectId=" + id, //+"&token=" + tokenHander.getToken(),
-                    method: "get"
-                }).success(function(response) {
-                    // do something
-                })
-
+            showDetail: function(message,action) {
+                console.log(message);
+                $scope.message = message;
+                $scope.action = action;
             }
         }
 
-    })
+    });
     app.controller('CheckMessageController', function($scope,$http) {
         $http({
             url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
