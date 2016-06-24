@@ -34,7 +34,7 @@ public class userServiceTest {
 		PurchaseApplySubmit pas = new PurchaseApplySubmit();
 		pas.setProjectName("测试项目名称");
 		pas.setComeFrom("测试资金来源");
-		pas.setPurchaseTyp("测试资产类型");
+		pas.setPurchaseType("测试资产类型");
 		pas.setTotalMoney_pre(25000d);
 		List<PurchaseItem> itemList = new ArrayList<>();
 		PurchaseItem item = new PurchaseItem();
@@ -51,7 +51,7 @@ public class userServiceTest {
 	public void testStoreApply(){
 		PurchaseApplySubmit pas = new PurchaseApplySubmit();
 		pas.setProjectName("测试项目名称");
-		pas.setPurchaseTyp("测试资产类型");
+		pas.setPurchaseType("测试资产类型");
 		List<PurchaseItem> itemList = new ArrayList<>();
 		PurchaseItem item = new PurchaseItem();
 		item.setName("测试设备名称");
