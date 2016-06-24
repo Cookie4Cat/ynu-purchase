@@ -6,7 +6,7 @@ public interface TeacherService {
 
 	/**
 	 * description: 分页查询已完成的申报项目(ProType = 采购完成)的分页数
-	 * @param userId 
+	 * @param userId
 	 * @return 页数
 	 */
 	Integer findSubmitHistoryByIdCompletedPageCount(String userId);
@@ -21,5 +21,6 @@ public interface TeacherService {
 	Integer saveDraftByUID(String userId, PurchaseApplySubmit submit);
 
 	PurchaseApplySubmit findDraftByUID(String userId);
+
 
 }
