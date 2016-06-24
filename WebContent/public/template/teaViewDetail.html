@@ -1,0 +1,133 @@
+<div class="teaIndex">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
+                <div class="btn-group" data-toggle="buttons" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
+                    <label class="btn btn-primary ">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked><a href="#/teaViewHanding"class="LittleNav">返回</a>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+            <label class="col-md-2 control-label" for="">采购类型</label>
+            <div class="col-md-10">
+                <label class="radio-inline">G-货物（</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="project.purchaseType" disabled ng-change="change()" >国产</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="project.purchaseType" disabled ng-change="change()">进口）</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="project.purchaseType" disabled ng-change="change()">C-工程</label>
+                <label class="radio-inline">
+                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="project.purchaseType" disabled ng-change="change()">S-服务</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-1">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon1">项目名称</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon1"  disabled ng-model="project.projectName" >
+
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-3 col-md-offset-1">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon2" >项目负责人</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon2" disabled ng-model="project.leader">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon3" >负责人电话</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon3" disabled ng-model="project.m_tel">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon9" >固定电话</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" disabled ng-model="project.s_tel">
+                </div>
+            </div>
+
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-3 col-md-offset-1">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon4" >预算总额</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon4" disabled ng-model="project.totalMoney_pre">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="input-group ">
+                    <span class="input-group-addon biaodan" id="basic-addon5"  >资金来源</span>
+                    <input type="text" class="form-control"aria-describedby="basic-addon5" disabled ng-model="project.comeFrom">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
+            <div class="input-group ">
+                <span class="input-group-addon biaodan" id="basic-addon6">购置理由</span>
+                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7" disabled ng-model="project.reason"></textarea>
+            </div>
+        </div>
+        <div class="form-group" style="TEXT-ALIGN: center;">
+            <div class="table-responsive col-md-9 col-md-offset-1" style="margin-top:2%">
+                <table class="table table-striped table-hover ">
+                    <tr>
+                        <td class="td"style="height: 30px;vertical-align: middle">序号</td>
+                        <td class="td"style="height: 30px;vertical-align: middle;width: 80px">类型</td>
+                        <td class="td" style="height: 30px;vertical-align: middle">通用名称</td>
+                        <td class="td"style="height: 30px;vertical-align: middle">数量</td>
+                        <td class="td"style="height: 30px;vertical-align: middle">计量单位</td>
+                        <td class="td"style="height: 30px;vertical-align: middle">预算单价</td>
+                        <td class="td"style="height: 30px;vertical-align: middle">合计金额</td>
+                        <td class="td"style="height: 30px;vertical-align: middle">交货地点</td>
+                    </tr>
+                    <tr class="col_item" ng-repeat="item in project.table">
+                        <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
+                        <td>
+                            <select style="width: 80px;" class="form-control" disabled ng-model=" item['type']" ng-show="xianshi">
+                                <option value="教学">教学</option>
+                                <option value="科研">科研</option>
+                                <option value="办公">办公</option>
+                            </select>
+                            <h5 ng-hide="xianshi" disabled ng-bind="replace" style="vertical-align: middle"></h5>
+                        </td>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['name']">
+                        </td>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['count']">
+                        </td>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['unit']">
+                        </td>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['budget']">
+                        </td>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['totalMoney_real']">
+                        </td>
+                        <td class="td">
+                            <input type="text" style="height: 34px;" disabled ng-model="item['address']">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 50px">
+            <div class="col-md-2 col-md-offset-5">
+                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="formSubmit()">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
