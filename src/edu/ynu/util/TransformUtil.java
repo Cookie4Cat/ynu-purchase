@@ -13,21 +13,28 @@ import java.util.Set;
 
 public class TransformUtil {
     private static Double toDouble(String real){
-        if(real==null){
+        if(real == null){
             return 0d;
         }else {
             return Double.valueOf(real);
+        }
+    }
+    private static String doubleToString(Double real){
+        if(real == null){
+            return null;
+        }else {
+            return String.valueOf(real);
         }
     }
     private static void mapItem2Entity(final List<PurchaseItem> itemList, Set<ItemEntity> itemSet, final ProjectEntity pe){
         for(PurchaseItem pi:itemList){
             ItemEntity item = new ItemEntity();
             item.setItemName(pi.getName());
-            item.setCount(String.valueOf(pi.getCount()));
-            item.setTotal(String.valueOf(pi.getTotalMoney_real()));
+            item.setCount(doubleToString(pi.getCount()));
+            item.setTotal(doubleToString(pi.getTotalMoney_real()));
             item.setDeliverySite(pi.getAddress());
             item.setUnit(pi.getUnit());
-            item.setPrice(String.valueOf(pi.getBudget()));
+            item.setPrice(doubleToString(pi.getBudget()));
             item.setProject(pe);
             item.setType(pi.getType());
             itemSet.add(item);
@@ -54,7 +61,7 @@ public class TransformUtil {
         entity.setProposerTel(message.getS_tel());
         entity.setProjectName(message.getProjectName());
         entity.setPurchaseType(message.getPurchaseType());
-        entity.setSum(String.valueOf(message.getTotalMoney_pre()));
+        entity.setSum(doubleToString(message.getTotalMoney_pre()));
         entity.setFundSource(message.getComeFrom());
         entity.setApplyReason(message.getReason());
         //转换设备列表
