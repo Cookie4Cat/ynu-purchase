@@ -31,9 +31,29 @@ public class PurchaseApplySubmit {
 	private String status;
 	//提交时间
 	private String updateTime;
+	//文件url
+	private String fileUrl;
+	//初审意见
+	private String suggestion;
 
 	//采购项目清单
-	List<PurchaseItem> table;
+	private List<PurchaseItem> table;
+
+	public String getSuggestion() {
+		return suggestion;
+	}
+
+	public void setSuggestion(String suggestion) {
+		this.suggestion = suggestion;
+	}
+
+	public String getFileUrl() {
+		return fileUrl;
+	}
+
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
+	}
 
 	public String getUpdateTime() {
 		return updateTime;
@@ -51,11 +71,11 @@ public class PurchaseApplySubmit {
 		this.projectId = projectId;
 	}
 
-	public String getPurchaseTyp() {
+	public String getPurchaseType() {
 		return purchaseType;
 	}
 
-	public void setPurchaseTyp(String purchaseTyp) {
+	public void setPurchaseType(String purchaseTyp) {
 		this.purchaseType = purchaseTyp;
 	}
 
