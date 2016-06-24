@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import edu.ynu.message.PurchaseApplySubmit;
-import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.TeacherService;
 import edu.ynu.service.UserService;
 
@@ -26,37 +25,19 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 
-	private final static int CountPerPage = 8;
 
-	@RequestMapping("/history/unCompleted")
-	public @ResponseBody List<PurchaseHistoryRecord> ing(HttpServletRequest request, Integer currentPage)
-	        throws Exception {
-		String userId = (String) request.getAttribute("userId");
-		List<PurchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryByIdUnCompleted(userId,
-		        CountPerPage, currentPage);
-		return findSubmitHistoryById;
+	@RequestMapping(value = "/history/completed",method = RequestMethod.GET)
+	public List<PurchaseApplySubmit> listCompletedProjects(HttpServletRequest request,
+														   Integer countPerPage,
+														   Integer pageNum) throws Exception {
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.listHistorySubmit(teacherId,countPerPage,pageNum);
 	}
 
-	@RequestMapping("/history/unCompletedPageCount")
-	public @ResponseBody Integer ingPageCount(HttpServletRequest request) throws Exception {
-		String userId = (String) request.getAttribute("userId");
-		return teacherService.findSubmitHistoryByIdUnCompletedPageCount(userId);
-
-	}
-
-	@RequestMapping("/history/completed")
-	public @ResponseBody List<PurchaseHistoryRecord> completed(HttpServletRequest request, Integer currentPage)
-	        throws Exception {
-		String userId = (String) request.getAttribute("userId");
-		List<PurchaseHistoryRecord> findSubmitHistoryById = userService.findSubmitHistoryByIdCompleted(userId,
-		        CountPerPage, currentPage);
-		return findSubmitHistoryById;
-	}
-
-	@RequestMapping("/history/CompletedPageCount")
-	public @ResponseBody Integer completedPageCount(HttpServletRequest request) throws Exception {
-		String userId = (String) request.getAttribute("userId");
-		return teacherService.findSubmitHistoryByIdCompletedPageCount(userId);
+	@RequestMapping(value = "/history/completed/count",method = RequestMethod.GET)
+	public Integer countCompletedProjects(HttpServletRequest request) throws Exception {
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.countHistorySubmit(teacherId);
 	}
 
 	@RequestMapping("/PurchaseApplySheet/download")
@@ -72,25 +53,42 @@ public class TeacherController {
 		return new ResponseEntity<byte[]>(file, headers, HttpStatus.CREATED);
 	}
 
-	@RequestMapping("/PurchaseApplySheet/submit")
-	public @ResponseBody Integer PurchaseApplySheetSubmit(HttpServletRequest request,
-														  @RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
+	@RequestMapping(value = "/PurchaseApplySheet/submit",method = RequestMethod.POST)
+	public Integer PurchaseApplySheetSubmit(HttpServletRequest request,
+											@RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		return userService.submitPurchaseApply(userId, purchaseApplySheet);
+		teacherService.submitPurchaseApply(purchaseApplySheet,userId);
+		return 1;
 	}
 
-	@RequestMapping("/PurchaseApplySheet/submitDraft")
-	public @ResponseBody Integer PurchaseApplySheetSubmitDraft(HttpServletRequest request,
-															   @RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
+	@RequestMapping(value = "/PurchaseApplySheet/submitDraft",method = RequestMethod.POST)
+	public Integer PurchaseApplySheetSubmitDraft(HttpServletRequest request,
+												 @RequestBody PurchaseApplySubmit submit) throws Exception {
 		String userId = (String) request.getAttribute("userId");
-		return teacherService.saveDraftByUID(userId,purchaseApplySheet);
+		teacherService.saveDraftByUID(userId, submit);
+		return 1;
 	}
 
-	@RequestMapping("/PurchaseApplySheet/draft")
-	public @ResponseBody PurchaseApplySubmit getPurchaseApplySheetDraft(HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/PurchaseApplySheet/draft",method = RequestMethod.GET)
+	public PurchaseApplySubmit getPurchaseApplySheetDraft(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
 		return teacherService.findDraftByUID(userId);
 	}
+	@RequestMapping(value = "/projects/{pid}",method=RequestMethod.GET)
+	public PurchaseApplySubmit getById(@PathVariable String pid){
+		return teacherService.findByPID(pid);
+	}
 
-
+	@RequestMapping(value = "/projects/handling/count",method = RequestMethod.GET)
+	public Integer countHandlingProjects(HttpServletRequest request)throws Exception{
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.countHandingProjects(teacherId);
+	}
+	@RequestMapping(value = "/projects/handling",method = RequestMethod.GET)
+	public List<PurchaseApplySubmit> listHandlingProjects(HttpServletRequest request,
+														  Integer countPerPage,
+														  Integer pageNum)throws Exception{
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.listHandlingProjects(teacherId,countPerPage,pageNum);
+	}
 }
