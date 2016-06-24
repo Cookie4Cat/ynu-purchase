@@ -39,7 +39,7 @@
                     <td>总计金额（万元）</td>
                     <td>上次提交日期</td>
                     <td>当前状态</td>
-                    <td>查看初审意见</td>
+                    <td>操作</td>
                     <td>下载申请表</td>
                 </tr>
                 <tr ng-repeat="han in handle">
@@ -67,9 +67,9 @@
                         <p ng-switch-when="待立项" class="fontGreen">{{han.status}}</p>
                     </td>
                     <td ng-switch="han.status">
-                        <button ng-switch-when="待立项" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,'查看详情')">查看</button>
-                        <button ng-switch-when="初审被驳" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,'重新提交')">查看</button>
-                        <button ng-switch-when="待审核" class="btn btn-info " type="button" ng-click="view(han.projectId)">查看</button>
+                        <button ng-switch-when="待立项" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,han.projectId,'查看详情')">查看</button>
+                        <button ng-switch-when="初审被驳" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,han.projectId,'重新提交')">查看</button>
+                        <button ng-switch-when="待审核" class="btn btn-info " type="button" ng-click="showProject(han.projectId)">查看</button>
                     </td>
                     <td ng-if="han.status == '待立项'">
                         <a class="btn btn-info " type="button" href="{{han.fileUrl}}" download>下载</a>
@@ -112,7 +112,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
-                    <button type="button" class="btn btn-primary">{{action}}</button>
+                    <span ng-switch="action">
+                        <button ng-switch-when="查看详情" class="btn btn-primary" data-dismiss="modal" type="button" ng-click="showCurrentProject()">查看详情</button>
+                        <button ng-switch-when="重新提交" class="btn btn-primary" data-dismiss="modal" type="button" ng-click="resubmitProject()">重新提交</button>
+                    </span>
                 </div>
             </div>
         </div>
