@@ -6,11 +6,14 @@ import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.TeacherService;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,13 +25,23 @@ public class TeacherServiceImpl implements TeacherService{
     public PurchaseApplySubmit findDraftByUID(String userId) {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         dc.add(Restrictions.eq("userId",userId));
+        dc.add(Restrictions.eq("status","草稿"));
         return TransformUtil.toMessage(projectDao.findByCriteria(dc));
     }
     @Override
     public void saveDraftByUID(String userId, PurchaseApplySubmit submit) {
-        ProjectEntity entity = TransformUtil.toEntity(submit);
-        entity.setStatus("草稿");
-        projectDao.save(entity);
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.eq("userId",userId));
+        dc.add(Restrictions.eq("status","草稿"));
+        ProjectEntity testEntity = projectDao.findByCriteria(dc);
+        if(testEntity!=null) {
+            projectDao.delete(testEntity);
+        }
+        ProjectEntity otherEntity = TransformUtil.toEntity(submit);
+        otherEntity.setUserId(userId);
+        otherEntity.setStatus("草稿");
+        System.out.println(otherEntity.getSum()==null);
+        projectDao.save(otherEntity);
     }
 
     @Override
@@ -69,7 +82,22 @@ public class TeacherServiceImpl implements TeacherService{
         dc.add(Restrictions.in("status",status));
         return projectDao.countByCriteria(dc);
     }
-
+    private String getCurrentProjectId(){
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        dc.add(Restrictions.like("submitTime",dateFormat.format(new Date())+"%"));
+        Integer count = projectDao.countByCriteria(dc);
+        if(count==0){
+            return dateFormat.format(new Date()) + "01";
+        }else {
+            DetachedCriteria dc1 = DetachedCriteria.forClass(ProjectEntity.class);
+            dc1.setProjection(Projections.max("projectId"));
+            dc1.add(Restrictions.like("submitTime",dateFormat.format(new Date())+"%"));
+            String lastNumStr = String.valueOf(projectDao.listByCriteria(dc1).get(0));
+            Integer currentNum = Integer.valueOf(lastNumStr) + 1;
+            return String.valueOf(currentNum);
+        }
+    }
     @Override
     public void submitPurchaseApply(PurchaseApplySubmit submit,String userId) {
         ProjectEntity entity = TransformUtil.toEntity(submit);
@@ -77,5 +105,7 @@ public class TeacherServiceImpl implements TeacherService{
         String now = String.valueOf(new Timestamp(new Date().getTime()));  //当前时间
         entity.setSubmitTime(now);
         entity.setStatus("待审核");
+        entity.setProjectId(getCurrentProjectId());
+        projectDao.save(entity);
     }
 }
