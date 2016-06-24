@@ -188,6 +188,8 @@
             url:"/teacher/history/completed?token="+sessionStorage.getItem("token") + "&currentPage=1",
             method:"get",
         }).success(function(response){
+            var date = new Date();
+            response.time = date.setDate(response.time);
             $scope.historyItems = response;
         })
         

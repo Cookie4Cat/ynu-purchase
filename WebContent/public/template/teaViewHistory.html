@@ -21,6 +21,7 @@
                     <tr class="">
                         <td>序号</td>
                         <td>项目编号</td>
+                        <td>项目名称</td>
                         <td>采购类型</td>
                         <td>总计金额（万元）</td>
                         <td>上次提交日期</td>
@@ -31,9 +32,10 @@
                     <tr ng-repeat="history in historyItems">
                         <td>{{$index+1}}</td>
                         <td>{{history.projectId}}</td>
+                        <td>{{history.proName}}</td>
                         <td>{{history.purchaseType}}</td>
                         <td>{{history.totalMoney}}</td>
-                        <td>{{history.time}}</td>
+                        <td>{{history.time | data:"yyyy-MM-dd"}}</td>
                         <td>{{history.proType}}</td>
                         <td>
                             <button class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="">查看

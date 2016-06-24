@@ -20,6 +20,7 @@
                 <tr class="" style="text-align: center;vertical-align: middle;">
                     <td>序号</td>
                     <td>项目编号</td>
+                    <td>项目名称</td>
                     <td>采购类型</td>
                     <td>总计金额（万元）</td>
                     <td>上次提交日期</td>
@@ -33,6 +34,9 @@
                     </td>
                     <td>
                         <p style="margin-top:7px  ">{{han.projectId}}</p>
+                    </td>
+                    <td>
+                        <p style="margin-top:7px  ">{{han.proName}}</p>
                     </td>
                     <td>
                         <p style="margin-top:7px  ">{{han.purchaseType}}</p>
@@ -69,6 +73,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-primary">修改</button>
                 </div>
             </div>
         </div>
