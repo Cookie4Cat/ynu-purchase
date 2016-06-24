@@ -35,7 +35,7 @@
                         <td>{{history.proName}}</td>
                         <td>{{history.purchaseType}}</td>
                         <td>{{history.totalMoney}}</td>
-                        <td>{{history.time | data:"yyyy-MM-dd"}}</td>
+                        <td>{{history.time | limitTo:10}}</td>
                         <td>{{history.proType}}</td>
                         <td>
                             <button class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="">查看
