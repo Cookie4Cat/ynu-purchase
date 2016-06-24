@@ -1,26 +1,26 @@
 package edu.ynu.service;
 
 import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseHistoryRecord;
+
+import java.util.List;
 
 public interface TeacherService {
 
-	/**
-	 * description: 分页查询已完成的申报项目(ProType = 采购完成)的分页数
-	 * @param userId
-	 * @return 页数
-	 */
-	Integer findSubmitHistoryByIdCompletedPageCount(String userId);
-
-	/**
-	 * description: 分页查询未完成的申报项目(ProType ！= 采购完成)的分页数
-	 * @param userId 
-	 * @return 页数
-	 */
-	Integer findSubmitHistoryByIdUnCompletedPageCount(String userId);
-
-	Integer saveDraftByUID(String userId, PurchaseApplySubmit submit);
+	void saveDraftByUID(String userId, PurchaseApplySubmit submit);
 
 	PurchaseApplySubmit findDraftByUID(String userId);
 
+	PurchaseApplySubmit findByPID(String pid);
+
+	List<PurchaseApplySubmit> listHandlingProjects(String teacherId,Integer countPerPage,Integer pageNum);
+
+	Integer countHandingProjects(String teacherId);
+
+	Integer countHistorySubmit(String teacherId);
+
+	List<PurchaseApplySubmit> listHistorySubmit(String teacherId,Integer count,Integer pageNum);
+
+	void submitPurchaseApply(PurchaseApplySubmit submit,String userId);
 
 }
