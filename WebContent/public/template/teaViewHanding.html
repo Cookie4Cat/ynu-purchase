@@ -13,6 +13,20 @@
             </label>
         </div>
     </div>
+    <style>
+        table tr td p{
+            margin-top:7px;
+        }
+        .fontBlue{
+            color:blue;
+        }
+        .fontRed{
+            color:red;
+        }
+        .fontGreen{
+            color:limegreen;
+        }
+    </style>
     <!-- <form class="form-horizontal" ng-controller="CheckMessageController"> -->
     <div class="form-group" style="TEXT-ALIGN: center;">
         <div class="table-responsive col-md-10 col-md-offset-1">
@@ -30,34 +44,59 @@
                 </tr>
                 <tr ng-repeat="han in handle">
                     <td>
-                        <p style="margin-top:7px  ">{{$index+1}}</p>
+                        <p>{{$index+1}}</p>
                     </td>
                     <td>
-                        <p style="margin-top:7px  ">{{han.projectId}}</p>
+                        <p>{{han.projectId}}</p>
                     </td>
                     <td>
-                        <p style="margin-top:7px  ">{{han.proName}}</p>
+                        <p>{{han.projectName}}</p>
                     </td>
                     <td>
-                        <p style="margin-top:7px  ">{{han.purchaseType}}</p>
+                        <p>{{han.purchaseType}}</p>
                     </td>
                     <td>
-                        <p style="margin-top:7px  ">{{han.totalMoney}}</p>
+                        <p>{{han.totalMoney_pre}}</p>
                     </td>
                     <td>
-                        <p style="margin-top:7px  ">{{han.time | limitTo:10}}</p>
+                        <p>{{han.updateTime | limitTo:10}}</p>
                     </td>
-                    <td>
-                        <p style="margin-top:7px  ">{{han.proType}}</p>
+                    <td ng-switch="han.status">
+                        <p ng-switch-when="待审核" class="fontBlue">{{han.status}}</p>
+                        <p ng-switch-when="初审被驳" class="fontRed">{{han.status}}</p>
+                        <p ng-switch-when="待立项" class="fontGreen">{{han.status}}</p>
                     </td>
-                    <td>
-                        <button class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion)">查看</button>
+                    <td ng-switch="han.status">
+                        <button ng-switch-when="待立项" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,'查看详情')">查看</button>
+                        <button ng-switch-when="初审被驳" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,'重新提交')">查看</button>
+                        <button ng-switch-when="待审核" class="btn btn-info " type="button" ng-click="view(han.projectId)">查看</button>
                     </td>
-                    <td>
-                        <button class="btn btn-info " type="button" disabled="disabled">下载</button>
+                    <td ng-if="han.status == '待立项'">
+                        <a class="btn btn-info " type="button" href="{{han.fileUrl}}" download>下载</a>
+                    </td>
+                    <td ng-if="han.status != '待立项'">
+                        <button class="btn btn-info " type="button" disabled="disabled" >下载</button>
                     </td>
                 </tr>
             </table>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+            <ul class="pagination" ng-hide="hidePagination">
+                <li>
+                    <a ng-click="changePage(currentPageNum-1)">
+                        <span >&laquo;</span>
+                    </a>
+                </li>
+                <li ng-repeat="index in indexList">
+                    <a ng-click="changePage(index)" ng-bind="index"></a>
+                </li>
+
+                <li>
+                    <a ng-click="changePage(currentPageNum+1)">
+                        <span >&raquo;</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
     <!-- </form> -->
@@ -73,7 +112,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
-                    <button type="button" class="btn btn-primary">修改</button>
+                    <button type="button" class="btn btn-primary">{{action}}</button>
                 </div>
             </div>
         </div>
