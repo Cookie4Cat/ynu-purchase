@@ -22,14 +22,35 @@ public class AdminController {
         return adminService.listHandlingProjects(countPerPage, pageNum);
     }
 
-    @RequestMapping(value = "/projects/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/projects/handling/search",method = RequestMethod.GET)
     public List<PurchaseApplySubmit> findAllByCondition (String projectId,String type,String status,
                                                          Integer countPerPage,Integer pageNum)throws Exception{
         return adminService.listHandlingProjectsByCondition(projectId,type,status,countPerPage,pageNum);
     }
 
-    @RequestMapping(value = "/projects/search/count",method = RequestMethod.GET)
+    @RequestMapping(value = "/projects/handling/search/count",method = RequestMethod.GET)
     public Integer countAllByCondition (String projectId,String type,String status)throws Exception{
+        return adminService.countHandlingProjectsByCondition(projectId,type,status);
+    }
+
+    @RequestMapping("/projects/history/count")
+    public Integer findHistoryProjectsCount()
+            throws Exception {
+        return adminService.countHistoryProjects();
+    }
+    @RequestMapping("/projects/history")
+    public List<PurchaseApplySubmit> listHistory(Integer countPerPage,Integer pageNum) throws Exception{
+        return adminService.listHistoryProjects(countPerPage, pageNum);
+    }
+
+    @RequestMapping(value = "/projects/history/search",method = RequestMethod.GET)
+    public List<PurchaseApplySubmit> findHistoryByCondition (String projectId,String type,String status,
+                                                         Integer countPerPage,Integer pageNum)throws Exception{
+        return adminService.listHistoryProjectsByCondition(projectId,type,status,countPerPage,pageNum);
+    }
+
+    @RequestMapping(value = "/projects/history/search/count",method = RequestMethod.GET)
+    public Integer countHistoryByCondition (String projectId,String type,String status)throws Exception{
         return adminService.countHandlingProjectsByCondition(projectId,type,status);
     }
 
