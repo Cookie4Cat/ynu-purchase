@@ -149,6 +149,7 @@
             console.log("resubmit " + $scope.currentProjectId);
         };
 
+        //此处获取第一页
         $scope.getProjectList($scope.currentPageNum);
 
         $scope.methods = {
@@ -181,7 +182,42 @@
 
 
     app.controller("historyController", function($scope, $http) {
-        $http() 
+        $scope.currentPageNum = 1;
+        $http.get("/teacher/history/completed/count?token" + sessionStorage.getItem("token"))
+            .success(function(response){
+                console.log("response " + response);
+                $scope.indexList = [];
+                $scope.pageNum = Math.ceil(response/8);
+                if($scope.pageNum<=1){
+                    $scope.hidePagination = true;
+                }
+                for(var i=0;i<$scope.pageNum;i++){
+                    $scope.indexList.push(i+1);
+                }
+            });
+
+           $scope.getCompletedList = function (currentPageNum) {
+            $http.get("/teacher/history/completed?token=" + sessionStorage.getItem("token")
+                + "&pageNum=" + currentPageNum + "&countPerPage=8")
+                .success(function (response) {
+                    console.log("response " + response);
+                    $scope.historyItems = response;
+                });
+          };
+
+            $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
+            }
+            $scope.getCompletedList(pageNum);
+            console.log(pageNum);
+            $scope.currentPageNum = pageNum;
+        };
+
+        $scope.getCompletedList($scope.currentPageNum);
     });
 
     app.controller('teaFormCtr', function($scope, $http, $timeout, $rootScope) {
