@@ -24,25 +24,25 @@ public class AdminServiceTest {
     }
     @Test
     public void testFindAllProjects(){
-        List<PurchaseApplySubmit> list = adminService.findAllProjects(2,2);
+        List<PurchaseApplySubmit> list = adminService.listHandlingProjects(2,2);
         for(PurchaseApplySubmit p:list){
             System.out.println(p.getLeader());
         }
     }
     @Test
     public void  testFindAllByCondition(){
-        List<PurchaseApplySubmit> list = adminService.findAllByCondition(null,"国内","采购完成");
+        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition(null,"国内","采购完成",1,1);
         for(PurchaseApplySubmit p:list){
             System.out.println(p.getLeader());
         }
     }
     @Test
     public void testFindOne(){
-        adminService.findAllProjectsCount();
+        adminService.countHandlingProjects();
     }
     @Test
     public void testFindAllCount(){
-        Integer count = adminService.findAllProjectsCount();
+        Integer count = adminService.countHandlingProjects();
         print(count);
     }
 }

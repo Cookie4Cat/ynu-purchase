@@ -1,33 +1,36 @@
 package edu.ynu.controller;
 
 import edu.ynu.message.PurchaseApplySubmit;
-import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    private final static int CountPerPage = 8;
     @Autowired
     private AdminService adminService;
-    @RequestMapping("/projects/count")
+    @RequestMapping("/projects/handling/count")
     public Integer findAllProjectsCount()
             throws Exception {
-        return adminService.findAllProjectsCount();
+        return adminService.countHandlingProjects();
     }
-    @RequestMapping("/projects")
-    public List<PurchaseApplySubmit> findAll(Integer currentPage) throws Exception{
-        return adminService.findAllProjects(CountPerPage,currentPage);
+    @RequestMapping("/projects/handling")
+    public List<PurchaseApplySubmit> findAll(Integer countPerPage,Integer pageNum) throws Exception{
+        return adminService.listHandlingProjects(countPerPage, pageNum);
     }
 
     @RequestMapping(value = "/projects/search",method = RequestMethod.GET)
-    public List<PurchaseApplySubmit> findAllByCondition (String projectId,String type,String status)throws Exception{
-        return adminService.findAllByCondition(projectId,type,status);
+    public List<PurchaseApplySubmit> findAllByCondition (String projectId,String type,String status,
+                                                         Integer countPerPage,Integer pageNum)throws Exception{
+        return adminService.listHandlingProjectsByCondition(projectId,type,status,countPerPage,pageNum);
+    }
+
+    @RequestMapping(value = "/projects/search/count",method = RequestMethod.GET)
+    public Integer countAllByCondition (String projectId,String type,String status)throws Exception{
+        return adminService.countHandlingProjectsByCondition(projectId,type,status);
     }
 
     @RequestMapping(value = "/projects/{id}",method = RequestMethod.GET)

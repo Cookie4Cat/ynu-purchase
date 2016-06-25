@@ -123,6 +123,7 @@ public class TeacherServiceImpl implements TeacherService{
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         dc.add(Restrictions.eq("projectId",projectId));
         ProjectEntity entity = projectDao.findByCriteria(dc);
+        entity.setStatus("待审核");
         Set<ItemEntity> setItems = entity.getItems();
         itemDao.batchDelete(setItems);
         setItems.clear();

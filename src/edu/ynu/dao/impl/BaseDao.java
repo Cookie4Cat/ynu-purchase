@@ -1,13 +1,10 @@
 package edu.ynu.dao.impl;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTemplate;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -15,14 +12,14 @@ import java.util.List;
 
 public class BaseDao<T>  {
     private SessionFactory sessionFactory;
-    private Class<T> poclazz;
+    private Class<T> tClass;
     public BaseDao(SessionFactory sessionFactory){
         this.sessionFactory = sessionFactory;
         Type genericSuperclass = this.getClass().getGenericSuperclass();
         Type[] params = ((ParameterizedType) genericSuperclass).getActualTypeArguments();
-        poclazz = null;
+        tClass = null;
         if ((params.length > 0) && (params[0] != null)){
-            poclazz = (Class) params[0];
+            tClass = (Class) params[0];
         }
     }
     public Session currentSession(){
@@ -30,13 +27,13 @@ public class BaseDao<T>  {
     }
 
     private String getClazzName(){
-        return poclazz.getSimpleName();
+        return tClass.getSimpleName();
     }
     public T find(Integer id){
-        return (T)currentSession().get(poclazz,id);
+        return (T)currentSession().get(tClass,id);
     }
     public List<T> findAll(){
-        String hql = "from " + poclazz.getSimpleName();
+        String hql = "from " + tClass.getSimpleName();
         return currentSession().createQuery(hql).list();
     }
     public void saveOrUpdate(T entity){
@@ -52,7 +49,7 @@ public class BaseDao<T>  {
         currentSession().save(entity);
     }
     public void deleteById(Integer id){
-        T entity = (T)currentSession().get(poclazz,id);
+        T entity = (T)currentSession().get(tClass,id);
         currentSession().delete(entity);
     }
     public List<T> listByCriteria(DetachedCriteria detachedCriteria ,Integer countPerPage,Integer pageNum){
