@@ -17,7 +17,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private ProjectDao projectDao;
     @Override
-    public Integer findAllProjectsCount() {
+    public Integer countHandlingProjects() {
         String[] statusList= {"待立项","待初审"};
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         dc.add(Restrictions.in("status",statusList));
@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<PurchaseApplySubmit> findAllProjects(Integer countPerPage, Integer currentPage) {
+    public List<PurchaseApplySubmit> listHandlingProjects(Integer countPerPage, Integer currentPage) {
         String[] statusList= {"待立项","待审核"};
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         dc.add(Restrictions.in("status",statusList));
@@ -34,18 +34,38 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<PurchaseApplySubmit> findAllByCondition(String projectId, String type, String status) {
+    public Integer countHandlingProjectsByCondition(String pid, String type, String status) {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        if(projectId!=null){
-            dc.add(Restrictions.eq("projectId",projectId));
+        if(pid!=null&&!pid.equals("")){
+            dc.add(Restrictions.eq("projectId",pid));
         }
-        if(type!=null){
-            dc.add(Restrictions.eq("type",type));
+        if(type!=null&&!type.equals("")){
+            dc.add(Restrictions.eq("purchaseType",type));
         }
-        if(status!=null){
+        if(status!=null&&!status.equals("")){
             dc.add(Restrictions.eq("status",status));
         }
-        List<ProjectEntity> list = projectDao.listByCriteria(dc);
+        String[] statusList= {"待立项","待审核"};
+        dc.add(Restrictions.in("status",statusList));
+        return projectDao.countByCriteria(dc);
+    }
+
+    @Override
+    public List<PurchaseApplySubmit> listHandlingProjectsByCondition(String pid, String type, String status,
+                                                                     Integer countPerPage,Integer pageNum) {
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        if(pid!=null&&!pid.equals("")){
+            dc.add(Restrictions.eq("projectId",pid));
+        }
+        if(type!=null&&!type.equals("")){
+            dc.add(Restrictions.eq("purchaseType",type));
+        }
+        if(status!=null&&!status.equals("")){
+            dc.add(Restrictions.eq("status",status));
+        }
+        String[] statusList= {"待立项","待审核"};
+        dc.add(Restrictions.in("status",statusList));
+        List<ProjectEntity> list = projectDao.listByCriteria(dc,countPerPage,pageNum);
         return TransformUtil.transformToMessageList(list);
     }
     private ProjectEntity findOneProjectEntity(String projectId){
