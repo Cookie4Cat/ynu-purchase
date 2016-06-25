@@ -51,7 +51,7 @@ public class AdminController {
 
     @RequestMapping(value = "/projects/history/search/count",method = RequestMethod.GET)
     public Integer countHistoryByCondition (String projectId,String type,String status)throws Exception{
-        return adminService.countHandlingProjectsByCondition(projectId,type,status);
+        return adminService.countHistoryProjectsByCondition(projectId,type,status);
     }
 
     @RequestMapping(value = "/projects/{id}",method = RequestMethod.GET)
