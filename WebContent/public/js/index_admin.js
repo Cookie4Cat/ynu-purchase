@@ -29,7 +29,7 @@
             })
             .when("/TeaHistory", {
                 templateUrl: "/public/template/teaViewHistory.html",
-                controller: "CheckMessageController"
+                //controller: "CheckMessageController"
             })
             .when("/teaViewHanding", {
                 templateUrl: "/public/template/teaViewHanding.html",
@@ -39,9 +39,13 @@
                 templateUrl: "/public/template/financial_checkTpl.html",
                 //controller: "workController"
             })
-            .when("/ExaIndex", {
-                templateUrl: "/public/template/examinantIndex.html",
-                controller: "exaController"
+            .when("/adminIndex", {
+                templateUrl: "/public/template/adminIndex.html",
+                controller: "indexController"
+            })
+            .when("/adminHistory",{
+                templateUrl: "/public/template/approvalHistoryTpl.html",
+                controller: "historyController"
             })
             .when("/ExaDetail", {
                 templateUrl: "/public/template/ExaDetail.html",
@@ -77,7 +81,7 @@
             })
             .when("/approvalHistory", {
                 templateUrl: "/public/template/approvalHistoryTpl.html",
-                controller: "appController"
+                //controller: "appController"
             })
             .when("/approvalClassify1", {
                 templateUrl: "/public/template/approvalClassify1Tpl.html",
@@ -101,25 +105,147 @@
     //token 服务
 
     //index
-    app.controller('appController', function($scope, $http) {
-        $http({
-            url: "/admin/projects?token=" + sessionStorage.getItem("token") + "&currentPage=1",
-            method: "get",
-        }).success(function(response) {
-            console.log(response);
-            $scope.historyItems = response;
-        })
-        $scope.query = function() {
-            $http({
-                url: "/teacher/history/completed?token=" + sessionStorage.getItem("token") + "&projectId=" + $scope.projectId + "&purchaseType=" + $scope.purchaseType + "&proType=" + $scope.proType,
-                method: "get",
-            }).success(function(response) {
-                $scope.historyItems = response;
-            })
-        }
-        $scope.view=function(projectid){
+    app.controller('indexController', function($scope, $http) {
+        
+        //获取总数以分页
+        $scope.getPageCount = function (url) {
+            $http.get(url)
+                .success(function(response){
+                    $scope.indexList = [];
+                    $scope.pageNum = Math.ceil(response/8);
+                    if($scope.pageNum<=1){
+                        $scope.hidePagination = true;
+                    }
+                    for(var i=0;i<$scope.pageNum;i++){
+                        $scope.indexList.push(i+1);
+                    }
+                });
+        };
 
-            window.location.href='#/projectVerify?projectId='+projectid;
+        //根据页码获取项目列表
+        $scope.getProjectList = function (pageNum) {
+            $http.get("/admin/projects/handling?token=" + sessionStorage.getItem("token")
+                            + "&countPerPage=8&pageNum=" + pageNum
+            ).success(function (response) {
+                $scope.handlingProjectList = response;
+            });
+        };
+
+        //进入页面先加载第一页
+        $scope.getPageCount("/admin/projects/handling/count");
+        $scope.getProjectList(1);
+
+        //换页
+        $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
+            }
+            //如果搜索框中存在值
+            if(!$scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
+                $scope.getPageCount("/admin/projects/handling/search/count?projectId="+$scope.pidSearch+"&type="
+                    + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
+                $scope.search(pageNum);
+            }else{
+                $scope.getPageCount("/admin/projects/handling/count?token="+sessionStorage.getItem("token"));
+                $scope.getProjectList(pageNum);
+            }
+        };
+
+        //init 
+        $scope.typeSearch = "";
+        $scope.statusSearch = "";
+        $scope.pidSearch = "";
+        //根据查询条件获取项目列表
+        $scope.search = function(pageNum) {
+            $http.get("/admin/projects/handling/search?token=" + sessionStorage.getItem("token")
+                + "&countPerPage=8&pageNum=" + pageNum + "&type=" + $scope.typeSearch
+                + "&status=" + $scope.statusSearch + "&projectId=" + $scope.pidSearch
+            ).success(function (response) {
+                $scope.handlingProjectList = response;
+            });
+        };
+        //
+        $scope.view=function(pid){
+            window.location.href='#/projectVerify?projectId='+pid;
+        }
+    });
+    //history
+    app.controller('historyController', function($scope, $http) {
+
+        //获取总数以分页
+        $scope.getPageCount = function (url) {
+            $http.get(url)
+                .success(function(response){
+                    console.log(response);
+                    $scope.indexList = [];
+                    $scope.pageNum = Math.ceil(response/8);
+                    if($scope.pageNum<=1){
+                        $scope.hidePagination = true;
+                    }
+                    for(var i=0;i<$scope.pageNum;i++){
+                        $scope.indexList.push(i+1);
+                    }
+                });
+        };
+
+        //根据页码获取项目列表
+        $scope.getProjectList = function (pageNum) {
+            $http.get("/admin/projects/history?token=" + sessionStorage.getItem("token")
+                + "&countPerPage=8&pageNum=" + pageNum
+            ).success(function (response) {
+                $scope.handlingProjectList = response;
+            });
+        };
+
+
+        //进入页面先加载第一页
+        $scope.getPageCount("/admin/projects/history/count");
+        $scope.getProjectList(1);
+
+        //换页
+        $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
+            }
+            //如果搜索框中存在值
+            if(!$scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
+                $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
+                    + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
+                $scope.search(pageNum);
+            }else{
+                $scope.getPageCount("/admin/projects/history/count?token="+sessionStorage.getItem("token"));
+                $scope.getProjectList(pageNum);
+            }
+        };
+
+        //init
+        $scope.typeSearch = "";
+        $scope.statusSearch = "";
+        $scope.pidSearch = "";
+        //根据查询条件获取项目列表
+        $scope.search = function(pageNum) {
+            $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
+                + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
+            console.log(
+                "/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
+                + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token")
+            );
+            $http.get("/admin/projects/history/search?token=" + sessionStorage.getItem("token")
+                + "&countPerPage=8&pageNum=" + pageNum + "&type=" + $scope.typeSearch
+                + "&status=" + $scope.statusSearch + "&projectId=" + $scope.pidSearch
+            ).success(function (response) {
+                $scope.handlingProjectList = response;
+            });
+        };
+        //
+        $scope.view=function(pid){
+            window.location.href='#/projectVerify?projectId='+pid;
         }
     });
     //exaController
