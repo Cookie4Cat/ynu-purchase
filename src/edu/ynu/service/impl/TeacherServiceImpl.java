@@ -1,6 +1,8 @@
 package edu.ynu.service.impl;
 
+import edu.ynu.dao.ItemDao;
 import edu.ynu.dao.ProjectDao;
+import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.TeacherService;
@@ -16,11 +18,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Transactional
 public class TeacherServiceImpl implements TeacherService{
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private ItemDao itemDao;
+
     @Override
     public PurchaseApplySubmit findDraftByUID(String userId) {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
@@ -35,6 +41,9 @@ public class TeacherServiceImpl implements TeacherService{
         dc.add(Restrictions.eq("status","草稿"));
         ProjectEntity testEntity = projectDao.findByCriteria(dc);
         if(testEntity!=null) {
+            Set<ItemEntity> setItems = testEntity.getItems();
+            itemDao.batchDelete(setItems);
+            setItems.clear();
             projectDao.delete(testEntity);
         }
         ProjectEntity otherEntity = TransformUtil.toEntity(submit);
@@ -107,5 +116,17 @@ public class TeacherServiceImpl implements TeacherService{
         entity.setStatus("待审核");
         entity.setProjectId(getCurrentProjectId());
         projectDao.save(entity);
+    }
+
+    @Override
+    public void updatePurchaseApply(PurchaseApplySubmit submit, String projectId) {
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.eq("projectId",projectId));
+        ProjectEntity entity = projectDao.findByCriteria(dc);
+        Set<ItemEntity> setItems = entity.getItems();
+        itemDao.batchDelete(setItems);
+        setItems.clear();
+        TransformUtil.updateEntity(submit,entity);
+        projectDao.update(entity);
     }
 }
