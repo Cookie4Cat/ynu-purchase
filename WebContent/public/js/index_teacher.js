@@ -39,6 +39,10 @@
                 templateUrl: "./public/template/teaViewDetail.html",
                 controller: "viewProjectController"
             })
+            .when("/teaUpdate",{
+                templateUrl: "./public/template/teaUpdateProjectTpl.html",
+                controller: "updateController"
+            })
             .when("/check", {
                 templateUrl: "./public/template/financial_checkTpl.html",
                 //controller: "workController"
@@ -145,9 +149,6 @@
             history.go(0);
             $scope.showProject($scope.currentProjectId);
         };
-        $scope.resubmitProject = function () {
-            console.log("resubmit " + $scope.currentProjectId);
-        };
 
         //此处获取第一页
         $scope.getProjectList($scope.currentPageNum);
@@ -175,6 +176,55 @@
                 $scope.xianshi = true;
             })
         }
+    });
+
+    app.controller('updateController',function ($scope,$http) {
+            var url = window.location.toString();
+            var projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
+            $scope.projectId = projectId;
+            $http({
+                url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
+                method:"get"
+            }).success(function(response){
+                $scope.project = response;
+                $scope.xianshi = true;
+                console.log($scope.project);
+            });
+          $scope.addItem = function() {
+            var item = {};
+            item['type'] = "";
+            item['name'] = "";
+            item['count'] = "";
+            item['unit'] = "";
+            item['budget'] = "";
+            item['totalMoney_real'] = "";
+            item['address'] = "";
+            $scope.project.table.push(item);
+        }
+           $scope.removeItem = function(index) {
+            $scope.project.table.splice(index, 1)
+           }
+          $scope.clear = function() {
+            if (confirm('是否确认清空？')) {
+                $scope.project = {table:[]};
+                $scope.addItem();
+            } else {}
+           }
+
+           $scope.reSubmit = function () {
+               $http({
+                   url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
+                   method:"post",
+                   data: $scope.project
+               }).success(function(response){
+                   if(response == 1){
+                       alert("提交成功");
+                       window.href = "#/teaViewHanding";
+                   }else{
+                       alert("提交失败！！！");
+                   }
+               })
+           }
     });
 /**
  * 结束

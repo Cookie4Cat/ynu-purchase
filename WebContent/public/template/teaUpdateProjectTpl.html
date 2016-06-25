@@ -14,20 +14,20 @@
             <div class="col-md-10">
                 <label class="radio-inline">G-货物（</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="form.type" ng-change="change()" >国产</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="project.purchaseType" ng-change="change()" >国产</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="form.type" ng-change="change()">进口）</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="project.purchaseType"  ng-change="change()">进口）</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="form.type" ng-change="change()">C-工程</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="project.purchaseType" ng-change="change()">C-工程</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="form.type" ng-change="change()">S-服务</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="project.purchaseType" ng-change="change()">S-服务</label>
             </div>
         </div>
         <div class="row">
             <div class="col-md-9 col-md-offset-1">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon1">项目名称</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon1"  ng-model="form.name" >
+                    <input type="text" class="form-control"aria-describedby="basic-addon1" ng-model="project.projectName" >
 
                 </div>
             </div>
@@ -36,21 +36,21 @@
             <div class="col-md-3 col-md-offset-1">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon2" >项目负责人</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon2" ng-model="form.leader">
+                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="project.leader">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon3" >负责人电话</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3" ng-model="form.telephone">
+                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="project.m_tel">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon9" >固定电话</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="form.guhua">
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="project.s_tel">
                 </div>
             </div>
 
@@ -59,14 +59,14 @@
             <div class="col-md-3 col-md-offset-1">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon4" >预算总额</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon4" ng-model="form.money">
+                    <input type="text" class="form-control"aria-describedby="basic-addon4"  ng-model="project.totalMoney_pre">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon5"  >资金来源</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon5" ng-model="form.source">
+                    <input type="text" class="form-control"aria-describedby="basic-addon5" ng-model="project.comeFrom">
                 </div>
             </div>
 
@@ -74,7 +74,7 @@
         <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
             <div class="input-group ">
                 <span class="input-group-addon biaodan" id="basic-addon6">购置理由</span>
-                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7" ng-model="form.reason"></textarea>
+                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7"  ng-model="project.reason"></textarea>
             </div>
         </div>
         <div class="form-group" style="TEXT-ALIGN: center;">
@@ -92,7 +92,7 @@
                         <td class="td"style="height: 30px;vertical-align: middle">添加</td>
                         <td class="td"style="height: 30px;vertical-align: middle">删除</td>
                     </tr>
-                    <tr class="col_item" ng-repeat="item in items">
+                    <tr class="col_item" ng-repeat="item in project.table">
                         <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
                         <td>
                             <select class="form-control" ng-model=" item['type']" ng-show="xianshi">
@@ -133,7 +133,7 @@
         </div>
         <div class="form-group" style="margin-top: 50px">
             <div class="col-md-2 col-md-offset-4">
-                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="formSubmit()">重新提交</button>
+                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="reSubmit()">重新提交</button>
             </div>
             <div class="col-md-2">
                 <button class="btn btn-danger " type="button" style="width: 70%;" ng-click="clear()">清空</button>
