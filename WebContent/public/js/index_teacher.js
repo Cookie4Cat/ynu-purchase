@@ -146,8 +146,13 @@
         };
         $scope.showCurrentProject = function () {
             console.log("show " + $scope.currentProjectId);
-            history.go(0);
             $scope.showProject($scope.currentProjectId);
+            location.reload();
+        };
+
+        $scope.reSubmit = function (projectId) {
+            location.href="/index_teacher.html#/teaUpdate?projectId=" + projectId;
+            location.reload();
         };
 
         //此处获取第一页
@@ -219,12 +224,31 @@
                }).success(function(response){
                    if(response == 1){
                        alert("提交成功");
-                       window.href = "#/teaViewHanding";
+                       location.href = "/index_teacher.html#/teaViewHanding";
                    }else{
                        alert("提交失败！！！");
                    }
                })
            }
+
+        $scope.change = function() {
+            if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
+                $scope.xianshi = true;
+
+            } else if ($scope.project.purchaseType == "C-工程") {
+                $scope.xianshi = false;
+                $scope.replace = "C-工程";
+                for(var i in $scope.project.table){
+                    $scope.project.table[i].type = "C-工程";
+                }
+            } else if ($scope.project.purchaseType == "S-服务") {
+                $scope.xianshi = false;
+                $scope.replace = "S-服务";
+                for(var j in $scope.project.table){
+                    $scope.project.table[j].type = "S-服务";
+                }
+            }
+        };
     });
 /**
  * 结束

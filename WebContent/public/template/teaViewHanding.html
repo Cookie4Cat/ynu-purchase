@@ -113,8 +113,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
                     <span ng-switch="action">
-                        <button ng-switch-when="查看详情" class="btn btn-primary" data-dismiss="modal" type="button" ng-click="showCurrentProject()">查看详情</button>
-                        <a ng-switch-when="重新提交" class="btn btn-primary"  type="button" href="/index_teacher.html#/teaUpdate?projectId={{currentProjectId}}">重新提交</a>
+                        <button ng-switch-when="查看详情" class="btn btn-primary" type="button" ng-click="showCurrentProject()">查看详情</button>
+                        <button ng-switch-when="重新提交" class="btn btn-primary" data-dismiss="modal"  type="button" ng-click="reSubmit(currentProjectId)">重新提交</button>
                     </span>
                 </div>
             </div>
