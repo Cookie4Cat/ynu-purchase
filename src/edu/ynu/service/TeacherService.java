@@ -23,4 +23,5 @@ public interface TeacherService {
 
 	void submitPurchaseApply(PurchaseApplySubmit submit,String userId);
 
+	void updatePurchaseApply(PurchaseApplySubmit submit,String projectId);
 }

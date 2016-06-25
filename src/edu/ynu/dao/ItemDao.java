@@ -1,5 +1,9 @@
 package edu.ynu.dao;
 
-public interface ItemDao {
+import edu.ynu.entity.ItemEntity;
 
+import java.util.Set;
+
+public interface ItemDao {
+    void batchDelete(Set<ItemEntity> itemSet);
 }

@@ -40,6 +40,26 @@ public class TransformUtil {
             itemSet.add(item);
         }
     }
+    public static void updateEntity(final PurchaseApplySubmit message,ProjectEntity entity){
+        entity.setProposerName(message.getLeader());
+        entity.setProposerMobile(message.getM_tel());
+        entity.setProposerTel(message.getS_tel());
+        entity.setProjectName(message.getProjectName());
+        entity.setPurchaseType(message.getPurchaseType());
+        entity.setSum(doubleToString(message.getTotalMoney_pre()));
+        entity.setFundSource(message.getComeFrom());
+        entity.setApplyReason(message.getReason());
+        //转换设备列表
+        List<PurchaseItem> itemList = message.getTable();
+        //System.out.println(itemList);
+        Set<ItemEntity> itemSet = entity.getItems();
+        mapItem2Entity(itemList,itemSet,entity);
+        //System.out.println(itemSet);
+        entity.setItems(itemSet);
+        entity.setAgentName("代理人名字");
+        entity.setAgentMobile("代理人电话");
+        entity.setAgentTel("代理人固话");
+    }
     private static void mapItem2Message(final Set<ItemEntity> itemSet,List<PurchaseItem> itemList){
         for(ItemEntity ie:itemSet){
             PurchaseItem pi = new PurchaseItem();
@@ -56,24 +76,7 @@ public class TransformUtil {
     }
     public static ProjectEntity toEntity(final PurchaseApplySubmit message){
         ProjectEntity entity = new ProjectEntity();
-        entity.setProposerName(message.getLeader());
-        entity.setProposerMobile(message.getM_tel());
-        entity.setProposerTel(message.getS_tel());
-        entity.setProjectName(message.getProjectName());
-        entity.setPurchaseType(message.getPurchaseType());
-        entity.setSum(doubleToString(message.getTotalMoney_pre()));
-        entity.setFundSource(message.getComeFrom());
-        entity.setApplyReason(message.getReason());
-        //转换设备列表
-        List<PurchaseItem> itemList = message.getTable();
-        System.out.println(itemList);
-        Set<ItemEntity> itemSet = new HashSet<>();
-        mapItem2Entity(itemList,itemSet,entity);
-        System.out.println(itemSet);
-        entity.setItems(itemSet);
-        entity.setAgentName("代理人名字");
-        entity.setAgentMobile("代理人电话");
-        entity.setAgentTel("代理人固话");
+        updateEntity(message,entity);
         return entity;
     }
     public static PurchaseApplySubmit toMessage(final ProjectEntity entity){

@@ -79,6 +79,13 @@ public class TeacherController {
 		return teacherService.findByPID(pid);
 	}
 
+	@RequestMapping(value = "/projects/{pid}",method=RequestMethod.POST)
+	public Integer updatePurchaseApply(@RequestBody PurchaseApplySubmit submit,@PathVariable String pid){
+		System.out.print(submit);
+		teacherService.updatePurchaseApply(submit,pid);
+		return 1;
+	}
+
 	@RequestMapping(value = "/projects/handling/count",method = RequestMethod.GET)
 	public Integer countHandlingProjects(HttpServletRequest request)throws Exception{
 		String teacherId = (String) request.getAttribute("userId");
