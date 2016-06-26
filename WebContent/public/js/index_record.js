@@ -43,7 +43,45 @@
     }]);
     //首页
     app.controller('indexController', function($scope,$http) {
+        //获取总数以分页
+        $scope.getPageCount = function (url) {
+            $http.get(url)
+                .success(function(response){
+                    $scope.indexList = [];
+                    $scope.pageNum = Math.ceil(response/8);
+                    if($scope.pageNum<=1){
+                        $scope.hidePagination = true;
+                    }
+                    for(var i=0;i<$scope.pageNum;i++){
+                        $scope.indexList.push(i+1);
+                    }
+                });
+        };
 
+        //根据页码获取项目列表
+        $scope.getProjectList = function (pageNum) {
+            $http.get("/recorder/plans/handling?token=" + sessionStorage.getItem("token")
+                + "&countPerPage=8&pageNum=" + pageNum
+            ).success(function (response) {
+                $scope.handlingPlanList = response;
+            });
+        };
+
+        //进入页面先加载第一页
+        $scope.getPageCount("/recorder/plans/handling/count?token=" + sessionStorage.getItem("token"));
+        $scope.getProjectList(1);
+
+        //换页
+        $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
+            }
+            $scope.currentPageNum = pageNum;
+            $scope.getProjectList(pageNum);
+        };
     });
     //创建采购批次
     app.controller("createPlanController", function ($scope,$http) {
