@@ -21,6 +21,8 @@ public class PurchaseApplySubmit {
 	private String m_tel;
 	// 固话
 	private String s_tel;
+	//代理人电话
+	private String angentMobile;
 	// 预算总额
 	private Double totalMoney_pre;
 	// 资金来源
@@ -35,9 +37,16 @@ public class PurchaseApplySubmit {
 	private String fileUrl;
 	//初审意见
 	private String suggestion;
-
 	//采购项目清单
 	private List<PurchaseItem> table;
+
+	public String getAngentMobile() {
+		return angentMobile;
+	}
+
+	public void setAngentMobile(String angentMobile) {
+		this.angentMobile = angentMobile;
+	}
 
 	public String getSuggestion() {
 		return suggestion;
