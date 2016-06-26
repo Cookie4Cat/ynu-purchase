@@ -3,10 +3,10 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
                 <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
-                    <label class="btn btn-primary ">
+                    <label class="btn btn-primary active">
                         <a href="#/recorderIndex" class="LittleNav">查看待处理</a>
                     </label>
-                    <label class="btn btn-primary active ">
+                    <label class="btn btn-primary">
                         <a href="#/recorderCreatePlan" class="LittleNav">创建采购批次</a>
                     </label>
                     <label class="btn btn-primary ">
@@ -23,10 +23,11 @@
                     <td>序号</td>
                     <td>采购计划编号</td>
                     <td>时间</td>
+                    <td>状态</td>
                     <td>操作</td>
                     <td>下载</td>
                 </tr>
-                <tr ng-repeat="plan in plans">
+                <tr ng-repeat="plan in handlingPlanList">
                     <td>
                         <p>{{$index+1}}</p>
                     </td>
@@ -34,11 +35,14 @@
                         <p>{{plan.planId}}</p>
                     </td>
                     <td>
-                        <p>{{plan.time}}</p>
+                        <p>{{plan.time | limitTo:10}}</p>
+                    </td>
+                    <td>
+                        <p>{{plan.status}}</p>
                     </td>
                     <td ng-switch="plan.status">
-                        <button ng-switch-when="待审批" class="btn btn-info " type="button"  ng-click="methods.showDetail(plan.projectId)">批复</button>
-                        <button ng-switch-when="初采购" class="btn btn-info " type="button"  ng-click="methods.showDetail(plan.projectId)">录入合同</button>
+                        <button ng-switch-when="待审批" class="btn btn-success " type="button"  ng-click="methods.showDetail(plan.projectId)">审查批复</button>
+                        <button ng-switch-when="待采购" class="btn btn-info " type="button"  ng-click="methods.showDetail(plan.projectId)">录入合同</button>
                     </td>
                     <td>
                         <a class="btn btn-info " type="button" href="{{plan.fileUrl}}" download>下载</a>
