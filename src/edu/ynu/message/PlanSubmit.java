@@ -10,11 +10,13 @@ public class PlanSubmit {
     //拟采购方式
     private String prePurchaseType;
     //批复形式
-    private String purchaseType;
+    private String orgType;
     //采购方式
-    private String replyType;
+    private String purchaseType;
     //提交时间
     private String time;
+    //状态
+    private String status;
     //批次勾选的项目id列表
     List<String> projectIdList;
 
@@ -42,20 +44,20 @@ public class PlanSubmit {
         this.prePurchaseType = prePurchaseType;
     }
 
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
+
     public String getPurchaseType() {
         return purchaseType;
     }
 
     public void setPurchaseType(String purchaseType) {
         this.purchaseType = purchaseType;
-    }
-
-    public String getReplyType() {
-        return replyType;
-    }
-
-    public void setReplyType(String replyType) {
-        this.replyType = replyType;
     }
 
     public String getTime() {
@@ -72,5 +74,13 @@ public class PlanSubmit {
 
     public void setProjectIdList(List<String> projectIdList) {
         this.projectIdList = projectIdList;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
