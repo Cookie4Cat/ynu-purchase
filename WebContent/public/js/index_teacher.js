@@ -106,7 +106,7 @@
      *  王浩 2016-06-12
      *  起始
      */
-    app.controller("handingController", function($scope, $http) {
+    app.controller("handingController", function($scope, $http,$timeout) {
         $scope.currentPageNum = 1;
         $http.get("/teacher/projects/handling/count?token" + sessionStorage.getItem("token"))
             .success(function(response){
@@ -144,15 +144,16 @@
         $scope.showProject = function (projectId) {
             location.href = "/index_teacher.html#/teaViewDetail?projectId="+projectId;
         };
-        $scope.showCurrentProject = function () {
-            console.log("show " + $scope.currentProjectId);
-            $scope.showProject($scope.currentProjectId);
-            location.reload();
+        $scope.showCurrentProject = function (projectId) {
+            $timeout(function () {
+                location.href = "/index_teacher.html#/teaViewDetail?projectId="+projectId;
+            },500);
         };
 
         $scope.reSubmit = function (projectId) {
-            location.href="/index_teacher.html#/teaUpdate?projectId=" + projectId;
-            location.reload();
+            $timeout(function () {
+                location.href="/index_teacher.html#/teaUpdate?projectId=" + projectId;
+            },500);
         };
 
         //此处获取第一页
@@ -183,7 +184,7 @@
         }
     });
 
-    app.controller('updateController',function ($scope,$http) {
+    app.controller('updateController',function ($scope,$http,$timeout) {
             var url = window.location.toString();
             var projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
             $scope.projectId = projectId;
@@ -193,17 +194,12 @@
             }).success(function(response){
                 $scope.project = response;
                 $scope.xianshi = true;
+                if(response.table.length==0)
+                    $scope.addItem();
                 console.log($scope.project);
             });
           $scope.addItem = function() {
             var item = {};
-            item['type'] = "";
-            item['name'] = "";
-            item['count'] = "";
-            item['unit'] = "";
-            item['budget'] = "";
-            item['totalMoney_real'] = "";
-            item['address'] = "";
             $scope.project.table.push(item);
         }
            $scope.removeItem = function(index) {
@@ -224,7 +220,9 @@
                }).success(function(response){
                    if(response == 1){
                        alert("提交成功");
-                       location.href = "/index_teacher.html#/teaViewHanding";
+                       $timeout(function() {
+                           location.href = "#/teaViewHanding";
+                       }, 1000);
                    }else{
                        alert("提交失败！！！");
                    }
@@ -294,58 +292,36 @@
         $scope.getCompletedList($scope.currentPageNum);
     });
 
-    app.controller('teaFormCtr', function($scope, $http, $timeout, $rootScope) {
-        $scope.form = {};
-        $scope.items = [];
-
-        $rootScope.addItem = function() {
+    app.controller('teaFormCtr', function($scope, $http, $timeout) {
+        $scope.project = {table:[]};
+        $scope.addItem = function() {
             var item = {};
-            item['type'] = "";
-            item['name'] = "";
-            item['count'] = "";
-            item['unit'] = "";
-            item['budget'] = "";
-            item['totalMoney_real'] = "";
-            item['address'] = "";
-            $scope.items.push(item);
+            $scope.project.table.push(item);
         }
+        //添加一行项目设备输入框
         $scope.addItem();
         $scope.removeItem = function(index) {
-            $scope.items.splice(index, 1)
+            $scope.project.table.splice(index, 1)
         }
         $scope.clear = function() {
             if (confirm('是否确认清空？')) {
-                $scope.form = {};
-                $scope.items = [];
+                $scope.project = {table:[]};
                 $scope.addItem();
             } else {}
         }
 
         $scope.formSubmit = function() {
             if (confirm('是否确认提交？')) {
-
-                console.log($scope.form, $scope.items, $scope.form.type);
-
                 $http({
                     url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
-                    data: {
-                        "purchaseType": $scope.form.type,
-                        "projectName": $scope.form.name,
-                        "leader": $scope.form.leader,
-                        "m_tel": $scope.form.telephone,
-                        "s_tel": $scope.form.guhua,
-                        "totalMoney_pre": $scope.form.money,
-                        "comeFrom": $scope.form.source,
-                        "reason": $scope.form.reason,
-                        "table": $scope.items
-                    }
+                    data: $scope.project
                 }).success(function(response) {
                     if (response == "1") {
                         alert('已成功提交');
                         $timeout(function() {
                             location.href = "#/teaViewHanding";
-                        }, 3000);
+                        }, 1000);
                     } else if (response == "2") {
                         alert('ERROR');
                     }
@@ -354,27 +330,16 @@
         }
         $scope.draftSubmit = function() {
             if (confirm('是否确定存入草稿？')) {
-
-                console.log($scope.form, $scope.items, $scope.form.type);
-                
                 $http({
                     url: "/teacher/PurchaseApplySheet/submitDraft" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
-                    data: {
-                        "purchaseType": $scope.form.type,
-                        "projectName": $scope.form.name,
-                        "leader": $scope.form.leader,
-                        "m_tel": $scope.form.telephone,
-                        "s_tel": $scope.form.guhua,
-                        "totalMoney_pre": $scope.form.money,
-                        "comeFrom": $scope.form.source,
-                        "reason": $scope.form.reason,
-                        "table": $scope.items
-                    }
+                    data: $scope.project
                 }).success(function(response) {
                     if (response == "1") {
                         alert('已成功提交');
-                        location.href = "#/teaViewHanding";
+                        $timeout(function() {
+                            location.href = "#/teaViewHanding";
+                        }, 1000);
                     } else{
                         alert('ERROR');
                     }
@@ -382,20 +347,20 @@
             }
         };
         $scope.change = function() {
-            if ($scope.form.type == "国产" || $scope.form.type == "进口") {
+            if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
                 $scope.xianshi = true;
 
-            } else if ($scope.form.type == "C-工程") {
+            } else if ($scope.project.purchaseType == "C-工程") {
                 $scope.xianshi = false;
                 $scope.replace = "C-工程";
-                for(var i in $scope.items){
-                    $scope.items[i].type = "C-工程";
+                for(var i in $scope.project.table){
+                    $scope.project.table[i].type = "C-工程";
                 }
-            } else if ($scope.form.type == "S-服务") {
+            } else if ($scope.project.purchaseType == "S-服务") {
                 $scope.xianshi = false;
                 $scope.replace = "S-服务";
-                for(var j in $scope.items){
-                    $scope.items[j].type = "S-服务";
+                for(var j in $scope.project.table){
+                    $scope.project.table[j].type = "S-服务";
                 }
             }
         };
@@ -404,22 +369,12 @@
                 url: "teacher/PurchaseApplySheet/draft" + "?token=" + sessionStorage.getItem("token"),
                 method: "Get"
             }).success(function(response) {
-                $scope.form.type = response.purchaseType;
-                $scope.form.name = response.projectName;
-                $scope.form.leader = response.leader;
-                $scope.form.telephone = response.m_tel;
-                $scope.form.guhua = response.s_tel;
-                $scope.form.money = response.totalMoney_pre;
-                $scope.form.source = response.comeFrom;
-                $scope.form.reason = response.reason;
-                $scope.items = response.table;
+                $scope.project = response;
                 $scope.xianshi = true;
-                if($scope.items.length == 0){
-                    $scope.items.push({});
+                if($scope.project.table.length == 0){
+                    $scope.project.table.push({});
                 }
                 $scope.change();
-                console.log(response);
-                console.log($scope.form.type);
             })
         };
     });
