@@ -48,6 +48,8 @@ public class ProjectEntity {
     private String status;
     //打印文件的url
     private String fileUrl;
+    //对应的采购计划
+    private PlanEntity plan;
     // 所包含的采购设备
     private Set<ItemEntity> items = new HashSet<ItemEntity>();
 
@@ -242,5 +244,18 @@ public class ProjectEntity {
 
     public void setItems(Set<ItemEntity> items) {
         this.items = items;
+    }
+
+    //绑定采购计划
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Cascade(value = {CascadeType.SAVE_UPDATE})
+    @JoinColumn(name = "plan_id")
+
+    public PlanEntity getPlan() {
+        return plan;
+    }
+
+    public void setPlan(PlanEntity plan) {
+        this.plan = plan;
     }
 }
