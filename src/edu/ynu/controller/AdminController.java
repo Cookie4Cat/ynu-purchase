@@ -1,6 +1,7 @@
 package edu.ynu.controller;
 
 import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.SampleMessage;
 import edu.ynu.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,8 +61,8 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/projects/{id}/suggestion",method = RequestMethod.POST)
-    public Integer addProjectSuggestion(@PathVariable String id,String content,String result)throws Exception{
-        adminService.addProjectSuggestion(id,content,result);
+    public Integer addProjectSuggestion(@PathVariable String id, @RequestBody SampleMessage message)throws Exception{
+        adminService.addProjectSuggestion(id,message.getContent(),message.getFlag());
         return 1;
     }
     @RequestMapping(value = "/projects/{id}/setup",method = RequestMethod.POST)
