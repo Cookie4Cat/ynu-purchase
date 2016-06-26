@@ -26,6 +26,7 @@ public class RecorderController {
 
     @RequestMapping(value = "/plans/handling",method = RequestMethod.GET)
     public List<PlanEntity> listHandlingPlans(Integer countPerPage, Integer pageNum){
+        System.out.println("呵呵" + countPerPage + pageNum);
         return recorderService.listHandlingPlan(countPerPage,pageNum);
     }
 
