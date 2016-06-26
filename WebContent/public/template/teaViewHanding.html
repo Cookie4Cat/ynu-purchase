@@ -1,15 +1,15 @@
 <div class="">
     <!--<h2 class="page-header subhead">查看待处理</h2>-->
     <div class="col-md-8 col-md-offset-1">
-        <div class="btn-group" data-toggle="buttons" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
+        <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
             <label class="btn btn-primary active">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked><a href="#/teaViewHanding" class="LittleNav">查看待处理</a>
+                <a href="#/teaViewHanding" class="LittleNav">查看待处理</a>
             </label>
             <label class="btn btn-primary ">
-                <input type="radio" name="options" id="option2" autocomplete="off"><a href="#/teacherIndex" class="LittleNav">申请信息填写</a>
+                <a href="#/teacherIndex" class="LittleNav">申请信息填写</a>
             </label>
             <label class="btn btn-primary ">
-                <input type="radio" name="options" id="option3" autocomplete="off"><a href="#/TeaHistory" class="LittleNav">查看历史申请</a>
+                <a href="#/TeaHistory" class="LittleNav">查看历史申请</a>
             </label>
         </div>
     </div>
@@ -113,7 +113,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
                     <span ng-switch="action">
-                        <button ng-switch-when="查看详情" class="btn btn-primary" type="button" ng-click="showCurrentProject()">查看详情</button>
+                        <button ng-switch-when="查看详情" class="btn btn-primary" data-dismiss="modal"  type="button" ng-click="showCurrentProject(currentProjectId)">查看详情</button>
                         <button ng-switch-when="重新提交" class="btn btn-primary" data-dismiss="modal"  type="button" ng-click="reSubmit(currentProjectId)">重新提交</button>
                     </span>
                 </div>
