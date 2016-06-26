@@ -88,8 +88,8 @@
                         <p ng-switch-when="待立项" class="fontGreen">{{project.status}}</p>
                     </td>
                     <td ng-switch="project.status">
-                        <button ng-switch-when="待立项" class="btn btn-success" type="button">立项</button>
-                        <button ng-switch-when="待审核" class="btn btn-primary" type="button">查看</button>
+                        <button ng-switch-when="待立项" class="btn btn-success" type="button" ng-click="setUp(project.projectId)">查看</button>
+                        <button ng-switch-when="待审核" class="btn btn-primary" type="button" ng-click="verify(project.projectId)">查看</button>
                     </td>
                 </tr>
             </table>
