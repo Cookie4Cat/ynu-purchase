@@ -43,6 +43,7 @@ public class AdminServiceTest {
     @Test
     public void testFindAllCount(){
         Integer count = adminService.countHistoryProjectsByCondition("","","采购完成");
+        adminService.countHandlingProjects();
         print(count);
     }
 }
