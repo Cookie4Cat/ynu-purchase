@@ -18,28 +18,7 @@
 
 
     app.config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when("/index", {
-            templateUrl: "/public/template/indexTpl.html",
-            controller: "indexController"
-        })
-
-        .when("/teacherIndex", {
-                templateUrl: "/public/template/teaFillOut.html",
-                controller: "teaFormCtr"
-            })
-            .when("/TeaHistory", {
-                templateUrl: "/public/template/teaViewHistory.html",
-                //controller: "CheckMessageController"
-            })
-            .when("/teaViewHanding", {
-                templateUrl: "/public/template/teaViewHanding.html",
-                controller: "handingController"
-            })
-            .when("/check", {
-                templateUrl: "/public/template/financial_checkTpl.html",
-                //controller: "workController"
-            })
-            .when("/adminIndex", {
+        $routeProvider.when("/adminIndex", {
                 templateUrl: "/public/template/adminIndex.html",
                 controller: "indexController"
             })
@@ -55,45 +34,9 @@
                 templateUrl: "/public/template/projectVerify.html",
                 controller: "setUpController"
             })
-            .when("/operatorIndex", {
-                templateUrl: "/public/template/operatorIndex.html",
-                //controller: "workController"
-            })
-            .when("/operatorIndex", {
-                templateUrl: "/public/template/operatorIndex.html",
-                //controller: "workController"
-            })
-            .when("/negRusult", {
-                templateUrl: "/public/template/negotiationResult.html",
-                //controller: "workController"
-            })
-            .when("/operatorHistory", {
-                templateUrl: "/public/template/operatorHistory.html",
-                controller: "opHistoryController"
-            })
-            .when("/negotiationList", {
-                templateUrl: "/public/template/negotiationList.html",
-                //controller: "workController"
-            })
-            .when("/negotiationCheck", {
-                templateUrl: "/public/template/negotiationCheck.html",
-                //controller: "workController"
-            })
-            .when("/operatorHistoryDetail", {
-                templateUrl: "/public/template/operatorHistoryDetail.html",
-                //controller: "workController"
-            })
-            .when("/approvalHistory", {
-                templateUrl: "/public/template/approvalHistoryTpl.html",
-                //controller: "appController"
-            })
-            .when("/approvalClassify1", {
-                templateUrl: "/public/template/approvalClassify1Tpl.html",
-                //controller: "workController"
-            })
-            .when("/approvalClassify2", {
-                templateUrl: "/public/template/approvalClassify2Tpl.html",
-                //controller: "workController"
+            .when("/adminView",{
+                templateUrl: "/public/template/adminView.html",
+                controller: "viewController"
             })
             .otherwise({ redirectTo: "/index" });
 
@@ -249,6 +192,23 @@
                 $scope.handlingProjectList = response;
             });
         };
+        
+        //查看
+        $scope.view = function (pid) {
+            location.href = "/index_admin.html#/adminView?projectId=" + pid;
+        }
+    });
+
+    app.controller('viewController', function($scope, $http) {
+        //获取pid
+        var url = window.location.toString();
+        $scope.projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
+
+        //根据pid获取项目实体
+        $http.get("/admin/projects/" + $scope.projectId + "?token="+ sessionStorage.getItem("token") )
+            .success(function(response) {
+                $scope.project = response;
+            });
     });
 
     //审核控制器
