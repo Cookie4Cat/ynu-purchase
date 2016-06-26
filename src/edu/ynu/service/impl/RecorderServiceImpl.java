@@ -105,7 +105,5 @@ public class RecorderServiceImpl implements RecorderService {
     public void submitContract(ContractEntity contract) {
         PlanEntity plan = findByPlanId(contract.getPlanNum());
         contractDao.save(contract);
-           plan.setConstract(contract);
-        contract.setPlan(plan);
     }
 }
