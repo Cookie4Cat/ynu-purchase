@@ -7,7 +7,9 @@ import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PlanSubmit;
+import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.RecorderService;
+import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,5 +107,13 @@ public class RecorderServiceImpl implements RecorderService {
     public void submitContract(ContractEntity contract) {
         PlanEntity plan = findByPlanId(contract.getPlanNum());
         contractDao.save(contract);
+    }
+
+    @Override
+    public List<PurchaseApplySubmit> listProjectsListSetUp() {
+        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
+        dc.add(Restrictions.eq("status","已立项"));
+        List<ProjectEntity> entityList = projectDao.listByCriteria(dc);
+        return TransformUtil.transformToMessageList(entityList);
     }
 }
