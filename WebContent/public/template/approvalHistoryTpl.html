@@ -89,7 +89,7 @@
                         <p ng-switch-when="采购完成" class="fontGreen">{{project.status}}</p>
                     </td>
                     <td>
-                        <button class="btn btn-primary" type="button">查看</button>
+                        <button class="btn btn-primary" type="button" ng-click="view(project.projectId)">查看</button>
                     </td>
                 </tr>
             </table>
