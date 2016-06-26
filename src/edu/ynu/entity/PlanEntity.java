@@ -15,7 +15,7 @@ import java.util.Set;
 public class PlanEntity {
     //采购计划的主键
     private int id;
-    //采购计划的变化
+    //采购计划的编号
     private String planId;
     //拟批复形式
     private String preReplyType;
