@@ -25,7 +25,7 @@ public class ContractEntity {
     //采购计划编号
     private String planNum;
     //一对一的采购计划
-    private PlanEntity plan;
+//    private PlanEntity plan;
 
     @Id
     @GeneratedValue
@@ -108,12 +108,12 @@ public class ContractEntity {
         this.sum = sum;
     }
 
-    @OneToOne(mappedBy = "constract")
-    public PlanEntity getPlan() {
-        return plan;
-    }
-
-    public void setPlan(PlanEntity plan) {
-        this.plan = plan;
-    }
+//    @OneToOne(mappedBy = "constract")
+//    public PlanEntity getPlan() {
+//        return plan;
+//    }
+//
+//    public void setPlan(PlanEntity plan) {
+//        this.plan = plan;
+//    }
 }
