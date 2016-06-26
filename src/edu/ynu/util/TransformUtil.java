@@ -57,7 +57,7 @@ public class TransformUtil {
         //System.out.println(itemSet);
         entity.setItems(itemSet);
         entity.setAgentName("代理人名字");
-        entity.setAgentMobile(message.getAngentMobile());
+        entity.setAgentMobile(message.getAgentMobile());
         entity.setAgentTel("代理人固话");
     }
     private static void mapItem2Message(final Set<ItemEntity> itemSet,List<PurchaseItem> itemList){
@@ -94,7 +94,7 @@ public class TransformUtil {
         message.setUpdateTime(entity.getSubmitTime());
         message.setFileUrl(entity.getFileUrl());
         message.setSuggestion(entity.getComment());
-        message.setAngentMobile(entity.getAgentMobile());
+        message.setAgentMobile(entity.getAgentMobile());
         //转换设备列表
         Set<ItemEntity> itemSet = entity.getItems();
         List<PurchaseItem> itemList = new ArrayList<>();
