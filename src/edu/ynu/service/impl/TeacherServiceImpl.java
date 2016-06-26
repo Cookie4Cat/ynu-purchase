@@ -79,7 +79,7 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public List<PurchaseApplySubmit> listHistorySubmit(String teacherId, Integer count, Integer pageNum) {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        String[] status = {"已立项","待加入采购计划","待采购", "采购完成"};
+        String[] status = {"已立项","待采购", "采购完成"};
         dc.add(Restrictions.in("status",status));
         return TransformUtil.transformToMessageList(projectDao.listByCriteria(dc,count,pageNum));
     }
@@ -87,7 +87,7 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public Integer countHistorySubmit(String teacherId) {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        String[] status = {"已立项","待加入采购计划","待采购", "采购完成"};
+        String[] status = {"已立项","待采购", "采购完成"};
         dc.add(Restrictions.in("status",status));
         return projectDao.countByCriteria(dc);
     }
