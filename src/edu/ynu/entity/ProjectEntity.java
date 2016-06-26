@@ -247,7 +247,7 @@ public class ProjectEntity {
     }
 
     //绑定采购计划
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @Cascade(value = {CascadeType.SAVE_UPDATE})
     @JoinColumn(name = "plan_id")
 
