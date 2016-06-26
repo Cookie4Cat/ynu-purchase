@@ -27,8 +27,6 @@ public class PlanEntity {
     private String purchaseType;
     //提交时间
     private String time;
-    //对应的合同
-    private ContractEntity constract;
     //状态
     private String status;
     //对应的采购项目
@@ -125,13 +123,13 @@ public class PlanEntity {
         this.projects = projects;
     }
 
-    @OneToOne
-    @JoinColumn(name = "constrct_id")
-    public ContractEntity getConstract() {
-        return constract;
-    }
-
-    public void setConstract(ContractEntity constract) {
-        this.constract = constract;
-    }
+//    @OneToOne
+//    @JoinColumn(name = "constrct_id")
+//    public ContractEntity getConstract() {
+//        return constract;
+//    }
+//
+//    public void setConstract(ContractEntity constract) {
+//        this.constract = constract;
+//    }
 }
