@@ -56,6 +56,7 @@ public class BaseDao<T>  {
         Criteria criteria = detachedCriteria.getExecutableCriteria(currentSession());
         criteria.setFirstResult((pageNum-1)*countPerPage);
         criteria.setMaxResults(countPerPage);
+        criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
         List<T> list = criteria.list();
         return list;
     }
@@ -72,6 +73,7 @@ public class BaseDao<T>  {
     }
     public List<T> listByCriteria(DetachedCriteria detachedCriteria){
         Criteria criteria = detachedCriteria.getExecutableCriteria(currentSession());
+        criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
         List<T> list = criteria.list();
         return list;
     }

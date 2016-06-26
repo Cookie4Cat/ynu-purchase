@@ -40,10 +40,12 @@ public class RecorderServiceImpl implements RecorderService {
         Set<ProjectEntity> projects = new HashSet<>();
         for(String pid:submit.getProjectIdList()){
             ProjectEntity project = projectDao.findProjectByPId(pid);
+            project.setStatus("待审批");
             project.setPlan(plan);
             projects.add(project);
         }
         plan.setProjects(projects);
+        plan.setStatus("待审批");
         planDao.save(plan);
     }
 

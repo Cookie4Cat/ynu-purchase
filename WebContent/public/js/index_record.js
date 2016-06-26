@@ -82,12 +82,22 @@
             $scope.currentPageNum = pageNum;
             $scope.getProjectList(pageNum);
         };
+        $scope.approval = function (pid) {
+            location.href = "/index_record.html#/recorderApproval?planId=" + pid;
+        };
+        $scope.addInfo = function (pid) {
+            location.href = "/index_record.html#/recorderCreateContract?planId=" + pid;
+        }
     });
     //创建采购批次
     app.controller("createPlanController", function ($scope,$http) {
         $scope.planProjectList = [];
         $scope.readyProjectList = [];
         $scope.plan = {};
+        $http.get("/recorder/projects/setup?token="+ sessionStorage.getItem("token"))
+            .success(function(response){
+                $scope.readyProjectList = response;
+            });
         //加入到采购计划
         $scope.addToPlan = function (index) {
             console.log("add to plan " + index);
@@ -110,16 +120,16 @@
                 url: "/recorder/plans?token="+ sessionStorage.getItem("token"),
                 method: "post",
                 data:{
-                    "number":$scope.plan.number,
-                    "organization":$scope.plan.organization,
-                    "purchase":$scope.plan.purchase,
+                    "planId":$scope.plan.planId,
+                    "preOrgType":$scope.plan.preOrgType,
+                    "prePurchaseType":$scope.plan.prePurchaseType,
                     "projectIdList":projectIdList
                 }
             }).success(function(response) {
                 $scope.data = response;
                 if(response == 1){
                     alert("操作成功");
-                    location.href = "/index_recorder.html#/recorderIndex";
+                    location.href = "/index_record.html#/recorderIndex";
                 }else{
                     alert("运行出错");
                 }
@@ -136,7 +146,44 @@
     });
     //批复
     app.controller("approvalController", function ($scope,$http) {
-
+        var url = window.location.toString();
+        $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
+        $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
+            .success(function (response) {
+                $scope.plan = response;
+            });
+        $scope.approval = function (pid) {
+            $http({
+                url: "/recorder/plans/"+pid+"/reply?token="+ sessionStorage.getItem("token"),
+                method: "post",
+                data:{
+                    "orgType":$scope.plan.orgType,
+                    "purchaseType":$scope.plan.purchase
+                }
+            }).success(function(response) {
+                $scope.data = response;
+                if(response == 1){
+                    alert("操作成功");
+                    location.href = "/index_record.html#/recorderIndex";
+                }else{
+                    alert("运行出错");
+                }
+            });
+        };
+        $scope.refuse = function (pid) {
+            $http({
+                url: "/recorder/plans/"+pid+"/drop?token="+ sessionStorage.getItem("token"),
+                method: "post"
+            }).success(function(response) {
+                $scope.data = response;
+                if(response == 1){
+                    alert("操作成功");
+                    location.href = "/index_record.html#/recorderIndex";
+                }else{
+                    alert("运行出错");
+                }
+            });
+        }
     });
     //创建合同
     app.controller("createContractController", function ($scope,$http) {

@@ -3,6 +3,7 @@ package edu.ynu.controller;
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
 import edu.ynu.message.PlanSubmit;
+import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.RecorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +57,16 @@ public class RecorderController {
     @RequestMapping(value = "/contracts",method = RequestMethod.POST)
     public Integer submitContract(@RequestBody ContractEntity contract){
         recorderService.submitContract(contract);
+        return 1;
+    }
+
+    @RequestMapping(value = "/projects/setup",method = RequestMethod.GET)
+    public List<PurchaseApplySubmit> listSetUpProjects(){
+        return recorderService.listProjectsListSetUp();
+    }
+    @RequestMapping(value = "/plans",method = RequestMethod.POST)
+    public Integer submitPlan(@RequestBody PlanSubmit submit){
+        recorderService.submitPlan(submit);
         return 1;
     }
 }

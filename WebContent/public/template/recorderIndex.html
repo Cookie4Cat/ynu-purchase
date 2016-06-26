@@ -41,8 +41,8 @@
                         <p>{{plan.status}}</p>
                     </td>
                     <td ng-switch="plan.status">
-                        <button ng-switch-when="待审批" class="btn btn-success " type="button"  ng-click="methods.showDetail(plan.projectId)">审查批复</button>
-                        <button ng-switch-when="待采购" class="btn btn-info " type="button"  ng-click="methods.showDetail(plan.projectId)">录入合同</button>
+                        <button ng-switch-when="待审批" class="btn btn-success " type="button"  ng-click="approval(plan.planId)">审查批复</button>
+                        <button ng-switch-when="待采购" class="btn btn-info " type="button"  ng-click="addInfo(plan.planId)">录入合同</button>
                     </td>
                     <td>
                         <a class="btn btn-info " type="button" href="{{plan.fileUrl}}" download>下载</a>

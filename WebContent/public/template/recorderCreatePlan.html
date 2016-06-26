@@ -19,21 +19,21 @@
             <div class="col-md-3 col-md-offset-1">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon2" >采购计划编号</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.number">
+                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.planId">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon3" >拟批复组织形式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.organization">
+                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.preOrgType">
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon9" >拟批复采购方式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.purchase">
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.prePurchaseType">
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
                         <p>{{project.projectName}}</p>
                     </td>
                     <td>
-                        <p>{{project.orgType}}</p>
+                        <p>{{project.purchaseType}}</p>
                     </td>
                     <td>
                         <p>{{project.totalMoney_pre}}</p>
@@ -107,7 +107,7 @@
                         <p>{{project.projectName}}</p>
                     </td>
                     <td>
-                        <p>{{project.orgType}}</p>
+                        <p>{{project.purchaseType}}</p>
                     </td>
                     <td>
                         <p>{{project.totalMoney_pre}}</p>
