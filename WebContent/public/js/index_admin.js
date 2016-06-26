@@ -1,4 +1,4 @@
-! function(angular, window, b) {
+! function(angular, window) {
     var app = angular.module('myApp', ['ngRoute']);
 
     app.directive("navbar", function() {
@@ -239,7 +239,7 @@
                 }else{
                     alert("运行出错");
                 }
-            })
+            });
         };
         //审核不通过
         $scope.refuse = function() {

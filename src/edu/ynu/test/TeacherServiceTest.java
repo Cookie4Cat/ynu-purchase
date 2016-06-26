@@ -1,12 +1,14 @@
 package edu.ynu.test;
 
 import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseItem;
 import edu.ynu.service.TeacherService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherServiceTest {
@@ -31,6 +33,17 @@ public class TeacherServiceTest {
     public void testFindDaft(){
         PurchaseApplySubmit submit = teacherService.findDraftByUID("laohuang");
         print(submit.getPurchaseType());
+    }
+    @Test
+    public void testSubmit(){
+        PurchaseApplySubmit submit = new PurchaseApplySubmit();
+        submit.setProjectName("测试");
+        PurchaseItem item = new PurchaseItem();
+        item.setName("老王");
+        List<PurchaseItem> itemList = new ArrayList<>();
+        itemList.add(item);
+        submit.setTable(itemList);
+        teacherService.submitPurchaseApply(submit,"laohuang");
     }
 
 }
