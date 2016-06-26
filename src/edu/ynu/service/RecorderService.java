@@ -3,6 +3,8 @@ package edu.ynu.service;
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
 import edu.ynu.message.PlanSubmit;
+import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseItem;
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface RecorderService {
     void dropPlan(String planId);
     PlanEntity findByPlanId(String planId);
     void submitContract(ContractEntity contract);
+    List<PurchaseApplySubmit> listProjectsListSetUp();
 }
