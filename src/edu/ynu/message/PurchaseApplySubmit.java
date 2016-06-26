@@ -22,7 +22,7 @@ public class PurchaseApplySubmit {
 	// 固话
 	private String s_tel;
 	//代理人电话
-	private String angentMobile;
+	private String agentMobile;
 	// 预算总额
 	private Double totalMoney_pre;
 	// 资金来源
@@ -40,12 +40,12 @@ public class PurchaseApplySubmit {
 	//采购项目清单
 	private List<PurchaseItem> table;
 
-	public String getAngentMobile() {
-		return angentMobile;
+	public String getAgentMobile() {
+		return agentMobile;
 	}
 
-	public void setAngentMobile(String angentMobile) {
-		this.angentMobile = angentMobile;
+	public void setAgentMobile(String agentMobile) {
+		this.agentMobile = agentMobile;
 	}
 
 	public String getSuggestion() {
