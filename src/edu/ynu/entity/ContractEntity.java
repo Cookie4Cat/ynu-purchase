@@ -21,7 +21,7 @@ public class ContractEntity {
     //中标时间
     private String bidTime;
     //谈判时间
-    private String negotiataTime;
+    private String negotiateTime;
     //采购计划编号
     private String planNum;
     //一对一的采购计划
@@ -80,12 +80,12 @@ public class ContractEntity {
 
     @Basic
     @Column(name = "negotiata_time",length = 45)
-    public String getNegotiataTime() {
-        return negotiataTime;
+    public String getNegotiateTime() {
+        return negotiateTime;
     }
 
-    public void setNegotiataTime(String negotiataTime) {
-        this.negotiataTime = negotiataTime;
+    public void setNegotiateTime(String negotiataTime) {
+        this.negotiateTime = negotiataTime;
     }
 
     @Basic
