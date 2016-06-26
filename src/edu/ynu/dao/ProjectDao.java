@@ -135,4 +135,5 @@ public interface ProjectDao {
     void saveOrUpdate(ProjectEntity projectEntity);
     void delete(ProjectEntity projectEntity);
     void save(ProjectEntity projectEntity);
+    ProjectEntity find(Integer id);
 }
