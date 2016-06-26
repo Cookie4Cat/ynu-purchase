@@ -18,7 +18,7 @@ public class PlanEntity {
     //采购计划的编号
     private String planId;
     //拟批复形式
-    private String preReplyType;
+    private String preOrgType;
     //拟采购方式
     private String prePurchaseType;
     //批复形式
@@ -65,12 +65,12 @@ public class PlanEntity {
 
     @Basic
     @Column(name = "pre_reply_type",length = 45)
-    public String getPreReplyType() {
-        return preReplyType;
+    public String getPreOrgType() {
+        return preOrgType;
     }
 
-    public void setPreReplyType(String preReplyType) {
-        this.preReplyType = preReplyType;
+    public void setPreOrgType(String preReplyType) {
+        this.preOrgType = preReplyType;
     }
 
     @Basic
