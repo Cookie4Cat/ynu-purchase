@@ -1,4 +1,4 @@
-! function(angular, window, b) {
+! function(angular, window) {
     var app = angular.module('myApp', ['ngRoute']);
 
     app.directive("navbar", function() {
