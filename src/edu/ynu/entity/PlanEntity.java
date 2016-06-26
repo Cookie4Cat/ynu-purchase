@@ -17,18 +17,20 @@ public class PlanEntity {
     private int id;
     //采购计划的编号
     private String planId;
-    //拟批复形式
+    //拟组织形式
     private String preOrgType;
     //拟采购方式
     private String prePurchaseType;
-    //批复形式
-    private String purchaseType;
+    //组织形式
+    private String orgType;
     //采购方式
-    private String replyType;
+    private String purchaseType;
     //提交时间
     private String time;
     //对应的合同
     private ContractEntity constract;
+    //状态
+    private String status;
     //对应的采购项目
     private Set<ProjectEntity> projects = new HashSet<ProjectEntity>();
 
@@ -75,22 +77,22 @@ public class PlanEntity {
 
     @Basic
     @Column(name = "purchase_type",length = 45)
-    public String getPurchaseType() {
-        return purchaseType;
+    public String getOrgType() {
+        return orgType;
     }
 
-    public void setPurchaseType(String purchaseType) {
-        this.purchaseType = purchaseType;
+    public void setOrgType(String purchaseType) {
+        this.orgType = purchaseType;
     }
 
     @Basic
     @Column(name = "reply_type",length = 45)
-    public String getReplyType() {
-        return replyType;
+    public String getPurchaseType() {
+        return purchaseType;
     }
 
-    public void setReplyType(String replyType) {
-        this.replyType = replyType;
+    public void setPurchaseType(String replyType) {
+        this.purchaseType = replyType;
     }
 
     @Basic
@@ -103,9 +105,18 @@ public class PlanEntity {
         this.time = time;
     }
 
+    @Basic
+    @Column(name="status",length = 45)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER)
     @Cascade(value = {CascadeType.SAVE_UPDATE})
-
     public Set<ProjectEntity> getProjects() {
         return projects;
     }
