@@ -7,9 +7,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Administrator on 2016/6/17.
- */
 @Entity
 @Table(name = "plan", schema = "purchase")
 public class PlanEntity {
@@ -29,6 +26,8 @@ public class PlanEntity {
     private String time;
     //状态
     private String status;
+    //合同号
+    private String contractId;
     //对应的采购项目
     private Set<ProjectEntity> projects = new HashSet<ProjectEntity>();
 
@@ -123,13 +122,15 @@ public class PlanEntity {
         this.projects = projects;
     }
 
-//    @OneToOne
-//    @JoinColumn(name = "constrct_id")
-//    public ContractEntity getConstract() {
-//        return constract;
-//    }
-//
-//    public void setConstract(ContractEntity constract) {
-//        this.constract = constract;
-//    }
+    @Basic
+    @Column(name="contract_num",length = 45)
+    public String getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(String contractId) {
+        this.contractId = contractId;
+    }
+
+
 }
