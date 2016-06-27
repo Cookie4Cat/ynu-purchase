@@ -2,6 +2,7 @@ package edu.ynu.controller;
 
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
+import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PlanSubmit;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.RecorderService;
@@ -16,7 +17,7 @@ public class RecorderController {
     private RecorderService recorderService;
 
     @RequestMapping(value = "/plans/{pid}",method = RequestMethod.GET)
-    public PlanEntity findPlanById(@PathVariable String pid)throws Exception{
+    public PlanMessage findPlanById(@PathVariable String pid)throws Exception{
         return recorderService.findByPlanId(pid);
     }
 
@@ -26,7 +27,7 @@ public class RecorderController {
     }
 
     @RequestMapping(value = "/plans/handling",method = RequestMethod.GET)
-    public List<PlanEntity> listHandlingPlans(Integer countPerPage, Integer pageNum){
+    public List<PlanMessage> listHandlingPlans(Integer countPerPage, Integer pageNum){
         System.out.println("呵呵" + countPerPage + pageNum);
         return recorderService.listHandlingPlan(countPerPage,pageNum);
     }
@@ -37,7 +38,7 @@ public class RecorderController {
     }
 
     @RequestMapping(value = "/plans/history",method = RequestMethod.GET)
-    public List<PlanEntity> listHistoryPlans(Integer countPerPage, Integer pageNum){
+    public List<PlanMessage> listHistoryPlans(Integer countPerPage, Integer pageNum){
         return recorderService.listHistoryPlan(countPerPage,pageNum);
     }
 
