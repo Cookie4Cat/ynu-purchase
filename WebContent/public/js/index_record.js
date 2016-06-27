@@ -116,6 +116,8 @@
             for(var i in $scope.planProjectList){
                 projectIdList.push($scope.planProjectList[i].projectId);
             }
+            console.log($scope.plan);
+            console.log(projectIdList);
             $http({
                 url: "/recorder/plans?token="+ sessionStorage.getItem("token"),
                 method: "post",
@@ -150,7 +152,8 @@
         $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
         $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
             .success(function (response) {
-                $scope.plan = response;
+
+                $scope.plan = response;console.log($scope.plan);
             });
         $scope.approval = function (pid) {
             $http({
