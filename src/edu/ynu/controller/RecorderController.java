@@ -59,7 +59,7 @@ public class RecorderController {
         return 1;
     }
 
-    @RequestMapping(value = "/plan/{pid}/contract",method = RequestMethod.GET)
+    @RequestMapping(value = "/plans/{pid}/detail",method = RequestMethod.GET)
     public PlanDetailMessage findContractByPId(@PathVariable String pid){
         return recorderService.findPlanDetailByPId(pid);
     }
