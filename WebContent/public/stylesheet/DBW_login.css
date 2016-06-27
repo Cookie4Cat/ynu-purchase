@@ -80,7 +80,7 @@
     margin-left:25%;
 }
 .k4{
-    margin-top: 42px;
+    margin-top: 65px;
     margin-bottom: 50px;
     height: 315px;
     border-radius:20px 20px 20px 20px;
@@ -166,4 +166,7 @@
     background-color: rgba(68,68,68,0.5);
     border-radius:30px 30px 30px 30px ;
 
+}
+.hover{
+    cursor: auto;
 }

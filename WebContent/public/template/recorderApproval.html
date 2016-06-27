@@ -15,35 +15,42 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 10px">
-            <div class="col-md-3 col-md-offset-1">
-                <div class="input-group ">
+        <div class="row" >
+            <div class="row" style="margin-top: 10px;margin-left: 7%">
+                <div class="col-md-3 ">
+                <div class="input-group " style="margin-left: 9%">
                     <span class="input-group-addon biaodan" id="basic-addon3" >拟批复组织形式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.preOrgType" disabled>
+                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.preOrgType" disabled style="width: 140%;cursor: auto ">
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-left: 5%">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon9" >拟批复采购方式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.prePurchaseType" disabled>
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.prePurchaseType" disabled style="width: 114%;cursor: auto ">
                 </div>
             </div>
-            <div class="col-md-3 ">
+            <div class="col-md-3 " style="margin-left: 5%">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon2" >采购计划编号</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.planId" disabled>
+                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.planId" disabled style="width: 114%;cursor: auto ">
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-1">
-                <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon3" >批复组织形式</span>
+            </div>
+
+
+
+
+
+            <div class="col-md-3 " style="margin-top: 10px;margin-left: 9%">
+                <div class="input-group " >
+                    <span class="input-group-addon biaodan" id="basic-addon3" >&nbsp;&nbsp;批复组织形式&nbsp;&nbsp;</span>
                     <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.orgType">
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-top: 10px;margin-left: 15px;">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon9" >批复采购方式</span>
+                    <span class="input-group-addon biaodan" id="basic-addon9" >&nbsp;&nbsp;批复采购方式&nbsp;&nbsp;</span>
                     <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.purchaseType">
                 </div>
             </div>
@@ -90,10 +97,10 @@
         </div>
         <div class="form-group" style="margin-top: 50px">
             <div class="col-md-2 col-md-offset-4">
-                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="approval(plan.planId)">审核通过</button>
+                <button class="btn btn-success " type="button" style="width: 70%;margin-bottom: 20px" ng-click="approval(plan.planId)" >审核通过</button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-danger " type="button" style="width: 70%;" ng-click="refuse(plan.planId)">驳回</button>
+                <button class="btn btn-danger " type="button" style="width: 70%;margin-bottom: 20px" ng-click="refuse(plan.planId)">驳回</button>
             </div>
         </div>
     </div>

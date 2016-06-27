@@ -102,10 +102,7 @@
             .otherwise({ redirectTo: "/index" });
 
     }]);
-    /**
-     *  王浩 2016-06-12
-     *  起始
-     */
+
     app.controller("handingController", function($scope, $http,$timeout) {
         $scope.currentPageNum = 1;
         $http.get("/teacher/projects/handling/count?token" + sessionStorage.getItem("token"))
