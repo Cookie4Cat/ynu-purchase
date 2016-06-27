@@ -1,14 +1,14 @@
 package edu.ynu.service.impl;
 
 import edu.ynu.dao.ContractDao;
+import edu.ynu.dao.ItemDao;
 import edu.ynu.dao.PlanDao;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ContractEntity;
+import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
-import edu.ynu.message.PlanMessage;
-import edu.ynu.message.PlanSubmit;
-import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.*;
 import edu.ynu.service.RecorderService;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
@@ -27,6 +27,9 @@ public class RecorderServiceImpl implements RecorderService {
     private ContractDao contractDao;
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private ItemDao itemDao;
+
     private final String[] handlingStatus = {"待审批","待采购"};
     private final String[] historyStatus = {"采购完成"};
 
@@ -97,7 +100,7 @@ public class RecorderServiceImpl implements RecorderService {
             project.setStatus("已立项");
         }
         plan.setStatus("省审驳回");
-        planDao.save(plan);
+        planDao.update(plan);
     }
 
     public PlanEntity findByPId(String planId) {
@@ -113,11 +116,35 @@ public class RecorderServiceImpl implements RecorderService {
     }
 
     @Override
-    public void submitContract(ContractEntity contract) {
-        PlanEntity plan = findByPId(contract.getPlanNum());
+    public void submitContract(ContractMessage message,String planId) {
+        ContractEntity contract = new ContractEntity();
+        contract.setPlanNum(planId);
+        contract.setBiddingCompany(message.getBiddingCompany());
+        contract.setBidTime(message.getBidTime());
+        contract.setNegotiateTime(message.getNegotiateTime());
+        contract.setContractId(message.getContractId());
+        contract.setContractName(message.getContractName());
+        PlanEntity plan = planDao.findByPId(planId);
+        plan.setContractId(message.getContractId());
+        plan.setStatus("采购完成");
+        for(ProjectEntity project:plan.getProjects()){
+            project.setStatus("采购完成");
+        }
+        updateAllItems(message.getProjectList());
+        planDao.update(plan);
         contractDao.save(contract);
     }
-
+    //更新设备信息
+    private void updateAllItems(List<PurchaseApplySubmit> projectList){
+        for(PurchaseApplySubmit submit:projectList){
+            for(PurchaseItem item:submit.getTable()){
+                ItemEntity itemEntity = itemDao.find(item.getId());
+                itemEntity.setRealPrice(item.getRealBuget());
+                itemEntity.setRealCount(item.getRealCount());
+                itemDao.update(itemEntity);
+            }
+        }
+    }
     @Override
     public List<PurchaseApplySubmit> listProjectsListSetUp() {
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
