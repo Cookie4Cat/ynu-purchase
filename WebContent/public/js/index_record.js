@@ -148,6 +148,7 @@
     });
     //批复
     app.controller("approvalController", function ($scope,$http) {
+        //获取planId
         var url = window.location.toString();
         $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
         $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
@@ -190,6 +191,46 @@
     });
     //创建合同
     app.controller("createContractController", function ($scope,$http) {
-
+        //获取planId
+        var url = window.location.toString();
+        $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
+        $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
+            .success(function (response) {
+                $scope.plan = response;
+                $scope.itemList = [];
+                for(var i in response.projectsList){
+                    for(var j in response.projectsList[i].table){
+                        var item = response.projectsList[i].table[j];
+                        item.projectId = response.projectsList[i].projectId;
+                        $scope.itemList.push(item);
+                    }
+                }
+                console.log($scope.itemList);
+            });
+        $scope.addContract = function () {
+            $http({
+                url: "/recorder/plans/"+$scope.plan.planId+"/contract?token="+ sessionStorage.getItem("token"),
+                method: "post",
+                data:{
+                    "contractName":$scope.contract.name,
+                    "contractId":$scope.contract.number,
+                    "biddingCompany":$scope.contract.bidCompany,
+                    "bidTime":$scope.contract.bidTime,
+                    "negotiateTime":$scope.contract.negotiateTime,
+                    "projectList":$scope.plan.projectsList
+                }
+            }).success(function(response) {
+                $scope.data = response;
+                if(response == 1){
+                    alert("操作成功");
+                    location.href = "/index_record.html#/recorderIndex";
+                }else{
+                    alert("运行出错");
+                }
+            });
+        };
+        $scope.clear = function () {
+            $scope.contract = {};
+        }
     });
 }(angular, window);
