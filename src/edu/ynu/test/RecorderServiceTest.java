@@ -1,7 +1,6 @@
 package edu.ynu.test;
 
 import edu.ynu.entity.ContractEntity;
-import edu.ynu.entity.PlanEntity;
 import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PlanSubmit;
 import edu.ynu.service.RecorderService;
@@ -71,14 +70,11 @@ public class RecorderServiceTest {
     }
     @Test
     public void testFindByPlanId(){
-        PlanMessage plan = recorderService.findByPlanId("PC20160626");
+        PlanMessage plan = recorderService.findByPlanId("K250");
         print(plan.getPlanId());
     }
     @Test
     public void testSubmitContract(){
-        ContractEntity contract = new ContractEntity();
-        contract.setPlanNum("PC20160626");
-        contract.setConstractName("合同名字1");
-        recorderService.submitContract(contract);
+
     }
 }
