@@ -103,7 +103,7 @@ public class RecorderServiceImpl implements RecorderService {
         planDao.update(plan);
     }
 
-    public PlanEntity findByPId(String planId) {
+    private PlanEntity findByPId(String planId) {
         DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
         dc.add(Restrictions.eq("planId",planId));
         return planDao.findByCriteria(dc);
@@ -152,9 +152,22 @@ public class RecorderServiceImpl implements RecorderService {
         List<ProjectEntity> entityList = projectDao.listByCriteria(dc);
         return TransformUtil.transformToMessageList(entityList);
     }
-
+    private ContractEntity findContractByPId(String pid){
+        DetachedCriteria dc = DetachedCriteria.forClass(ContractEntity.class);
+        dc.add(Restrictions.eq("planNum",pid));
+        return contractDao.findByCriteria(dc);
+    }
     @Override
     public PlanDetailMessage findPlanDetailByPId(String pid) {
-        return null;
+        PlanMessage planMessage = findByPlanId(pid);
+        ContractEntity contract = findContractByPId(pid);
+        PlanDetailMessage detailMessage = new PlanDetailMessage();
+        detailMessage.setPlan(planMessage);
+        detailMessage.setContractName(contract.getContractName());
+        detailMessage.setContractId(contract.getContractId());
+        detailMessage.setNegotiateTime(contract.getNegotiateTime());
+        detailMessage.setBiddingCompany(contract.getBiddingCompany());
+        detailMessage.setBidTime(contract.getBidTime());
+        return detailMessage;
     }
 }
