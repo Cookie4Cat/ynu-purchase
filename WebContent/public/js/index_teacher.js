@@ -170,7 +170,6 @@
 
     });
     app.controller('viewProjectController',function ($scope,$http) {
-        {
             var url = window.location.toString();
             var projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
             $scope.projectId = projectId;
@@ -179,9 +178,29 @@
                 method:"get"
             }).success(function(response){
                 $scope.project = response;
+                $scope.change();
                 $scope.xianshi = true;
-            })
-        }
+                console.log($scope.project);
+            });
+
+        $scope.change = function() {
+            if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
+                $scope.xianshi = true;
+
+            } else if ($scope.project.purchaseType == "C-工程") {
+                $scope.xianshi = false;
+                $scope.replace = "C-工程";
+                for(var i in $scope.project.table){
+                    $scope.project.table[i].type = "C-工程";
+                }
+            } else if ($scope.project.purchaseType == "S-服务") {
+                $scope.xianshi = false;
+                $scope.replace = "S-服务";
+                for(var j in $scope.project.table){
+                    $scope.project.table[j].type = "S-服务";
+                }
+            }
+        };
     });
 
     app.controller('updateController',function ($scope,$http,$timeout) {

@@ -6,6 +6,7 @@ import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
+import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PlanSubmit;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.RecorderService;
@@ -57,10 +58,10 @@ public class RecorderServiceImpl implements RecorderService {
     }
 
     @Override
-    public List<PlanEntity> listHandlingPlan(Integer countPerPage,Integer pageNum) {
+    public List<PlanMessage> listHandlingPlan(Integer countPerPage, Integer pageNum) {
         DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
         dc.add(Restrictions.in("status",handlingStatus));
-        return planDao.listByCriteria(dc,countPerPage,pageNum);
+        return TransformUtil.transformToPlanMessageList(planDao.listByCriteria(dc,countPerPage,pageNum));
     }
 
     @Override
@@ -71,15 +72,15 @@ public class RecorderServiceImpl implements RecorderService {
     }
 
     @Override
-    public List<PlanEntity> listHistoryPlan(Integer countPerPage, Integer pageNum) {
+    public List<PlanMessage> listHistoryPlan(Integer countPerPage, Integer pageNum) {
         DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
         dc.add(Restrictions.in("status",historyStatus));
-        return planDao.listByCriteria(dc,countPerPage,pageNum);
+        return TransformUtil.transformToPlanMessageList(planDao.listByCriteria(dc,countPerPage,pageNum));
     }
 
     @Override
     public void replyPlan(PlanSubmit submit) {
-        PlanEntity plan = findByPlanId(submit.getPlanId());
+        PlanEntity plan = findByPId(submit.getPlanId());
         plan.setOrgType(submit.getOrgType());
         plan.setPurchaseType(submit.getPurchaseType());
         plan.setStatus("待采购");
@@ -91,23 +92,28 @@ public class RecorderServiceImpl implements RecorderService {
 
     @Override
     public void dropPlan(String planId) {
-        PlanEntity plan = findByPlanId(planId);
+        PlanEntity plan = findByPId(planId);
         for(ProjectEntity project:plan.getProjects()){
             project.setStatus("已立项");
         }
         planDao.delete(plan);
     }
 
-    @Override
-    public PlanEntity findByPlanId(String planId) {
+    public PlanEntity findByPId(String planId) {
         DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
         dc.add(Restrictions.eq("planId",planId));
         return planDao.findByCriteria(dc);
     }
+    @Override
+    public PlanMessage findByPlanId(String planId) {
+        DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
+        dc.add(Restrictions.eq("planId",planId));
+        return TransformUtil.transformToMessage(planDao.findByCriteria(dc));
+    }
 
     @Override
     public void submitContract(ContractEntity contract) {
-        PlanEntity plan = findByPlanId(contract.getPlanNum());
+        PlanEntity plan = findByPId(contract.getPlanNum());
         contractDao.save(contract);
     }
 
