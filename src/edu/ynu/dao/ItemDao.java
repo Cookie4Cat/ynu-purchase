@@ -7,4 +7,5 @@ import java.util.Set;
 public interface ItemDao {
     void batchDelete(Set<ItemEntity> itemSet);
     ItemEntity find(Integer id);
+    void update(ItemEntity item);
 }
