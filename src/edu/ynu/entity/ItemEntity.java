@@ -17,6 +17,10 @@ public class ItemEntity {
     private String count;
     // 设备的单价;
     private String price;
+    //实际购买数量
+    private String realCount;
+    //实际购买单价
+    private String realPrice;
     // 交货地址;
     private String deliverySite;
     // 计量单位;
@@ -97,6 +101,26 @@ public class ItemEntity {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    @Basic
+    @Column(name = "real_count",  length = 45)
+    public String getRealCount() {
+        return realCount;
+    }
+
+    public void setRealCount(String realCount) {
+        this.realCount = realCount;
+    }
+
+    @Basic
+    @Column(name = "real_price",  length = 45)
+    public String getRealPrice() {
+        return realPrice;
+    }
+
+    public void setRealPrice(String realPrice) {
+        this.realPrice = realPrice;
     }
 
     @Basic
