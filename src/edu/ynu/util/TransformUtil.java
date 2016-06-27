@@ -31,7 +31,9 @@ public class TransformUtil {
     private static void mapItem2Entity(final List<PurchaseItem> itemList, Set<ItemEntity> itemSet, final ProjectEntity pe){
         for(PurchaseItem pi:itemList){
             ItemEntity item = new ItemEntity();
-            item.setId(pi.getId());
+            if(pi.getId()!=null){
+                item.setId(pi.getId());
+            }
             item.setItemName(pi.getName());
             item.setCount(doubleToString(pi.getCount()));
             item.setTotal(doubleToString(pi.getTotalMoney_real()));
