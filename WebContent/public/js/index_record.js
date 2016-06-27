@@ -103,6 +103,18 @@
                 $scope.readyProjectList = response;
             });
 
+        //查看采购项目详情
+        $scope.showProject=function (index) {
+            $scope.viewProject = $scope.readyProjectList[index];
+            console.log(index);
+            console.log($scope.viewProject);
+        }
+        //查看选入的采购项目
+        $scope.showPlanProject=function (index) {
+            $scope.viewProject = $scope.planProjectList[index];
+            console.log(index);
+            console.log($scope.viewProject);
+        }
         //加入到采购计划
         $scope.addToPlan = function (index) {
             console.log("add to plan " + index);
@@ -215,6 +227,13 @@
             .success(function (response) {
                 $scope.plan = response;console.log($scope.plan);
             });
+        //查看项目
+        $scope.showProject=function (id) {
+            $scope.viewProject = $scope.plan.projectsList[id];
+            console.log(id);
+            console.log($scope.viewProject);
+        }
+        
         $scope.approval = function (pid) {
             $http({
                 url: "/recorder/plans/"+pid+"/reply?token="+ sessionStorage.getItem("token"),
