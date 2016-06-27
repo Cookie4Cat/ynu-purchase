@@ -19,6 +19,9 @@ public class PurchaseItem {
 	private String unit;
 	// 预算单价
 	private Double budget;
+	//实际的
+	private String realCount;
+	private String realBuget;
 	// 合计金额
 	private Double totalMoney_real;
 	// 交货地点
@@ -86,5 +89,22 @@ public class PurchaseItem {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getRealCount() {
+		return realCount;
+	}
+
+	public void setRealCount(String realCount) {
+		this.realCount = realCount;
+	}
+
+	public String getRealBuget() {
+		return realBuget;
+	}
+
+	public void setRealBuget(String realBuget) {
+		this.realBuget = realBuget;
+	}
+
 
 }
