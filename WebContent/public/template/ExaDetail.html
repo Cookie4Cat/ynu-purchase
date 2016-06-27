@@ -14,13 +14,13 @@
             <div class="col-md-10">
                 <label class="radio-inline">G-货物（</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="project.orgType" disabled ng-change="change()" >国产</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="project.purchaseType" disabled ng-change="change()" >国产</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="project.orgType" disabled ng-change="change()">进口）</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="进口" ng-model="project.purchaseType" disabled ng-change="change()">进口）</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="project.orgType" disabled ng-change="change()">C-工程</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="C-工程" ng-model="project.purchaseType" disabled ng-change="change()">C-工程</label>
                 <label class="radio-inline">
-                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="project.orgType" disabled ng-change="change()">S-服务</label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios4" value="S-服务" ng-model="project.purchaseType" disabled ng-change="change()">S-服务</label>
             </div>
         </div>
         <div class="row">
@@ -95,13 +95,8 @@
                     </tr>
                     <tr class="col_item" ng-repeat="item in project.table">
                         <td style="height: 34px;vertical-align: middle"><h5>{{$index+1}}</h5></td>
-                        <td>
-                            <select style="width: 80px;" class="form-control" disabled ng-model=" item['type']" ng-show="xianshi">
-                                <option value="教学">教学</option>
-                                <option value="科研">科研</option>
-                                <option value="办公">办公</option>
-                            </select>
-                            <h5 ng-hide="xianshi" disabled ng-bind="replace" style="vertical-align: middle"></h5>
+                        <td class="td">
+                            <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['type']">
                         </td>
                         <td class="td">
                             <input type="text"  size="8" style="height: 34px;" disabled ng-model="item['name']">
