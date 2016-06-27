@@ -2,10 +2,7 @@ package edu.ynu.controller;
 
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
-import edu.ynu.message.ContractMessage;
-import edu.ynu.message.PlanMessage;
-import edu.ynu.message.PlanSubmit;
-import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.*;
 import edu.ynu.service.RecorderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -60,6 +57,11 @@ public class RecorderController {
     public Integer submitContract(@RequestBody ContractMessage contract,@PathVariable String pid){
         recorderService.submitContract(contract,pid);
         return 1;
+    }
+
+    @RequestMapping(value = "/plan/{pid}/contract",method = RequestMethod.GET)
+    public PlanDetailMessage findContractByPId(@PathVariable String pid){
+        return recorderService.findPlanDetailByPId(pid);
     }
 
     @RequestMapping(value = "/projects/setup",method = RequestMethod.GET)
