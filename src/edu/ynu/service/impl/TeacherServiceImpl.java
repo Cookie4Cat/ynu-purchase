@@ -108,7 +108,9 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public void submitPurchaseApply(PurchaseApplySubmit submit,String userId) {
         ProjectEntity entity = TransformUtil.toEntity(submit);
+        if(userId != null){
         entity.setUserId(userId);
+        }
         String now = String.valueOf(new Timestamp(new Date().getTime()));  //当前时间
         entity.setSubmitTime(now);
         entity.setStatus("待审核");

@@ -30,6 +30,10 @@
                 templateUrl: "/public/template/recorderHistory.html",
                 controller: "historyController"
             })
+            .when("/recorderViewDetail", {
+                templateUrl: "/public/template/recorderViewDetail.html",
+                controller: "detailController"
+            })
             .when("/recorderApproval", {
                 templateUrl: "/public/template/recorderApproval.html",
                 controller: "approvalController"
@@ -98,6 +102,7 @@
             .success(function(response){
                 $scope.readyProjectList = response;
             });
+
         //加入到采购计划
         $scope.addToPlan = function (index) {
             console.log("add to plan " + index);
@@ -142,10 +147,65 @@
             $scope.plan = {};
         }
     });
+    
     //历史纪录
     app.controller("historyController", function ($scope,$http) {
+        $scope.currentPageNum = 1;
+        $http.get("/recorder/plans/history/count?token="+sessionStorage.getItem("token"))
+            .success(function (response) {
+                $scope.indexList = [];
+                console.log(response);
+                $scope.pageNum = Math.ceil(response/8);
+                if($scope.pageNum<=1){
+                    $scope.hidePagination = true;
+                }
+                for(var i=0;i<$scope.pageNum;i++){
+                    $scope.indexList.push(i+1);
+                }
+            });
 
+        
+        $scope.getHistoryList = function (pageNum) {
+            $http.get("/recorder/plans/history?token=" + sessionStorage.getItem("token")
+                + "&pageNum=" + pageNum + "&countPerPage=8")
+                .success(function (response) {
+                    $scope.historyItems = response;
+                    console.log(response);
+                });
+        }
+        //获取第一页
+        $scope.getHistoryList($scope.currentPageNum);
+        
+        $scope.changePage = function (pageNum) {
+            //防止越界
+            if(pageNum < 1){
+                pageNum = 1;
+            }else if(pageNum > $scope.pageNum){
+                pageNum = $scope.pageNum;
+            }
+            $scope.getProjectList(pageNum);
+            $scope.currentPageNum = pageNum;
+        };
+       });
+
+
+    //查看采购计划
+    app.controller("detailController",function ($scope,$http){
+        var url = window.location.toString();
+        $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
+        $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
+            .success(function (response) {
+                $scope.plan = response;
+                console.log($scope.plan);
+            });
+        $scope.showProject=function (id) {
+            $scope.viewProject = $scope.plan.projectsList[id];
+            console.log(id);
+            console.log($scope.viewProject);
+        }
     });
+
+
     //批复
     app.controller("approvalController", function ($scope,$http) {
         //获取planId
@@ -153,7 +213,6 @@
         $scope.planId = url.substring(url.lastIndexOf('=') + 1, url.length);
         $http.get("/recorder/plans/" + $scope.planId + "?token=" + sessionStorage.getItem("token"))
             .success(function (response) {
-
                 $scope.plan = response;console.log($scope.plan);
             });
         $scope.approval = function (pid) {
