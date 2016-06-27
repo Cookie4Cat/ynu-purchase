@@ -17,4 +17,5 @@ public interface RecorderService {
     PlanMessage findByPlanId(String planId);
     void submitContract(ContractMessage contract,String planId);
     List<PurchaseApplySubmit> listProjectsListSetUp();
+    PlanDetailMessage findPlanDetailByPId(String pid);
 }

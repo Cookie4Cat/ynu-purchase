@@ -152,4 +152,9 @@ public class RecorderServiceImpl implements RecorderService {
         List<ProjectEntity> entityList = projectDao.listByCriteria(dc);
         return TransformUtil.transformToMessageList(entityList);
     }
+
+    @Override
+    public PlanDetailMessage findPlanDetailByPId(String pid) {
+        return null;
+    }
 }
