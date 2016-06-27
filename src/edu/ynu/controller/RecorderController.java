@@ -2,6 +2,7 @@ package edu.ynu.controller;
 
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
+import edu.ynu.message.ContractMessage;
 import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PlanSubmit;
 import edu.ynu.message.PurchaseApplySubmit;
@@ -55,9 +56,9 @@ public class RecorderController {
         return 1;
     }
 
-    @RequestMapping(value = "/contracts",method = RequestMethod.POST)
-    public Integer submitContract(@RequestBody ContractEntity contract){
-        recorderService.submitContract(contract);
+    @RequestMapping(value = "/plans/{pid}/contract",method = RequestMethod.POST)
+    public Integer submitContract(@RequestBody ContractMessage contract,@PathVariable String pid){
+        recorderService.submitContract(contract,pid);
         return 1;
     }
 
