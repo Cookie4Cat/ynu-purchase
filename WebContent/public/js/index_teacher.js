@@ -317,6 +317,7 @@
                     method: "post",
                     data: $scope.project
                 }).success(function(response) {
+                    console.log($scope.project);
                     if (response == "1") {
                         alert('已成功提交');
                         $timeout(function() {
