@@ -27,9 +27,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private List<PurchaseApplySubmit> listProjectsByStatus(String[] statusList,Integer countPerPage,Integer pageNum){
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        dc.add(Restrictions.in("status",statusList));
-        List<ProjectEntity> list = projectDao.listByCriteria(dc,countPerPage,pageNum);
+        List<ProjectEntity> list = projectDao.findProjectListByStatus(statusList,countPerPage,pageNum);
         return TransformUtil.transformToMessageList(list);
     }
 
