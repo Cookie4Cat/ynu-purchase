@@ -94,14 +94,14 @@ public class TeacherServiceImpl implements TeacherService{
     private String getCurrentProjectId(){
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        dc.add(Restrictions.like("submitTime",dateFormat.format(new Date())+"%"));
+        dc.add(Restrictions.like("projectId",dateFormat.format(new Date())+"%"));
         Integer count = projectDao.countByCriteria(dc);
         if(count==0){
             return dateFormat.format(new Date()) + "01";
         }else {
             DetachedCriteria dc1 = DetachedCriteria.forClass(ProjectEntity.class);
             dc1.setProjection(Projections.max("projectId"));
-            dc1.add(Restrictions.like("submitTime",dateFormat.format(new Date())+"%"));
+            dc1.add(Restrictions.like("projectId",dateFormat.format(new Date())+"%"));
             String lastNumStr = String.valueOf(projectDao.listByCriteria(dc1).get(0));
             Integer currentNum = Integer.valueOf(lastNumStr) + 1;
             return String.valueOf(currentNum);
