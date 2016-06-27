@@ -13,4 +13,5 @@ public interface PlanDao {
     void update(PlanEntity planEntity);
     void delete(PlanEntity planEntity);
     PlanEntity findByCriteria(DetachedCriteria criteria);
+    PlanEntity findByPId(String planID);
 }
