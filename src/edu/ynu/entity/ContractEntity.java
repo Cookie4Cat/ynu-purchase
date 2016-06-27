@@ -1,10 +1,6 @@
 package edu.ynu.entity;
 
 import javax.persistence.*;
-
-/**
- * Created by Administrator on 2016/6/17.
- */
 @Entity
 @Table(name = "contract",schema = "purchase")
 public class ContractEntity {
@@ -13,7 +9,7 @@ public class ContractEntity {
     //合同编号
     private String contractId;
     //合同名字
-    private String constractName;
+    private String contractName;
     //预计总金额
     private String sum;
     //中标单位
@@ -70,12 +66,12 @@ public class ContractEntity {
 
     @Basic
     @Column(name = "constract_name", length = 45)
-    public String getConstractName() {
-        return constractName;
+    public String getContractName() {
+        return contractName;
     }
 
-    public void setConstractName(String constractName) {
-        this.constractName = constractName;
+    public void setContractName(String constractName) {
+        this.contractName = constractName;
     }
 
     @Basic
