@@ -31,6 +31,7 @@ public class TransformUtil {
     private static void mapItem2Entity(final List<PurchaseItem> itemList, Set<ItemEntity> itemSet, final ProjectEntity pe){
         for(PurchaseItem pi:itemList){
             ItemEntity item = new ItemEntity();
+            item.setId(pi.getId());
             item.setItemName(pi.getName());
             item.setCount(doubleToString(pi.getCount()));
             item.setTotal(doubleToString(pi.getTotalMoney_real()));
@@ -39,6 +40,8 @@ public class TransformUtil {
             item.setPrice(doubleToString(pi.getBudget()));
             item.setProject(pe);
             item.setType(pi.getType());
+            item.setRealCount(pi.getRealCount());
+            item.setRealPrice(pi.getRealBuget());
             itemSet.add(item);
         }
     }
@@ -73,6 +76,8 @@ public class TransformUtil {
             pi.setUnit(ie.getUnit());
             pi.setBudget(toDouble(ie.getPrice()));
             pi.setType(ie.getType());
+            pi.setRealBuget(ie.getRealPrice());
+            pi.setRealCount(ie.getRealCount());
             itemList.add(pi);
         }
     }
@@ -133,6 +138,7 @@ public class TransformUtil {
         message.setOrgType(entity.getOrgType());
         message.setPreOrgType(entity.getPreOrgType());
         message.setPrePurchaseType(entity.getPrePurchaseType());
+        message.setPurchaseType(entity.getPurchaseType());
         message.setTime(entity.getTime());
         List<PurchaseApplySubmit> projectsList = new ArrayList<>();
         for(ProjectEntity project:entity.getProjects()){
