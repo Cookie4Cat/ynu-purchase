@@ -331,6 +331,7 @@
 
         $scope.formSubmit = function() {
             if (confirm('是否确认提交？')) {
+                console.log($scope.project);
                 $http({
                     url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
