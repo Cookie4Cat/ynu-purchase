@@ -2,6 +2,7 @@ package edu.ynu.test;
 
 import edu.ynu.entity.ContractEntity;
 import edu.ynu.entity.PlanEntity;
+import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PlanSubmit;
 import edu.ynu.service.RecorderService;
 import org.junit.Before;
@@ -40,8 +41,8 @@ public class RecorderServiceTest {
     }
     @Test
     public void testListHandlingPlan(){
-        List<PlanEntity> planList = recorderService.listHandlingPlan(1,1);
-        for(PlanEntity plan:planList){
+        List<PlanMessage> planList = recorderService.listHandlingPlan(1,1);
+        for(PlanMessage plan:planList){
             print(plan.getPlanId());
         }
     }
@@ -51,8 +52,8 @@ public class RecorderServiceTest {
     }
     @Test
     public void testListHistoryPlan(){
-        List<PlanEntity> planList = recorderService.listHistoryPlan(1,1);
-        for(PlanEntity plan:planList){
+        List<PlanMessage> planList = recorderService.listHistoryPlan(1,1);
+        for(PlanMessage plan:planList){
             print(plan.getPlanId());
         }
     }
@@ -70,7 +71,7 @@ public class RecorderServiceTest {
     }
     @Test
     public void testFindByPlanId(){
-        PlanEntity plan = recorderService.findByPlanId("PC20160626");
+        PlanMessage plan = recorderService.findByPlanId("PC20160626");
         print(plan.getPlanId());
     }
     @Test
