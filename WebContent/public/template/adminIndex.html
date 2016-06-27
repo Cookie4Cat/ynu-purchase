@@ -1,6 +1,6 @@
 <div class="">
     <div class="row">
-        <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-7 " style="margin-left: 11%">
             <div class="btn-group" data-toggle="buttons" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
                 <label class="btn btn-primary active">
                     <a href="#/adminIndex" class="LittleNav">查看待处理</a>
@@ -11,12 +11,12 @@
             </div>
         </div>
     </div>
-    <form class="form-inline row">
+    <form class="form-inline row" style="margin-bottom: 2%">
         <div class="form-group col-md-3 col-md-offset-2">
             <label for="projectId">项目编号</label>
             <input type="text" class="form-control" name="name" ng-model="pidSearch" id="projectId">
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-left: 2%">
             <label>当前状态</label>
             <select name="status" class="form-control" ng-model="statusSearch">
                 <option value="">不限</option>
@@ -24,7 +24,7 @@
                 <option value="待立项">待立项</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-left: 2%">
             <label>采购类型</label>
             <select name="type" class="form-control" ng-model="typeSearch">
                 <option value="">不限</option>
@@ -34,7 +34,7 @@
                 <option value="进口">进口</option>
             </select>
         </div>
-        <button class="btn btn-success" ng-click="search(1)">查询</button>
+        <button class="btn btn-success" ng-click="search(1)" style="margin-left: 3%">查询</button>
     </form>
     <style>
         table tr td p{
