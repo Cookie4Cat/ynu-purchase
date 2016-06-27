@@ -38,7 +38,7 @@
                 templateUrl: "/public/template/recorderCreateContract.html",
                 controller: "createContractController"
             })
-            .otherwise({ redirectTo: "/index" });
+            .otherwise({ redirectTo: "/recorderIndex" });
 
     }]);
     //首页
