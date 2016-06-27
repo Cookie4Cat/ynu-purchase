@@ -62,10 +62,9 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public List<PurchaseApplySubmit> listHandlingProjects(String teacherId, Integer countPerPage, Integer pageNum) {
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         String[] status = {"待审核","初审被驳","待立项"};
-        dc.add(Restrictions.in("status",status));
-        return TransformUtil.transformToMessageList(projectDao.listByCriteria(dc,countPerPage,pageNum));
+        List<ProjectEntity> list = projectDao.findProjectListByUidAndStatus(teacherId,status,countPerPage,pageNum);
+        return TransformUtil.transformToMessageList(list);
     }
 
     @Override
@@ -78,10 +77,9 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public List<PurchaseApplySubmit> listHistorySubmit(String teacherId, Integer count, Integer pageNum) {
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         String[] status = {"已立项","待采购", "采购完成"};
-        dc.add(Restrictions.in("status",status));
-        return TransformUtil.transformToMessageList(projectDao.listByCriteria(dc,count,pageNum));
+        List<ProjectEntity> list = projectDao.findProjectListByUidAndStatus(teacherId,status,count,pageNum);
+        return TransformUtil.transformToMessageList(list);
     }
 
     @Override
@@ -115,6 +113,7 @@ public class TeacherServiceImpl implements TeacherService{
         entity.setSubmitTime(now);
         entity.setStatus("待审核");
         entity.setProjectId(getCurrentProjectId());
+        System.out.println(getCurrentProjectId());
         projectDao.save(entity);
     }
 
