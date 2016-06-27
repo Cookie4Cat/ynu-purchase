@@ -1,7 +1,9 @@
 package edu.ynu.util;
 
 import edu.ynu.entity.ItemEntity;
+import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
+import edu.ynu.message.PlanMessage;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.message.PurchaseItem;
@@ -123,5 +125,27 @@ public class TransformUtil {
             historyList.add(record);
         }
         return historyList;
+    }
+    public static PlanMessage transformToMessage(PlanEntity entity){
+        PlanMessage message = new PlanMessage();
+        message.setStatus(entity.getStatus());
+        message.setPlanId(entity.getPlanId());
+        message.setOrgType(entity.getOrgType());
+        message.setPreOrgType(entity.getPreOrgType());
+        message.setPrePurchaseType(entity.getPrePurchaseType());
+        message.setTime(entity.getTime());
+        List<PurchaseApplySubmit> projectsList = new ArrayList<>();
+        for(ProjectEntity project:entity.getProjects()){
+            projectsList.add(toMessage(project));
+        }
+        message.setProjectsList(projectsList);
+        return message;
+    }
+    public static  List<PlanMessage> transformToPlanMessageList(List<PlanEntity> entityList){
+        List<PlanMessage> messageList = new ArrayList<>();
+        for(PlanEntity plan:entityList){
+            messageList.add(transformToMessage(plan));
+        }
+        return messageList;
     }
 }
