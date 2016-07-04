@@ -4,6 +4,7 @@ import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.AdminService;
+import edu.ynu.util.PdfUtil;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
 import java.util.List;
 
 @Transactional
@@ -122,6 +124,13 @@ public class AdminServiceImpl implements AdminService {
         entity.setComment(suggestion);
         if(result.equals("approve")){
             entity.setStatus("待立项");
+            try{
+                PdfUtil pdfUtil = new PdfUtil();
+                pdfUtil.createProjectPdfFile(entity);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            entity.setFileUrl("./generate/" + entity.getProjectId());
         }else {
             entity.setStatus("初审被驳");
         }
