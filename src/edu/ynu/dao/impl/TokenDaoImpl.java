@@ -31,7 +31,7 @@ public class TokenDaoImpl implements TokenDao {
         }catch (IOException e){
             e.printStackTrace();
         }
-        this.salt = prop.getProperty("project.salt");
+        this.salt = prop.getProperty("token.salt");
     }
     private Session currentSession(){
         return this.sessionFactory.getCurrentSession();
