@@ -46,4 +46,8 @@ public class AdminServiceTest {
         adminService.countHandlingProjects();
         print(count);
     }
+    @Test
+    public void testSetUp(){
+        adminService.setProjectUp("2016062814");
+    }
 }
