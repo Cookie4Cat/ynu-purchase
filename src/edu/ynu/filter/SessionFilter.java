@@ -48,7 +48,7 @@ public class SessionFilter extends OncePerRequestFilter {
 			String userFormToken = tokenService.getUserFormToken(request.getParameter("token"));
 
 			if (userFormToken == null) {
-				response.sendRedirect("./login.html");
+				response.sendRedirect("/login.html");
 				return;
 			}
 			request.setAttribute("userId", userFormToken);
