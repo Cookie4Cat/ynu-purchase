@@ -105,7 +105,7 @@
 
     app.controller("handingController", function($scope, $http,$timeout) {
         $scope.currentPageNum = 1;
-        $http.get("/teacher/projects/handling/count?token" + sessionStorage.getItem("token"))
+        $http.get("/teacher/projects/handling/count?token=" + sessionStorage.getItem("token"))
             .success(function(response){
                 console.log("response " + response);
                 $scope.indexList = [];
