@@ -130,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
             }catch (IOException e){
                 e.printStackTrace();
             }
-            entity.setFileUrl("./generate/" + entity.getProjectId() + ".pdf");
+            entity.setFileUrl("/public/generate/" + entity.getProjectId() + ".pdf");
         }else {
             entity.setStatus("初审被驳");
         }
