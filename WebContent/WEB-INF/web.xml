@@ -67,15 +67,15 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sessionFilter</filter-name>
-		<url-pattern>/admin/</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sessionFilter</filter-name>
-		<url-pattern>/teacher/</url-pattern>
+		<url-pattern>/teacher/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sessionFilter</filter-name>
-		<url-pattern>/recorder/</url-pattern>
+		<url-pattern>/recorder/*</url-pattern>
 	</filter-mapping>
 
 </web-app>
