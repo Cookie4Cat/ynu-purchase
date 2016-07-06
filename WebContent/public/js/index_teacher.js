@@ -97,7 +97,6 @@
             })
             .when("/projectVerify", {
                 templateUrl: "./public/template/projectVerify.html",
-                //controller: "proworkController"
             })
             .otherwise({ redirectTo: "/index" });
 
