@@ -309,6 +309,14 @@
 
     app.controller('teaFormCtr', function($scope, $http, $timeout) {
         $scope.project = {table:[]};
+        $scope.sum = function () {
+            var sum = 0;
+            for(var i=0; i<$scope.project.table.length; i++){
+                sum = sum + $scope.project.table[i].totalMoney_real;
+            }
+            console.log(sum);
+            $scope.project.totalMoney_pre =sum;
+        }
         $scope.addItem = function() {
             var item = {};
             $scope.project.table.push(item);
