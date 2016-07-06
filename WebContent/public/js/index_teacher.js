@@ -270,7 +270,7 @@
 
     app.controller("historyController", function($scope, $http) {
         $scope.currentPageNum = 1;
-        $http.get("/teacher/history/completed/count?token" + sessionStorage.getItem("token"))
+        $http.get("/teacher/history/completed/count?token=" + sessionStorage.getItem("token"))
             .success(function(response){
                 console.log("response " + response);
                 $scope.indexList = [];
