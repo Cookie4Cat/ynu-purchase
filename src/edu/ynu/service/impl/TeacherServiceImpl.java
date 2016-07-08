@@ -5,6 +5,7 @@ import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
+import edu.ynu.message.PurchaseItem;
 import edu.ynu.service.TeacherService;
 import edu.ynu.util.DateUtil;
 import edu.ynu.util.TransformUtil;
@@ -130,6 +131,11 @@ public class TeacherServiceImpl implements TeacherService{
         dc.add(Restrictions.eq("projectId",projectId));
         ProjectEntity entity = projectDao.findByCriteria(dc);
         String userId = entity.getUserId();
+        entity.setStatus("被驳历史");
+        projectDao.update(entity);
+        for(PurchaseItem item:submit.getTable()){
+            item.setId(null);
+        }
         submitPurchaseApply(submit,userId);
     }
 }
