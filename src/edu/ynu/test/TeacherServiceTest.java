@@ -45,5 +45,8 @@ public class TeacherServiceTest {
         submit.setTable(itemList);
         teacherService.submitPurchaseApply(submit,"laohuang");
     }
-
+    @Test
+    public void testGetCurrentProjectId(){
+        print(teacherService.getCurrentProjectId());
+    }
 }
