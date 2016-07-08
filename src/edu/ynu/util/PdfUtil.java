@@ -1,10 +1,16 @@
 package edu.ynu.util;
 import com.itextpdf.io.font.PdfEncodings;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Cell;
@@ -48,6 +54,7 @@ public class PdfUtil {
         //准备工作
         PdfWriter writer = new PdfWriter(filePath);
         PdfDocument pdf = new PdfDocument(writer);
+        pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new MyEventHandler());//页码处理
         Document document = new Document(pdf);
         document.setFont(font);
 
@@ -74,11 +81,11 @@ public class PdfUtil {
         tableAddCell(table,"" + projectEntity.getProjectName(),3);
         tableAddCell(table,"项目负责人");
         tableAddCell(table,"" + projectEntity.getProposerName());
-        tableAddCell(table,"负责人电话");
-        tableAddCell(table,"" + projectEntity.getProposerMobile());
         tableAddCell(table,"项目经办人");
         tableAddCell(table,"" + projectEntity.getAgentName());
-        tableAddCell(table,"经办人电话");
+        tableAddCell(table,"经办人固话");
+        tableAddCell(table,"" + projectEntity.getAgentTel());
+        tableAddCell(table,"经办人手机");
         tableAddCell(table,"" + projectEntity.getAgentMobile());
         tableAddCell(table,"预算总额");
         tableAddCell(table,"" + projectEntity.getSum());
@@ -91,30 +98,49 @@ public class PdfUtil {
         reasonCell.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
         table.addCell(reasonCell);
 
+        Paragraph cellFooter = new Paragraph("（签字、日期及单位公章）");
+        cellFooter.setFontSize(6);
+        cellFooter.setTextAlignment(TextAlignment.RIGHT);
+
         tableAddCell(table,"申报单位审核意见",CELL_HEIGHT);
-        Cell suggestion = new Cell(1,3).add(new Paragraph());
-        suggestion.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        Cell suggestion = new Cell(1,1).add(cellFooter)
+                .setBorder(new SolidBorder(Color.BLACK,0.5f))
+                .setVerticalAlignment(VerticalAlignment.BOTTOM);
         table.addCell(suggestion);
 
         tableAddCell(table,"经费主管部门审核意见",CELL_HEIGHT);
-        Cell suggestion1 = new Cell(1,3).add(new Paragraph());
-        suggestion1.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        Cell suggestion1 = new Cell(1,1).add(cellFooter)
+                .setBorder(new SolidBorder(Color.BLACK,0.5f))
+                .setVerticalAlignment(VerticalAlignment.BOTTOM);
         table.addCell(suggestion1);
 
         tableAddCell(table,"采购管理部门审核意见",CELL_HEIGHT);
-        Cell suggestion2 = new Cell(1,3).add(new Paragraph());
-        suggestion2.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        Cell suggestion2 = new Cell(1,3).add(cellFooter)
+                .setBorder(new SolidBorder(Color.BLACK,0.5f))
+                .setVerticalAlignment(VerticalAlignment.BOTTOM);
         table.addCell(suggestion2);
 
+        Paragraph cellP = new Paragraph("资金性质：□预算管理   □其它专项资金")
+                .setTextAlignment(TextAlignment.LEFT)
+                .setHeight(CELL_HEIGHT)
+                .setVerticalAlignment(VerticalAlignment.TOP);
+
         tableAddCell(table,"财务部门审核意见",CELL_HEIGHT);
-        Cell suggestion3 = new Cell(1,3).add(new Paragraph());
-        suggestion3.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        Cell suggestion3 = new Cell(1,3).add(cellP)
+                .setBorder(new SolidBorder(Color.BLACK,0.5f))
+                .add(cellFooter);
         table.addCell(suggestion3);
 
         tableAddCell(table,"分管校领导意见",CELL_HEIGHT);
-        Cell suggestion4 = new Cell(1,3).add(new Paragraph());
-        suggestion4.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        Cell suggestion4 = new Cell(1,3).add(cellFooter)
+                .setBorder(new SolidBorder(Color.BLACK,0.5f))
+                .setVerticalAlignment(VerticalAlignment.BOTTOM);
         table.addCell(suggestion4);
+
+        tableAddCell(table,"备注",CELL_HEIGHT);
+        Cell suggestion5 = new Cell(1,3).add(new Paragraph());
+        suggestion5.setTextAlignment(TextAlignment.LEFT).setBorder(new SolidBorder(Color.BLACK,0.5f));
+        table.addCell(suggestion5);
 
         document.add(table);
 
@@ -150,66 +176,7 @@ public class PdfUtil {
         //关闭文档
         document.close();
     }
-    public void createPdf() throws IOException{
 
-        PdfWriter writer = new PdfWriter(generatePath);
-        PdfDocument pdf = new PdfDocument(writer);
-        Document document = new Document(pdf);
-        document.setFont(font);
-
-        Text version = new Text("实验室与设备管理处(2016)b");
-        Text submitTime = new Text("登记日期");
-        Text projectId = new Text("项目编号");
-        Paragraph header = new Paragraph().setFontSize(9).add(version).add(submitTime).add(projectId);
-        document.add(header);
-
-        Paragraph title = new Paragraph("云南大学采购项目申报表").setFontSize(20)
-                .setBold().setTextAlignment(TextAlignment.CENTER);
-        document.add(title);
-
-        Text projectType = new Text("采购类型：G-货物(■国产 □进口)     □C-工程     □S-服务");
-        Paragraph type = new Paragraph().setFontSize(10).add(projectType);
-        document.add(type);
-
-        Table table = new Table(new float[]{1,2,1,2});
-        table.setWidthPercent(100)
-                .setTextAlignment(TextAlignment.CENTER).setFontSize(10);
-        tableAddCell(table,"项目名称");
-        tableAddCell(table,"老王在干啥啊！",3);
-        tableAddCell(table,"项目负责人");
-        tableAddCell(table,"新吧唧");
-        tableAddCell(table,"负责人电话");
-        tableAddCell(table,"18487275680");
-        tableAddCell(table,"项目经办人");
-        tableAddCell(table,"经办人电话");
-        tableAddCell(table,"经办人电话");
-        tableAddCell(table,"18487275680");
-        tableAddCell(table,"预算总额");
-        tableAddCell(table,"10000");
-        tableAddCell(table,"资金来源");
-        tableAddCell(table,"国家");
-
-        tableAddCell(table,"购置理由",100f);
-        Cell reasonCell = new Cell(1,3).add(new Paragraph("就是想买，你打我啊！"));
-        reasonCell.setTextAlignment(TextAlignment.LEFT);
-        table.addCell(reasonCell);
-
-        Table itemTable  = new Table(new float[]{2,2,8,2,3,3,3,4});
-        itemTable.setWidthPercent(100).setTextAlignment(TextAlignment.CENTER).setFontSize(10);
-        tableAddCell(itemTable,"序号");
-        tableAddCell(itemTable,"类型");
-        tableAddCell(itemTable,"通用名称");
-        tableAddCell(itemTable,"数量");
-        tableAddCell(itemTable,"计量单位");
-        tableAddCell(itemTable,"预算单价");
-        tableAddCell(itemTable,"合计金额");
-        tableAddCell(itemTable,"交货地点");
-
-        document.add(table);
-        document.add(new Paragraph("Item List").setFontSize(20).setTextAlignment(TextAlignment.CENTER));
-        document.add(itemTable);
-        document.close();
-    }
     private void tableAddCell(Table table, String content){
         Cell cell = createCell(new Paragraph(content),1,1,HorizontalAlignment.CENTER,VerticalAlignment.MIDDLE,20);
         table.addCell(cell);
@@ -230,5 +197,23 @@ public class PdfUtil {
         cell.setHorizontalAlignment(horizontalAlignment);
         cell.setBorder(new SolidBorder(Color.BLACK,0.5f));
         return cell;
+    }
+    protected class MyEventHandler implements IEventHandler {
+        public void handleEvent(Event event) {
+            PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+            PdfDocument pdfDoc = docEvent.getDocument();
+            PdfPage page = docEvent.getPage();
+            int pageNumber = pdfDoc.getPageNumber(page);
+            Rectangle pageSize = page.getPageSize();
+            PdfCanvas pdfCanvas = new PdfCanvas(page.newContentStreamBefore(), page.getResources(), pdfDoc);
+            String footer = "第 " + pageNumber + " 页 - " + "共 " + pdfDoc.getNumberOfPages() + " 页";
+            //增加页码
+            pdfCanvas.beginText()
+                    .setFontAndSize(font,9)
+                    .moveText(pageSize.getWidth()/2-25,20)
+                    .showText(footer)
+                    .endText();
+            pdfCanvas.release();
+        }
     }
 }
