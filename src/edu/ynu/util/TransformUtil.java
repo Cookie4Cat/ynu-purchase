@@ -66,7 +66,7 @@ public class TransformUtil {
         entity.setItems(itemSet);
         entity.setAgentName("代理人名字");
         entity.setAgentMobile(message.getAgentMobile());
-        entity.setAgentTel("代理人固话");
+        entity.setAgentTel(message.getS_tel());
     }
     private static void mapItem2Message(final Set<ItemEntity> itemSet,List<PurchaseItem> itemList){
         for(ItemEntity ie:itemSet){
