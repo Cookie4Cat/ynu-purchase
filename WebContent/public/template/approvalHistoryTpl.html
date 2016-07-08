@@ -20,6 +20,7 @@
             <label>当前状态</label>
             <select name="status" class="form-control" ng-model="statusSearch">
                 <option value="">不限</option>
+                <option value="被驳历史">被驳历史</option>
                 <option value="已立项">已立项</option>
                 <option value="待采购">待采购</option>
                 <option value="采购完成">采购完成</option>
@@ -87,6 +88,8 @@
                         <p ng-switch-when="已立项" class="fontBlue">{{project.status}}</p>
                         <p ng-switch-when="待采购" class="fontBlue">{{project.status}}</p>
                         <p ng-switch-when="采购完成" class="fontGreen">{{project.status}}</p>
+                        <p ng-switch-when="被驳历史" class="fontRed">{{project.status}}</p>
+
                     </td>
                     <td>
                         <button class="btn btn-primary" type="button" ng-click="view(project.projectId)">查看</button>
