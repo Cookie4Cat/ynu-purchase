@@ -57,10 +57,16 @@
                     $scope.pageNum = Math.ceil(response/8);
                     if($scope.pageNum<=1){
                         $scope.hidePagination = true;
+                    }else{
+                        $scope.hidePagination = false;
                     }
                     for(var i=0;i<$scope.pageNum;i++){
                         $scope.indexList.push(i+1);
                     }
+                    console.log(response);
+                    console.log($scope.pageNum);
+                    console.log($scope.hidePagination);
+                    console.log($scope.indexList);
                 });
         };
 
@@ -75,7 +81,7 @@
 
 
         //进入页面先加载第一页
-        $scope.getPageCount("/admin/projects/handling/count");
+        $scope.getPageCount("/admin/projects/handling/count?token=" + sessionStorage.getItem("token"));
         $scope.getProjectList(1);
 
         //换页
@@ -132,6 +138,8 @@
                     $scope.pageNum = Math.ceil(response/8);
                     if($scope.pageNum<=1){
                         $scope.hidePagination = true;
+                    }else{
+                        $scope.hidePagination = false;
                     }
                     for(var i=0;i<$scope.pageNum;i++){
                         $scope.indexList.push(i+1);
@@ -150,7 +158,7 @@
 
 
         //进入页面先加载第一页
-        $scope.getPageCount("/admin/projects/history/count");
+        $scope.getPageCount("/admin/projects/history/count?token=" + sessionStorage.getItem("token"));
         $scope.getProjectList(1);
 
         //换页
@@ -181,10 +189,7 @@
         $scope.search = function(pageNum) {
             $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
                 + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
-            console.log(
-                "/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
-                + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token")
-            );
+
             $http.get("/admin/projects/history/search?token=" + sessionStorage.getItem("token")
                 + "&countPerPage=8&pageNum=" + pageNum + "&type=" + $scope.typeSearch
                 + "&status=" + $scope.statusSearch + "&projectId=" + $scope.pidSearch
