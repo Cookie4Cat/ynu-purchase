@@ -16,3 +16,5 @@ function getTime() {
     var seconds = myDate.getSeconds();
     $("#showDate").html("<h5 class='time'>" + "<a class='time2' href='#/index'>注销</a>" + "   " + "<a class='time2'>联系我们</a>" + " " + hours + ":" + minutes + ":" + seconds + "</h5>");
 }
+
+
