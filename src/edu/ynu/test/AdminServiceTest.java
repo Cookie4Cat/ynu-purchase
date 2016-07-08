@@ -50,4 +50,9 @@ public class AdminServiceTest {
     public void testSetUp(){
         adminService.setProjectUp("2016062814");
     }
+
+    @Test
+    public void testAddSuggestion(){
+        adminService.addProjectSuggestion("2016062814","没问题","approve");
+    }
 }
