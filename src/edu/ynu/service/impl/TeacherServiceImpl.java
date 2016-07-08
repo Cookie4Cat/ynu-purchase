@@ -6,6 +6,7 @@ import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.service.TeacherService;
+import edu.ynu.util.DateUtil;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -89,20 +90,24 @@ public class TeacherServiceImpl implements TeacherService{
         dc.add(Restrictions.in("status",status));
         return projectDao.countByCriteria(dc);
     }
-    private String getCurrentProjectId(){
+
+    @Override
+    public String getCurrentProjectId(){
+        final String PRESTR = "XN";
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-        dc.add(Restrictions.like("projectId",dateFormat.format(new Date())+"%"));
+        String nowStr = DateUtil.getNow("yyyyMMdd");
+        String nowLike = PRESTR + nowStr + "%";
+        dc.add(Restrictions.like("projectId",nowLike));
         Integer count = projectDao.countByCriteria(dc);
         if(count==0){
-            return dateFormat.format(new Date()) + "01";
+            return PRESTR + nowStr+ "001";
         }else {
             DetachedCriteria dc1 = DetachedCriteria.forClass(ProjectEntity.class);
             dc1.setProjection(Projections.max("projectId"));
-            dc1.add(Restrictions.like("projectId",dateFormat.format(new Date())+"%"));
-            String lastNumStr = String.valueOf(projectDao.listByCriteria(dc1).get(0));
-            Integer currentNum = Integer.valueOf(lastNumStr) + 1;
-            return String.valueOf(currentNum);
+            dc1.add(Restrictions.like("projectId",nowLike));
+            String lastProjectId = String.valueOf(projectDao.listByCriteria(dc1).get(0));
+            Long currentNum = Long.valueOf(lastProjectId.substring(2)) + 1;
+            return PRESTR + currentNum;
         }
     }
     @Override
