@@ -56,6 +56,7 @@ public class TransformUtil {
         entity.setSum(doubleToString(message.getTotalMoney_pre()));
         entity.setFundSource(message.getComeFrom());
         entity.setApplyReason(message.getReason());
+        entity.setAgentTel(message.getS_tel());
         //转换设备列表
         List<PurchaseItem> itemList = message.getTable();
         //System.out.println(itemList);
@@ -93,7 +94,7 @@ public class TransformUtil {
         message.setProjectId(entity.getProjectId());
         message.setLeader(entity.getProposerName());
         message.setM_tel(entity.getProposerMobile());
-        message.setS_tel(entity.getProposerTel());
+        message.setS_tel(entity.getAgentTel());
         message.setProjectName(entity.getProjectName());
         message.setPurchaseType(entity.getPurchaseType());
         message.setTotalMoney_pre(toDouble(entity.getSum()));
