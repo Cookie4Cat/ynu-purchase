@@ -31,7 +31,7 @@ public class AdminServiceTest {
     }
     @Test
     public void  testFindAllByCondition(){
-        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition(null,"国内","采购完成",1,1);
+        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition(null,"进口","待审核",8,1);
         for(PurchaseApplySubmit p:list){
             System.out.println(p.getLeader());
         }
