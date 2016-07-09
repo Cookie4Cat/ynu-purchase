@@ -111,6 +111,8 @@
                 $scope.pageNum = Math.ceil(response/8);
                 if($scope.pageNum<=1){
                     $scope.hidePagination = true;
+                }else{
+                    $scope.hidePagination = false;
                 }
                 for(var i=0;i<$scope.pageNum;i++){
                     $scope.indexList.push(i+1);
@@ -277,6 +279,8 @@
                 $scope.pageNum = Math.ceil(response/8);
                 if($scope.pageNum<=1){
                     $scope.hidePagination = true;
+                }else{
+                    $scope.hidePagination = false;
                 }
                 for(var i=0;i<$scope.pageNum;i++){
                     $scope.indexList.push(i+1);
