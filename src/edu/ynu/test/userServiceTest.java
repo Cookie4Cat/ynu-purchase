@@ -84,4 +84,9 @@ public class userServiceTest {
 			System.out.println(record.getProName());
 		}
 	}
+
+	@Test
+	public void findTeacher(){
+		userService.findTeacher();
+	}
 }
