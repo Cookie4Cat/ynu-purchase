@@ -9,8 +9,11 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class userServiceTest {
 	private ApplicationContext ctx;
@@ -83,5 +86,17 @@ public class userServiceTest {
 		for(PurchaseHistoryRecord record:records){
 			System.out.println(record.getProName());
 		}
+	}
+	@Test
+	public void testProperty(){
+		Properties prop = new Properties();
+		InputStream in = getClass().getResourceAsStream("/project.properties");
+		try{
+			prop.load(in);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		String salt = prop.getProperty("token.salt");
+		System.out.println(salt);
 	}
 }
