@@ -5,9 +5,11 @@ import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao {
@@ -141,7 +143,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> findProjectListByStatus(String[] statusList, Integer countPerPage, Integer currentPage) {
-        String hql = "FROM ProjectEntity project where status in :status";
+        String hql = "FROM ProjectEntity project where status in :status order by project.submitTime DESC ";
         Query query = currentSession().createQuery(hql);
         query.setFirstResult((currentPage-1)*countPerPage);
         query.setMaxResults(countPerPage);
@@ -152,17 +154,22 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     }
 
     @Override
-    public List<ProjectEntity> findProjectsByCondition(String projectId, String type, String status) {
+    public List<ProjectEntity> findProjectsByCondition(String[] statusList,String projectId, String type, String status,Integer countPerPage,Integer pageNum) {
         Criteria criteria = currentSession().createCriteria(ProjectEntity.class);
-        if (projectId != null){
+        if (projectId != null&&!projectId.equals("")){
         criteria.add(Restrictions.eq("projectId",projectId));
         }
-        if(type != null) {
+        if(type != null &&!type.equals("")) {
             criteria.add(Restrictions.eq("purchaseType", type));
         }
-        if (status != null) {
+        if (status != null&&!type.equals("")) {
             criteria.add(Restrictions.eq("status", status));
         }
+        criteria.add(Restrictions.in("status",statusList));
+        criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
+        criteria.setFirstResult((pageNum-1)*countPerPage);
+        criteria.setMaxResults(countPerPage);
+
         List<ProjectEntity> projects = criteria.list();
         return projects;
     }
@@ -185,5 +192,12 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
             projects.get(0).setStatus("已立项");
             super.update(projects.get(0));
         }
+    }
+
+    @Override
+    public List<ProjectEntity> listProjectByCondition(String pid, String status, String type,
+                                                      Integer countPerPage,Integer pageNum) {
+        return null;
+
     }
 }
