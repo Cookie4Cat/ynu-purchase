@@ -33,6 +33,7 @@ public class PlanEntity {
     //对应的采购项目
     private Set<ProjectEntity> projects = new HashSet<ProjectEntity>();
 
+
     @Id
     @GeneratedValue
     @Column(name = "id",unique = true,nullable = false)
