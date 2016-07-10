@@ -93,7 +93,7 @@
                 pageNum = $scope.pageNum;
             }
             //如果搜索框中存在值
-            if(!$scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
+            if($scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
                 $scope.getPageCount("/admin/projects/handling/search/count?projectId="+$scope.pidSearch+"&type="
                     + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
                 $scope.search(pageNum);
@@ -109,6 +109,11 @@
         $scope.pidSearch = "";
         //根据查询条件获取项目列表
         $scope.search = function(pageNum) {
+            if(!$scope.pidSearch&&!$scope.statusSearch&&!$scope.typeSearch){
+                $scope.getPageCount("/admin/projects/handling/count?token=" + sessionStorage.getItem("token"));
+                $scope.getProjectList(1);
+                return;
+            }
             $scope.getPageCount("/admin/projects/handling/search/count?projectId="+$scope.pidSearch+"&type="
                 + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
             $http.get("/admin/projects/handling/search?token=" + sessionStorage.getItem("token")
@@ -170,7 +175,7 @@
                 pageNum = $scope.pageNum;
             }
             //如果搜索框中存在值
-            if(!$scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
+            if($scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
                 $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
                     + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
                 $scope.search(pageNum);
