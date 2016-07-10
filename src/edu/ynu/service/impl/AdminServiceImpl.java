@@ -51,18 +51,8 @@ public class AdminServiceImpl implements AdminService {
     private List<PurchaseApplySubmit> listProjectsByCondition(String pid, String type, String status,
                                                               Integer countPerPage, Integer pageNum,
                                                               String[] statusList) {
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        if(pid!=null&&!pid.equals("")){
-            dc.add(Restrictions.eq("projectId",pid));
-        }
-        if(type!=null&&!type.equals("")){
-            dc.add(Restrictions.eq("purchaseType",type));
-        }
-        if(status!=null&&!status.equals("")){
-            dc.add(Restrictions.eq("status",status));
-        }
-        dc.add(Restrictions.in("status",statusList));
-        List<ProjectEntity> list = projectDao.listByCriteria(dc,countPerPage,pageNum);
+
+        List<ProjectEntity> list = projectDao.findProjectsByCondition(statusList,pid,type,status,countPerPage,pageNum);
         return TransformUtil.transformToMessageList(list);
     }
 
