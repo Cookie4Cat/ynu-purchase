@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.Properties;
 
 public class DBUtil {
@@ -92,26 +91,28 @@ public class DBUtil {
 		}
 	}
 
-	public TeacherEntity findTeacherByUnmAndPwd(String username, String pwd){
+	public TeacherEntity findTeacherByUIDAndPwd(String username, String pwd){
 		DBUtil dbUtil = new DBUtil();
 		TeacherEntity teacher = new TeacherEntity();
 		String sql="SELECT * FROM jijianjiancha.Discipline_teacher where jsgh= ? and mm= ?";
 		String para[] = {username, pwd};
 		try{
 			ResultSet rs= dbUtil.query(sql,para);
-			while(rs.next()){
+			if(rs.next()){
 				teacher.setUserId(rs.getString("jsgh"));
 				teacher.setPassword(rs.getString("mm"));
 				teacher.setName(rs.getString("lsmc"));
-				System.out.println("老师姓名："+ rs.getString("lsmc"));
 				teacher.setAcademy(rs.getString("xy"));
+				return teacher;
+			}else{
+				return null;
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally {
 			dbUtil.close();
-			return teacher;
 		}
+		return null;
 	}
 	
 	public void close(){
@@ -126,9 +127,4 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
-    public static void main(String arg[]){
-		DBUtil dbUtil = new DBUtil();
-       TeacherEntity teacher = dbUtil.findTeacherByUnmAndPwd("20060010","0x52c304e450fbb844544810f16da696c2");
-		System.out.println(teacher.getName() + teacher.getAcademy());
-    }
 }
