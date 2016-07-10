@@ -5,6 +5,7 @@ import edu.ynu.entity.ProjectEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,23 +155,29 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     }
 
     @Override
-    public List<ProjectEntity> findProjectsByCondition(String[] statusList,String projectId, String type, String status,Integer countPerPage,Integer pageNum) {
+    public List<ProjectEntity> findProjectsByCondition(String projectId, String type, String status,Integer countPerPage,Integer pageNum, String[] statusList) {
         Criteria criteria = currentSession().createCriteria(ProjectEntity.class);
-        if (projectId != null&&!projectId.equals("")){
-        criteria.add(Restrictions.eq("projectId",projectId));
-        }
-        if(type != null &&!type.equals("")) {
-            criteria.add(Restrictions.eq("purchaseType", type));
-        }
-        if (status != null&&!type.equals("")) {
-            criteria.add(Restrictions.eq("status", status));
-        }
-        criteria.add(Restrictions.in("status",statusList));
-        criteria.setResultTransformer(criteria.DISTINCT_ROOT_ENTITY);
         criteria.setFirstResult((pageNum-1)*countPerPage);
         criteria.setMaxResults(countPerPage);
+        if (projectId!=""){
+        criteria.add(Restrictions.eq("projectId",projectId));
+        }
+        if(type != "") {
+            criteria.add(Restrictions.eq("purchaseType", type));
+        }
+        if (status != "") {
+            criteria.add(Restrictions.eq("status", status));
+        }
+        criteria.add(Restrictions.in("status", statusList));
+        criteria.addOrder(Order.desc("submitTime"));
+        criteria.setProjection(Projections.groupProperty("id"));
 
         List<ProjectEntity> projects = criteria.list();
+        System.out.println(countPerPage);
+        System.out.println(projects.size());
+        for(Object o:projects){
+            System.out.println(o);
+        }
         return projects;
     }
 

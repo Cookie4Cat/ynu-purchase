@@ -20,7 +20,7 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private ProjectDao projectDao;
     private final String[] historyStatusList = {"被驳历史","已立项","待采购","采购完成"};
-    private final String[] handlingStatusList = {"待立项","待审核"};
+    private final String[] handlingStatusList = {"待审核","待立项"};
 
     private Integer countProjectsByStatus(String[] statusList){
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
@@ -52,7 +52,7 @@ public class AdminServiceImpl implements AdminService {
                                                               Integer countPerPage, Integer pageNum,
                                                               String[] statusList) {
 
-        List<ProjectEntity> list = projectDao.findProjectsByCondition(statusList,pid,type,status,countPerPage,pageNum);
+        List<ProjectEntity> list = projectDao.findProjectsByCondition(pid,type,status,countPerPage,pageNum, statusList);
         return TransformUtil.transformToMessageList(list);
     }
 

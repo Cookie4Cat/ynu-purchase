@@ -31,9 +31,9 @@ public class AdminServiceTest {
     }
     @Test
     public void  testFindAllByCondition(){
-        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition(null,"","待审核",8,2);
+        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition("","","待审核",8,1);
         for(PurchaseApplySubmit p:list){
-            System.out.println(p.getProjectId());
+            System.out.println(p.getTable()+"   "+p.getProjectId()+"    "+p.getStatus() );
         }
     }
     @Test

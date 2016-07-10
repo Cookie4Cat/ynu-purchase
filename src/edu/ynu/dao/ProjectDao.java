@@ -104,7 +104,7 @@ public interface ProjectDao {
      * @param status    状态
      * @return project列表
      */
-    List<ProjectEntity> findProjectsByCondition(String[] statusList,String projectId,String type,String status,Integer countPerPage,Integer pageNum);
+    List<ProjectEntity> findProjectsByCondition(String projectId,String type,String status,Integer countPerPage,Integer pageNum, String[] statusList);
 
     /***
      * 根据projectId返回entity

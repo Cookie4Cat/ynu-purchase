@@ -86,6 +86,7 @@ public class RecorderServiceImpl implements RecorderService {
         PlanEntity plan = findByPId(submit.getPlanId());
         plan.setOrgType(submit.getOrgType());
         plan.setPurchaseType(submit.getPurchaseType());
+        plan.setPreFinishTime(submit.getPreFinishTime());
         plan.setStatus("待采购");
         for(ProjectEntity project:plan.getProjects()){
             project.setStatus("待采购");

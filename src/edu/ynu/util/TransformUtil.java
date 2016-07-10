@@ -143,6 +143,7 @@ public class TransformUtil {
         message.setPrePurchaseType(entity.getPrePurchaseType());
         message.setPurchaseType(entity.getPurchaseType());
         message.setTime(entity.getTime());
+        message.setPreFinishTime(entity.getPreFinishTime());
         List<PurchaseApplySubmit> projectsList = new ArrayList<>();
         for(ProjectEntity project:entity.getProjects()){
             projectsList.add(toMessage(project));

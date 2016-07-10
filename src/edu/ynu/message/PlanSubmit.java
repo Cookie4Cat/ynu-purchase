@@ -13,6 +13,17 @@ public class PlanSubmit {
     private String orgType;
     //采购方式
     private String purchaseType;
+    //预计完成时间
+    private String preFinishTime;
+
+    public String getPreFinishTime() {
+        return preFinishTime;
+    }
+
+    public void setPreFinishTime(String preFinishTime) {
+        this.preFinishTime = preFinishTime;
+    }
+
     //提交时间
     private String time;
     //状态

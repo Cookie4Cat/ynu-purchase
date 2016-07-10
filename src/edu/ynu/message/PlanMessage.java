@@ -15,10 +15,20 @@ public class PlanMessage {
     private String purchaseType;
     //提交时间
     private String time;
+    //预计处理时间
+    private String preFinishTime;
     //状态
     private String status;
     //项目列表
     private List<PurchaseApplySubmit> projectsList;
+
+    public String getPreFinishTime() {
+        return preFinishTime;
+    }
+
+    public void setPreFinishTime(String preFinishTime) {
+        this.preFinishTime = preFinishTime;
+    }
 
     public String getPlanId() {
         return planId;
