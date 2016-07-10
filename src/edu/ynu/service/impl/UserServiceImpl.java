@@ -5,8 +5,10 @@ import edu.ynu.dao.UserDao;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.entity.TeacherEntity;
 import edu.ynu.entity.UserEntity;
+import edu.ynu.message.LoginMessage;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
+import edu.ynu.service.TokenService;
 import edu.ynu.service.UserService;
 
 import java.io.File;
@@ -18,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import edu.ynu.util.DBUtil;
+import edu.ynu.util.MD5Util;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -32,6 +35,9 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private ProjectDao projectDao;
+    @Autowired
+    private TokenService tokenService;
+
     private String getCurrentProjectId(){
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -114,18 +120,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void findTeacher(){
-        DBUtil dbUtil =new DBUtil();
-        String sql="SELECT * FROM jijianjiancha.Discipline_teacher where lsmc='李浩'";
-        try{
-            ResultSet rs= dbUtil.Query(sql);
-            while(rs.next()){
-                System.out.print(rs.getString("lsmc") + " ");
+    public LoginMessage login(String userId, String password) {
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setType(0);  //初始化
+        //先去教师数据库里查询
+        DBUtil dbUtil = new DBUtil();
+        String md5Pwd = "0x" + MD5Util.GetMD5Code(password);
+        TeacherEntity user = dbUtil.findTeacherByUIDAndPwd(userId,md5Pwd);
+        //如果在教师表中查到
+        if(user!=null){
+            loginMessage.setType(1);   //类型为教师
+            String token = tokenService.getToken(userId,user.getName()); //生成或者获取token
+            loginMessage.setToken(token);
+        }else{
+            UserEntity otherTypeUser = finUserById(userId);
+            if(otherTypeUser!=null&&otherTypeUser.getPassword().equals(password)){
+                loginMessage.setType(otherTypeUser.getType());
+                loginMessage.setToken(tokenService.getToken(userId,otherTypeUser.getName()));
+                return loginMessage;
             }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally {
-            dbUtil.close();
         }
+        return null;
     }
 }

@@ -51,7 +51,7 @@ public class TokenDaoImpl implements TokenDao {
         return null;
     }
     @Override
-    public String getToken(String userId){
+    public String getToken(String userId,String userName){
         //清除过期token
         clearToken();
         //查询token是否存在，如果存在返回已经存在的token
@@ -71,6 +71,7 @@ public class TokenDaoImpl implements TokenDao {
         String token = MD5Util.GetMD5Code(sourceStr);
         tokenEntity.setToken(token);
         tokenEntity.setUserId(userId);
+        tokenEntity.setUserName(userName);
         tokenEntity.setDateline(new Timestamp(now+this.expireTime));
         this.currentSession().save(tokenEntity);
         return tokenEntity.getToken();

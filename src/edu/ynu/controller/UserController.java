@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
+
+import edu.ynu.message.LoginMessage;
 import edu.ynu.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,21 +27,10 @@ public class UserController {
 	private TokenService tokenService;
 
 	@RequestMapping("/login")
-	public @ResponseBody Map<Object, Object> login(@RequestBody Map map) throws Exception {
+	public LoginMessage login(@RequestBody Map map) throws Exception {
 		String username = (String) map.get("userName");
 		String password = (String) map.get("password");
-		UserEntity user = userService.finUserById(username);
-		Map<Object, Object> resultMap = new HashMap<>();
-		if (user == null) {
-			resultMap.put("userType", 0);
-		} else if (user.getPassword().equals(password)) {
-			String token = tokenService.getToken(username);
-			resultMap.put("userType", user.getType());
-			resultMap.put("token", token);
-		} else {
-			resultMap.put("userType", 0);
-		}
-		return resultMap;
+		return userService.login(username,password);
 	}
 
 	@RequestMapping("/history/ing")

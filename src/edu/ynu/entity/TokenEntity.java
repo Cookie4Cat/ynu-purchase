@@ -10,6 +10,17 @@ public class TokenEntity {
     private String userId;
     private String token;
     private Timestamp dateline;
+    private String userName;
+
+    @Basic
+    @Column(name = "user_name", nullable = false)
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     @Id
     @Column(name = "token_id", nullable = false)

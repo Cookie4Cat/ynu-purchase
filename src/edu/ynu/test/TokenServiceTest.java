@@ -17,12 +17,6 @@ public class TokenServiceTest{
     }
 
     @Test
-    public void testGetToken(){
-        String token = tokenService.getToken("test");
-        System.out.println(token);
-    }
-
-    @Test
     public void testGetUserIdFormToken(){
         System.out.println(tokenService.getUserFormToken("79a70f1d04f71e938e1134decca51236"));
     }

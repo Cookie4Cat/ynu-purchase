@@ -10,8 +10,8 @@ public class TokenServiceImpl implements TokenService{
     @Autowired
     private TokenDao tokenDao;
     @Override
-    public String getToken(String userId) {
-        return tokenDao.getToken(userId);
+    public String getToken(String userId,String userName) {
+        return tokenDao.getToken(userId,userName);
     }
     @Override
     public String getUserFormToken(String token) {

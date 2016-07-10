@@ -1,5 +1,6 @@
 package edu.ynu.test;
 
+import edu.ynu.message.LoginMessage;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.message.PurchaseItem;
@@ -86,7 +87,9 @@ public class userServiceTest {
 	}
 
 	@Test
-	public void findTeacher(){
-		userService.findTeacher();
+	public void testLogin(){
+		LoginMessage message = userService.login("laohuang","pypy");
+		System.out.println(message.getType());
+		System.out.println(message.getToken());
 	}
 }

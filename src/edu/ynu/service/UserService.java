@@ -5,6 +5,7 @@ import java.util.Map;
 
 import edu.ynu.entity.TeacherEntity;
 import edu.ynu.entity.UserEntity;
+import edu.ynu.message.LoginMessage;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
 
@@ -72,5 +73,5 @@ public interface UserService {
 	 */
 	List<PurchaseHistoryRecord> findSubmitHistoryByIdUnCompleted(String userId, Integer CountPerGet, Integer page);
 
-	void findTeacher();
+	LoginMessage login(String userId, String password);
 }
