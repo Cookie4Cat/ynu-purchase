@@ -225,6 +225,7 @@
     app.controller('verifyController', function($scope, $http) {
         //获取pid
         var url = window.location.toString();
+        $scope.submit = false;
         $scope.projectId = url.substring(url.lastIndexOf('=') + 1, url.length);
 
         //根据pid获取项目实体
@@ -234,6 +235,7 @@
             });
         //审核通过
         $scope.approve = function() {
+            $scope.submit = true;
             $http({
                 url: "/admin/projects/"+$scope.projectId+"/suggestion?token=" + sessionStorage.getItem("token"),
                 method: "post",
@@ -253,6 +255,7 @@
         };
         //审核不通过
         $scope.refuse = function() {
+            $scope.submit = true;
                 $http({
                     url: "/admin/projects/"+$scope.projectId+"/suggestion?token=" + sessionStorage.getItem("token"),
                     method: "post",
