@@ -11,33 +11,33 @@
             </div>
         </div>
     </div>
-    <form class="form-inline row" style="margin-bottom: 1%">
-        <div class="form-group col-md-3 col-md-offset-2">
-            <label for="projectId">项目编号</label>
-            <input type="text" class="form-control" name="name" ng-model="pidSearch" id="projectId" placeholder="">
-        </div>
-        <div class="form-group" style="margin-left: 2%">
-            <label>当前状态</label>
-            <select name="status" class="form-control" ng-model="statusSearch">
-                <option value="">不限</option>
-                <option value="被驳历史">被驳历史</option>
-                <option value="已立项">已立项</option>
-                <option value="待采购">待采购</option>
-                <option value="采购完成">采购完成</option>
-            </select>
-        </div>
-        <div class="form-group" style="margin-left: 3%">
-            <label>采购类型</label>
-            <select name="type" class="form-control" ng-model="typeSearch">
-                <option value="">不限</option>
-                <option value="C-工程">C-工程</option>
-                <option value="S-服务">S-服务</option>
-                <option value="国产">国产</option>
-                <option value="进口">进口</option>
-            </select>
-        </div>
-        <button class="btn btn-success" ng-click="search(1)" style="margin-left: 2%">查询</button>
-    </form>
+    <!--<form class="form-inline row" style="margin-bottom: 1%">-->
+        <!--<div class="form-group col-md-3 col-md-offset-2">-->
+            <!--<label for="projectId">项目编号</label>-->
+            <!--<input type="text" class="form-control" name="name" ng-model="pidSearch" id="projectId" placeholder="">-->
+        <!--</div>-->
+        <!--<div class="form-group" style="margin-left: 2%">-->
+            <!--<label>当前状态</label>-->
+            <!--<select name="status" class="form-control" ng-model="statusSearch">-->
+                <!--<option value="">不限</option>-->
+                <!--<option value="被驳历史">被驳历史</option>-->
+                <!--<option value="已立项">已立项</option>-->
+                <!--<option value="待采购">待采购</option>-->
+                <!--<option value="采购完成">采购完成</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<div class="form-group" style="margin-left: 3%">-->
+            <!--<label>采购类型</label>-->
+            <!--<select name="type" class="form-control" ng-model="typeSearch">-->
+                <!--<option value="">不限</option>-->
+                <!--<option value="C-工程">C-工程</option>-->
+                <!--<option value="S-服务">S-服务</option>-->
+                <!--<option value="国产">国产</option>-->
+                <!--<option value="进口">进口</option>-->
+            <!--</select>-->
+        <!--</div>-->
+        <!--<button class="btn btn-success" ng-click="search(1)" style="margin-left: 2%">查询</button>-->
+    <!--</form>-->
     <style>
         table tr td p{
             margin-top:7px;
