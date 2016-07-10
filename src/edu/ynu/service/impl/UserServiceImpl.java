@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void findTeacher(){
-        DBUtil dbUtil =new DBUtil("jijianjiancha","root","root");
+        DBUtil dbUtil =new DBUtil();
         String sql="SELECT * FROM jijianjiancha.Discipline_teacher where lsmc='李浩'";
         try{
             ResultSet rs= dbUtil.Query(sql);

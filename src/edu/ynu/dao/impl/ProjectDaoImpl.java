@@ -68,7 +68,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public Integer countProjectListByUidAndStatus(String userId, String[] statusList) {
-        String hql = "select count(*) from ProjectEntity project where project.userId=:userId and project.status in :statusList";
+        String hql = "select count(*) from ProjectEntity project where project.userId=:userId and project.status in :statusList ";
         Query query = this.currentSession().createQuery(hql);
         query.setString("userId",userId);
         query.setParameterList("statusList",statusList);
@@ -92,7 +92,7 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> findProjectListByUidAndStatus(String userId, String[] statusList, Integer pageCount, Integer pageNum) {
-        String hql = "from ProjectEntity project where project.userId=:userId and project.status in :statusList";
+        String hql = "from ProjectEntity project where project.userId=:userId and project.status in :statusList  ORDER BY project.submitTime DESC";
         Query query = this.currentSession().createQuery(hql);
         query.setFirstResult((pageNum - 1) * pageCount);
         query.setMaxResults(pageCount);

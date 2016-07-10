@@ -1,20 +1,37 @@
 package edu.ynu.util;
+import edu.ynu.entity.TeacherEntity;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+import java.util.Properties;
+
 public class DBUtil {
 	
 	private PreparedStatement ps=null;
 	private  Statement stmt=null;
 	private ResultSet rs= null;
-	private String url="jdbc:mysql://113.55.12.93:3306/";
+	private String url="";
 	Connection conn=null;
-	
-	public DBUtil(String dbname, String username, String password){
-		url = url + dbname + "?useUnicode=true&characterEncoding=UTF-8";
+
+	public DBUtil(){
+		Properties prop = new Properties();
+		InputStream in = getClass().getResourceAsStream("/project.properties");
+		try{
+			prop.load(in);
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		String dbname = prop.getProperty("jdbc.jdbcUrl1");
+		String username = prop.getProperty("jdbc.user1");
+		String password = prop.getProperty("jdbc.password1");
+		url =  dbname;
 		try{
 	        Class.forName("com.mysql.jdbc.Driver");
 	        conn=DriverManager.getConnection(url,username,password);
@@ -74,6 +91,28 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
+
+	public TeacherEntity findTeacherByUnmAndPwd(String username, String pwd){
+		DBUtil dbUtil = new DBUtil();
+		TeacherEntity teacher = new TeacherEntity();
+		String sql="SELECT * FROM jijianjiancha.Discipline_teacher where jsgh= ? and mm= ?";
+		String para[] = {username, pwd};
+		try{
+			ResultSet rs= dbUtil.query(sql,para);
+			while(rs.next()){
+				teacher.setUserId(rs.getString("jsgh"));
+				teacher.setPassword(rs.getString("mm"));
+				teacher.setName(rs.getString("lsmc"));
+				System.out.println("老师姓名："+ rs.getString("lsmc"));
+				teacher.setAcademy(rs.getString("xy"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			dbUtil.close();
+			return teacher;
+		}
+	}
 	
 	public void close(){
 		try{
@@ -88,17 +127,8 @@ public class DBUtil {
 		}
 	}
     public static void main(String arg[]){
-    	DBUtil dbUtil =new DBUtil("jijianjiancha","root","root");
-    	String sql="SELECT * FROM jijianjiancha.Discipline_teacher where lsmc='李浩'";
-    	try{
-    	ResultSet rs= dbUtil.Query(sql);
-    	while(rs.next()){
-			System.out.print(rs.getString("lsmc") + " ");
-    	}
-    	}catch(SQLException e){
-    		e.printStackTrace();
-    	}
-		System.out.println();
-    	String string = "A quick fox jump over the lazy dog";
+		DBUtil dbUtil = new DBUtil();
+       TeacherEntity teacher = dbUtil.findTeacherByUnmAndPwd("20060010","0x52c304e450fbb844544810f16da696c2");
+		System.out.println(teacher.getName() + teacher.getAcademy());
     }
 }
