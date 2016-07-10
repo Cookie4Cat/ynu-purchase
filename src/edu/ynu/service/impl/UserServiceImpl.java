@@ -3,17 +3,21 @@ package edu.ynu.service.impl;
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.dao.UserDao;
 import edu.ynu.entity.ProjectEntity;
+import edu.ynu.entity.TeacherEntity;
 import edu.ynu.entity.UserEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
 import edu.ynu.service.UserService;
 
 import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import edu.ynu.util.DBUtil;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -107,5 +111,21 @@ public class UserServiceImpl implements UserService {
         String[] status = {"待审核","初审被驳","待立项"};
         List<ProjectEntity> entityList = projectDao.findProjectListByStatus(status,CountPerGet,page);
         return TransformUtil.transformToRecordMessage(entityList);
+    }
+
+    @Override
+    public void findTeacher(){
+        DBUtil dbUtil =new DBUtil();
+        String sql="SELECT * FROM jijianjiancha.Discipline_teacher where lsmc='李浩'";
+        try{
+            ResultSet rs= dbUtil.Query(sql);
+            while(rs.next()){
+                System.out.print(rs.getString("lsmc") + " ");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            dbUtil.close();
+        }
     }
 }

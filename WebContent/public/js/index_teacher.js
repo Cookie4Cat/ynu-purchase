@@ -215,6 +215,15 @@
                     $scope.addItem();
                 console.log($scope.project);
             });
+        $scope.sum = function () {
+            var sum = 0;
+            $scope.submit = false;
+            for(var i=0; i<$scope.project.table.length; i++){
+                sum = sum + $scope.project.table[i].totalMoney_real;
+            }
+            console.log(sum);
+            $scope.project.totalMoney_pre =sum;
+        }
           $scope.addItem = function() {
             var item = {};
             $scope.project.table.push(item);
@@ -230,6 +239,7 @@
            }
 
            $scope.reSubmit = function () {
+               $scope.submit = true;
                $http({
                    url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
                    method:"post",
@@ -313,6 +323,7 @@
 
     app.controller('teaFormCtr', function($scope, $http, $timeout) {
         $scope.project = {table:[]};
+        $scope.submit = false;
         $scope.sum = function () {
             var sum = 0;
             for(var i=0; i<$scope.project.table.length; i++){
@@ -340,6 +351,7 @@
         $scope.formSubmit = function() {
             if (confirm('是否确认提交？')) {
                 console.log($scope.project);
+                $scope.submit = true;
                 $http({
                     url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
@@ -357,6 +369,7 @@
                 })
             }
         }
+        
         $scope.draftSubmit = function() {
             if (confirm('是否确定存入草稿？')) {
                 $http({
@@ -378,7 +391,10 @@
         $scope.change = function() {
             if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
                 $scope.xianshi = true;
-
+                for(var n in $scope.project.table){
+                    $scope.project.table[n].type = null;
+                }
+                $scope.project.table
             } else if ($scope.project.purchaseType == "C-工程") {
                 $scope.xianshi = false;
                 $scope.replace = "C-工程";

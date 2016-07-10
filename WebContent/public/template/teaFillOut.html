@@ -16,7 +16,7 @@
         </div>
         </div>
         <div class="form-group" >
-            <label class="col-md-2 control-label" for="">采购类型</label>
+            <label class="col-md-2 control-label" for="">{{submit}}采购类型</label>
             <div class="col-md-16">
                 <label class="radio-inline">G-货物（</label>
                 <label class="radio-inline">
@@ -143,7 +143,7 @@
        </div>
         <div class="form-group" style="margin-top: 50px">
             <div class="col-md-2 col-md-offset-4">
-                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="formSubmit()" ng-disabled="teaForm.$invalid">提交</button>
+                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="formSubmit()" ng-disabled="teaForm.$invalid || submit"> {{submit}}提交</button>
             </div>
             <div class="col-md-2">
                 <button class="btn btn-danger " type="button" style="width: 70%;" ng-click="clear()">清空</button>

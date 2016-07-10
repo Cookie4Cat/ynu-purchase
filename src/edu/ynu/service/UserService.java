@@ -3,6 +3,7 @@ package edu.ynu.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.ynu.entity.TeacherEntity;
 import edu.ynu.entity.UserEntity;
 import edu.ynu.message.PurchaseApplySubmit;
 import edu.ynu.message.PurchaseHistoryRecord;
@@ -70,4 +71,6 @@ public interface UserService {
 	 * @return 记录实体列表
 	 */
 	List<PurchaseHistoryRecord> findSubmitHistoryByIdUnCompleted(String userId, Integer CountPerGet, Integer page);
+
+	void findTeacher();
 }
