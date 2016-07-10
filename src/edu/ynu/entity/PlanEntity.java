@@ -28,6 +28,8 @@ public class PlanEntity {
     private String status;
     //合同号
     private String contractId;
+    //预计处理时间
+    private String preFinishTime;
     //对应的采购项目
     private Set<ProjectEntity> projects = new HashSet<ProjectEntity>();
 
@@ -110,6 +112,16 @@ public class PlanEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Basic
+    @Column(name = "pre_finish_time", length = 45)
+    public String getPreFinishTime() {
+        return preFinishTime;
+    }
+
+    public void setPreFinishTime(String preFinishTime) {
+        this.preFinishTime = preFinishTime;
     }
 
     @OneToMany(mappedBy = "plan", fetch = FetchType.EAGER)
