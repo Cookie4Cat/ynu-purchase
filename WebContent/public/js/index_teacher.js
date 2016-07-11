@@ -240,21 +240,35 @@
 
            $scope.reSubmit = function () {
                $scope.submit = true;
-               $http({
-                   url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
-                   method:"post",
-                   data: $scope.project
-               }).success(function(response){
-                   if(response == 1){
-                       alert("提交成功");
-                       $timeout(function() {
-                           location.href = "#/teaViewHanding";
-                       }, 1000);
-                   }else{
-                       alert("提交失败！！！");
-                   }
-               })
-           }
+               swal({
+                   title: "是否确认提交?",
+                   text: "您将会提交所填信息",
+                   type: "warning",
+                   showCancelButton: true,
+                   confirmButtonColor: "#DD6B55",
+                   confirmButtonText: "提交",
+                   cancelButtonText:"返回",
+                   closeOnConfirm: false
+               }, function(){
+                   $scope.submit = true;
+                   $http({
+                       url:"/teacher/projects/"+projectId+"?token="+sessionStorage.getItem("token"),
+                       method:"post",
+                       data: $scope.project
+                   }).success(function(response) {
+                       console.log($scope.project);
+                       if (response == "1") {
+                           swal("操作成功!", "已成功提交!", "success");
+                           $timeout(function() {
+                               location.href = "#/teaViewHanding";
+                           }, 1000);
+                       } else{
+                           swal("操作失败!", "系统发生错误!", "error");
+                       }
+                   })
+               });
+
+           };
 
         $scope.change = function() {
             if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
@@ -331,26 +345,43 @@
             }
             console.log(sum);
             $scope.project.totalMoney_pre =sum;
-        }
+        };
         $scope.addItem = function() {
             var item = {};
             $scope.project.table.push(item);
-        }
+        };
         //添加一行项目设备输入框
         $scope.addItem();
         $scope.removeItem = function(index) {
             $scope.project.table.splice(index, 1)
-        }
+        };
         $scope.clear = function() {
-            if (confirm('是否确认清空？')) {
+            swal({
+                title: "是否确认清空?",
+                text: "您将会清空所填信息",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "清空",
+                cancelButtonText:"返回",
+                closeOnConfirm: false
+            },function () {
                 $scope.project = {table:[]};
                 $scope.addItem();
-            } else {}
-        }
+            });
+        };
 
         $scope.formSubmit = function() {
-            if (confirm('是否确认提交？')) {
-                console.log($scope.project);
+            swal({
+                title: "是否确认提交?",
+                text: "您将会提交所填信息",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "提交",
+                cancelButtonText:"返回",
+                closeOnConfirm: false
+            }, function(){
                 $scope.submit = true;
                 $http({
                     url: "/teacher/PurchaseApplySheet/submit" + "?token=" + sessionStorage.getItem("token"),
@@ -359,34 +390,43 @@
                 }).success(function(response) {
                     console.log($scope.project);
                     if (response == "1") {
-                        alert('已成功提交');
+                        swal("操作成功!", "已成功提交!", "success");
                         $timeout(function() {
                             location.href = "#/teaViewHanding";
                         }, 1000);
-                    } else if (response == "2") {
-                        alert('ERROR');
+                    } else{
+                        swal("操作失败!", "系统发生错误!", "error");
                     }
                 })
-            }
-        }
+            });
+        };
         
         $scope.draftSubmit = function() {
-            if (confirm('是否确定存入草稿？')) {
+            swal({
+                title: "是否确认存入草稿?",
+                text: "所有信息会当作草稿保存",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "存入",
+                cancelButtonText:"返回",
+                closeOnConfirm: false
+            }, function(){
                 $http({
                     url: "/teacher/PurchaseApplySheet/submitDraft" + "?token=" + sessionStorage.getItem("token"),
                     method: "post",
                     data: $scope.project
                 }).success(function(response) {
                     if (response == "1") {
-                        alert('已成功提交');
+                        swal("操作成功!", "已成功存入!", "success");
                         $timeout(function() {
                             location.href = "#/teaViewHanding";
                         }, 1000);
                     } else{
-                        alert('ERROR');
+                        swal("操作失败!", "系统发生错误!", "error");
                     }
                 })
-            }
+            });
         };
         $scope.change = function() {
             if ($scope.project.purchaseType == "国产" || $scope.project.purchaseType == "进口") {
