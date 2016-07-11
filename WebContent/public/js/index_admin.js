@@ -246,10 +246,10 @@
             }).success(function(response) {
                 $scope.data = response;
                 if(response == 1){
-                    alert("操作成功");
+                    swal("操作成功!", "已成功通过!", "success");
                     location.href = "/index_admin.html#/adminIndex";
                 }else{
-                    alert("运行出错");
+                    swal("操作失败!", "系统发生错误!", "error");
                 }
             });
         };
@@ -266,10 +266,10 @@
                 }).success(function(response) {
                     $scope.data = response;
                     if(response == 1){
-                        alert("操作成功");
+                        swal("操作成功!", "已成功驳回!", "success");
                         location.href = "/index_admin.html#/adminIndex";
                     }else{
-                        alert("运行出错");
+                        swal("操作失败!", "系统发生错误!", "error");
                     }
                 })
         }
@@ -292,10 +292,10 @@
             }).success(function(response) {
                 $scope.data = response;
                 if(response == 1){
-                    alert("操作成功");
+                    swal("操作成功!", "已成功立项!", "success");
                     location.href = "/index_admin.html#/adminIndex";
                 }else{
-                    alert("运行出错");
+                    swal("操作失败!", "系统发生错误!", "error");
                 }
             })
         }
