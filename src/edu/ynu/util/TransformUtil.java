@@ -105,6 +105,7 @@ public class TransformUtil {
         message.setFileUrl(entity.getFileUrl());
         message.setSuggestion(entity.getComment());
         message.setAgentMobile(entity.getAgentMobile());
+        message.setAgentName(entity.getAgentName());
         //转换设备列表
         Set<ItemEntity> itemSet = entity.getItems();
         List<PurchaseItem> itemList = new ArrayList<>();

@@ -21,6 +21,17 @@ public class PurchaseApplySubmit {
 	private String m_tel;
 	// 固话
 	private String s_tel;
+	//代理人名字
+	private String agentName;
+
+	public String getAgentName() {
+		return agentName;
+	}
+
+	public void setAgentName(String agentName) {
+		this.agentName = agentName;
+	}
+
 	//代理人电话
 	private String agentMobile;
 	// 预算总额

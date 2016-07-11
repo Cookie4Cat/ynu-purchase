@@ -144,8 +144,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group" >
-                        <label class="col-md-2 control-label" for="">采购类型</label>
-                        <div class="col-md-10">
+                        <label class="col-md-2 col-md-offset-1 control-label" for="">采购类型</label>
+                        <div class="col-md-8">
                             <label class="radio-inline">G-货物（</label>
                             <label class="radio-inline">
                                 <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="viewProject.purchaseType" disabled >国产</label>
@@ -158,7 +158,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-9 col-md-offset-1">
+                        <div class="col-md-10 col-md-offset-1">
                             <div class="input-group ">
                                 <span class="input-group-addon biaodan" id="basic-addon1">项目名称</span>
                                 <input type="text" class="form-control"aria-describedby="basic-addon1"  disabled ng-model="viewProject.projectName" >
@@ -173,26 +173,24 @@
                                 <input type="text" class="form-control"aria-describedby="basic-addon2" disabled ng-model="viewProject.leader">
                             </div>
                         </div>
-
                         <div class="col-md-5">
                             <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon3" >经办人电话</span>
-                                <input type="text" class="form-control"aria-describedby="basic-addon3" disabled ng-model="viewProject.agentMobile">
+                                <span class="input-group-addon biaodan" id="basic-addon23" >项目经办人</span>
+                                <input type="text" class="form-control"aria-describedby="basic-addon2" disabled ng-model="viewProject.agentName">
                             </div>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px">
                         <div class="col-md-5 col-md-offset-1">
                             <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon9" >经办人固话</span>
-                                <input type="text" class="form-control"aria-describedby="basic-addon9" disabled ng-model="viewProject.s_tel">
+                                <span class="input-group-addon biaodan" id="basic-addon3" >经办人电话</span>
+                                <input type="text" class="form-control"aria-describedby="basic-addon3" disabled ng-model="viewProject.agentMobile">
                             </div>
                         </div>
-
-                        <div class="col-md-5 ">
+                        <div class="col-md-5">
                             <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon4" >预算总额</span>
-                                <input type="text" class="form-control"aria-describedby="basic-addon4" disabled ng-model="viewProject.totalMoney_pre">
+                                <span class="input-group-addon biaodan" id="basic-addon9" >经办人固话</span>
+                                <input type="text" class="form-control"aria-describedby="basic-addon9" disabled ng-model="viewProject.s_tel">
                             </div>
                         </div>
                     </div>
@@ -203,16 +201,23 @@
                                 <input type="text" class="form-control"aria-describedby="basic-addon5" disabled ng-model="viewProject.comeFrom">
                             </div>
                         </div>
-
+                        <div class="col-md-5 ">
+                            <div class="input-group ">
+                                <span class="input-group-addon biaodan" id="basic-addon4" >预算总额</span>
+                                <input type="text" class="form-control"aria-describedby="basic-addon4" disabled ng-model="viewProject.totalMoney_pre">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
-                        <div class="input-group ">
-                            <span class="input-group-addon biaodan" id="basic-addon7">购置理由</span>
-                            <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7" disabled ng-model="viewProject.reason"></textarea>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-10 col-md-offset-1" style="margin-top: 10px">
+                            <div class="input-group ">
+                                <span class="input-group-addon biaodan" id="basic-addon7">购置理由</span>
+                                <input name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7" disabled ng-model="viewProject.reason"/>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group" style="TEXT-ALIGN: center;">
-                        <div class="table-responsive col-md-9 col-md-offset-1" style="margin-top:2%">
+                        <div class="table-responsive col-md-10 col-md-offset-1" style="margin-top:2%">
                             <table class="table table-striped table-hover ">
                                 <tr>
                                     <td class="td"style="height: 30px;vertical-align: middle">序号</td>
