@@ -74,6 +74,16 @@ public class RecorderServiceTest {
         PlanMessage plan = recorderService.findByPlanId("PC20160626");
         print(plan.getPlanId());
     }
+    @Test
+    public void testReplayPlan(){
+        PlanSubmit submit = new PlanSubmit();
+        submit.setPlanId("8888");
+        submit.setPurchaseType("purchaseType");
+        submit.setOrgType("orgType");
+        submit.setPreFinishTime("finish time");
+        recorderService.replyPlan(submit);
+        System.out.print(recorderService.findByPlanId("8888").getTime());
+    }
 //    @Test
 //    public void testSubmitContract(){
 //        ContractEntity contract = new ContractEntity();

@@ -10,6 +10,7 @@ import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.*;
 import edu.ynu.service.RecorderService;
+import edu.ynu.util.DateUtil;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -125,6 +126,7 @@ public class RecorderServiceImpl implements RecorderService {
         contract.setNegotiateTime(message.getNegotiateTime());
         contract.setContractId(message.getContractId());
         contract.setContractName(message.getContractName());
+        contract.setSum(message.getSum());
         PlanEntity plan = planDao.findByPId(planId);
         plan.setContractId(message.getContractId());
         plan.setStatus("采购完成");

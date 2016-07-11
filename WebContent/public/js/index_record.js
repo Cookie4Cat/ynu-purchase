@@ -98,10 +98,14 @@
         $scope.planProjectList = [];
         $scope.readyProjectList = [];
         $scope.plan = {};
+        $scope.notAdd = true;
+        $scope.sub = false;
         $http.get("/recorder/projects/setup?token="+ sessionStorage.getItem("token"))
             .success(function(response){
                 $scope.readyProjectList = response;
             });
+
+
 
         //查看采购项目详情
         $scope.showProject=function (index) {
@@ -120,16 +124,27 @@
             console.log("add to plan " + index);
             $scope.planProjectList.push($scope.readyProjectList[index]);
             $scope.readyProjectList.splice(index,1);
+            if($scope.planProjectList.length==0){
+                $scope.notAdd = true;
+            }else {
+                $scope.notAdd=false;
+            }
         };
         //从采购计划中移除
         $scope.removeFormPlan = function (index) {
             console.log("remove from plan " + index);
             $scope.readyProjectList.push($scope.planProjectList[index]);
             $scope.planProjectList.splice(index,1);
+            if($scope.planProjectList.length==0){
+                $scope.notAdd = true;
+            }else {
+                $scope.notAdd=false;
+            }
         };
         //提交
         $scope.submit = function () {
             var projectIdList = [];
+            $scope.sub = true;
             for(var i in $scope.planProjectList){
                 projectIdList.push($scope.planProjectList[i].projectId);
             }
@@ -170,6 +185,8 @@
                 $scope.pageNum = Math.ceil(response/8);
                 if($scope.pageNum<=1){
                     $scope.hidePagination = true;
+                }else{
+                    $scope.hidePagination = false;
                 }
                 for(var i=0;i<$scope.pageNum;i++){
                     $scope.indexList.push(i+1);
@@ -235,12 +252,16 @@
         }
         
         $scope.approval = function (pid) {
+            console.log($scope.plan.orgType);
+            console.log($scope.plan.purchaseType);
+            console.log($scope.plan.preFinishTime);
             $http({
                 url: "/recorder/plans/"+pid+"/reply?token="+ sessionStorage.getItem("token"),
                 method: "post",
                 data:{
                     "orgType":$scope.plan.orgType,
-                    "purchaseType":$scope.plan.purchase
+                    "purchaseType":$scope.plan.purchaseType,
+                    "preFinishTime":$scope.plan.preFinishTime
                 }
             }).success(function(response) {
                 $scope.data = response;
@@ -276,13 +297,17 @@
             .success(function (response) {
                 $scope.plan = response;
                 $scope.itemList = [];
+                var total = 0;
                 for(var i in response.projectsList){
+                    total = total + response.projectsList[i].totalMoney_pre;
+                    console.log(response.projectsList[i].totalMoney_pre+" "+total);
                     for(var j in response.projectsList[i].table){
                         var item = response.projectsList[i].table[j];
                         item.projectId = response.projectsList[i].projectId;
                         $scope.itemList.push(item);
                     }
                 }
+                $scope.s = total;
                 console.log($scope.itemList);
             });
         $scope.addContract = function () {

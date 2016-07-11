@@ -19,6 +19,17 @@ public class ContractMessage {
     private String bidTime;
     //谈判时间
     private String negotiateTime;
+    //总额
+    private String sum;
+
+    public String getSum() {
+        return sum;
+    }
+
+    public void setSum(String sum) {
+        this.sum = sum;
+    }
+
     //项目列表
     List<PurchaseApplySubmit> projectList;
 

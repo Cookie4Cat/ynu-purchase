@@ -1,5 +1,5 @@
 <div class="teaIndex">
-    <form class="form-horizontal">
+    <form class="form-horizontal" name="planForm">
         <div class="row">
             <div class="col-md-6"style="margin-left:9%">
                 <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;">
@@ -19,26 +19,24 @@
             <div class="col-md-3 " style="margin-left: 9%;">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon2" >采购计划编号</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.planId">
+                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.planId" required>
                 </div>
             </div>
 
             <div class="col-md-3" style="margin-left: 3%">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon3" >拟批复组织形式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.preOrgType">
+                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.preOrgType" required>
                 </div>
             </div>
 
             <div class="col-md-3" style="margin-left: 3%">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon9" >拟批复采购方式</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.prePurchaseType">
+                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="plan.prePurchaseType" required>
                 </div>
             </div>
-
         </div>
-    </form>
     <strong class="col-lg-2 col-lg-offset-1" style="margin-top: 30px;margin-bottom: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计划列表</strong>
     <div class="form-group" style="text-align: center;">
         <div class="table-responsive col-md-10 col-md-offset-1">
@@ -129,13 +127,14 @@
         </div>
         <div class="form-group" style="margin-top: 50px">
             <div class="col-md-2 col-md-offset-4">
-                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="submit()">创建采购批次</button>
+                <button class="btn btn-success " type="button" style="width: 70%;" ng-click="submit()" ng-disabled="planForm.$invalid || notAdd || sub">创建采购批次</button>
             </div>
             <div class="col-md-2">
                 <button class="btn btn-danger " type="button" style="width: 70%;" ng-click="clear()">清空</button>
             </div>
         </div>
-</div>
+    </div>
+    </form>
     <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -177,15 +176,15 @@
 
                         <div class="col-md-5">
                             <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon3" >负责人电话</span>
-                                <input type="text" class="form-control"aria-describedby="basic-addon3" disabled ng-model="viewProject.m_tel">
+                                <span class="input-group-addon biaodan" id="basic-addon3" >经办人电话</span>
+                                <input type="text" class="form-control"aria-describedby="basic-addon3" disabled ng-model="viewProject.agentMobile">
                             </div>
                         </div>
                     </div>
                     <div class="row" style="margin-top: 10px">
                         <div class="col-md-5 col-md-offset-1">
                             <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon9" >固定电话</span>
+                                <span class="input-group-addon biaodan" id="basic-addon9" >经办人固话</span>
                                 <input type="text" class="form-control"aria-describedby="basic-addon9" disabled ng-model="viewProject.s_tel">
                             </div>
                         </div>
@@ -205,12 +204,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-5">
-                            <div class="input-group ">
-                                <span class="input-group-addon biaodan" id="basic-addon6" >代理人电话</span>
-                                <input type="text" class="form-control"aria-describedby="basic-addon6" disabled ng-model="viewProject.agentMobile">
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
                         <div class="input-group ">
