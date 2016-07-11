@@ -92,4 +92,12 @@ public class TokenDaoImpl implements TokenDao {
             }
         }
     }
+
+    @Override
+    public String getUserNameByUID(String uid) {
+        String hql = "select token.userName from TokenEntity token where token.userId=:userId";
+        Query query = this.currentSession().createQuery(hql);
+        query.setParameter("userId",uid);
+        return (String)query.list().get(0);
+    }
 }

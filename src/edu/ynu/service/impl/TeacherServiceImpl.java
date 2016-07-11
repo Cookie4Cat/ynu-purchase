@@ -2,6 +2,7 @@ package edu.ynu.service.impl;
 
 import edu.ynu.dao.ItemDao;
 import edu.ynu.dao.ProjectDao;
+import edu.ynu.dao.TokenDao;
 import edu.ynu.entity.ItemEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.PurchaseApplySubmit;
@@ -28,6 +29,8 @@ public class TeacherServiceImpl implements TeacherService{
     private ProjectDao projectDao;
     @Autowired
     private ItemDao itemDao;
+    @Autowired
+    private TokenDao tokenDao;
 
     @Override
     public PurchaseApplySubmit findDraftByUID(String userId) {
@@ -117,6 +120,8 @@ public class TeacherServiceImpl implements TeacherService{
         if(userId != null){
         entity.setUserId(userId);
         }
+        String agentName = tokenDao.getUserNameByUID(userId);
+        entity.setAgentName(agentName);
         String now = String.valueOf(new Timestamp(new Date().getTime()));  //当前时间
         entity.setSubmitTime(now);
         entity.setStatus("待审核");
