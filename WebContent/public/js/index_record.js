@@ -71,42 +71,31 @@
             .success(function(response){
                 $scope.readyProjectList = response;
             });
-
-
-
         //查看采购项目详情
         $scope.showProject=function (index) {
             $scope.viewProject = $scope.readyProjectList[index];
             console.log(index);
             console.log($scope.viewProject);
-        }
+        };
         //查看选入的采购项目
         $scope.showPlanProject=function (index) {
             $scope.viewProject = $scope.planProjectList[index];
             console.log(index);
             console.log($scope.viewProject);
-        }
+        };
         //加入到采购计划
         $scope.addToPlan = function (index) {
             console.log("add to plan " + index);
             $scope.planProjectList.push($scope.readyProjectList[index]);
             $scope.readyProjectList.splice(index,1);
-            if($scope.planProjectList.length==0){
-                $scope.notAdd = true;
-            }else {
-                $scope.notAdd=false;
-            }
+            $scope.notAdd = ($scope.planProjectList.length==0);
         };
         //从采购计划中移除
         $scope.removeFormPlan = function (index) {
             console.log("remove from plan " + index);
             $scope.readyProjectList.push($scope.planProjectList[index]);
             $scope.planProjectList.splice(index,1);
-            if($scope.planProjectList.length==0){
-                $scope.notAdd = true;
-            }else {
-                $scope.notAdd=false;
-            }
+            $scope.notAdd = ($scope.planProjectList.length==0);
         };
         //提交
         $scope.submit = function () {
@@ -181,14 +170,10 @@
         //查看项目
         $scope.showProject=function (id) {
             $scope.viewProject = $scope.plan.projectsList[id];
-            console.log(id);
-            console.log($scope.viewProject);
-        }
+            
+        };
         
         $scope.approval = function (pid) {
-            console.log($scope.plan.orgType);
-            console.log($scope.plan.purchaseType);
-            console.log($scope.plan.preFinishTime);
             $http({
                 url: "/recorder/plans/"+pid+"/reply?token="+ sessionStorage.getItem("token"),
                 method: "post",

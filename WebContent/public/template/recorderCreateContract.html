@@ -1,12 +1,12 @@
 <div class="recorderInputInfo">
     <form class="form-horizontal" name="contractForm">
         <div class="row">
-            <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
-                <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
+            <div class="col-md-6">
+                <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;">
                     <label class="btn btn-primary active">
-                        <a href="#/recorderCreatePlan" class="LittleNav">查看待处理</a>
+                        <a href="#/recorderIndex" class="LittleNav">查看待处理</a>
                     </label>
-                    <label class="btn btn-primary ">
+                    <label class="btn btn-primary">
                         <a href="#/recorderCreatePlan" class="LittleNav">创建采购批次</a>
                     </label>
                     <label class="btn btn-primary ">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon3" >采购计划编号</span>
                     <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="plan.planId" disabled>
@@ -34,7 +34,7 @@
                     <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="plan.purchaseType" disabled>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon1" >合同名字</span>
                     <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="contract.name" required>
@@ -52,7 +52,7 @@
                     <input type="date" class="form-control"aria-describedby="basic-addon3"  ng-model="contract.bidTime" required>
                 </div>
             </div>
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon4" >中标单位</span>
                     <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="contract.bidCompany" required>
@@ -71,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
                     <span class="input-group-addon biaodan" id="basic-addon8" >中标结果</span>
                     <input type="number" class="form-control"aria-describedby="basic-addon9" required>

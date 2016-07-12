@@ -21,9 +21,8 @@
         $routeProvider.when("/index", {
             templateUrl: "./public/template/indexTpl.html",
             controller: "indexController"
-        })
-
-        .when("/teacherIndex", {
+            })
+            .when("/teacherIndex", {
                 templateUrl: "./public/template/teaFillOut.html",
                 controller: "teaFormCtr"
             })
@@ -42,61 +41,6 @@
             .when("/teaUpdate",{
                 templateUrl: "./public/template/teaUpdateProjectTpl.html",
                 controller: "updateController"
-            })
-            .when("/check", {
-                templateUrl: "./public/template/financial_checkTpl.html",
-                //controller: "workController"
-            })
-            .when("/ExaIndex", {
-                templateUrl: "./public/template/examinantIndex.html",
-                //controller: "workController"
-            })
-            .when("/ExaDetail", {
-                templateUrl: "./public/template/ExaDetail.html",
-                //controller: "workController"
-            })
-            .when("/operatorIndex", {
-                templateUrl: "./public/template/operatorIndex.html",
-                //controller: "workController"
-            })
-            .when("/operatorIndex", {
-                templateUrl: "./public/template/operatorIndex.html",
-                //controller: "workController"
-            })
-            .when("/negRusult", {
-                templateUrl: "./public/template/negotiationResult.html",
-                //controller: "workController"
-            })
-            .when("/operatorHistory", {
-                templateUrl: "./public/template/operatorHistory.html",
-                controller: "opHistoryController"
-            })
-            .when("/negotiationList", {
-                templateUrl: "./public/template/negotiationList.html",
-                //controller: "workController"
-            })
-            .when("/negotiationCheck", {
-                templateUrl: "./public/template/negotiationCheck.html",
-                //controller: "workController"
-            })
-            .when("/operatorHistoryDetail", {
-                templateUrl: "./public/template/operatorHistoryDetail.html",
-                //controller: "workController"
-            })
-            .when("/approvalHistory", {
-                templateUrl: "./public/template/approvalHistoryTpl.html",
-                //controller: "workController"
-            })
-            .when("/approvalClassify1", {
-                templateUrl: "./public/template/approvalClassify1Tpl.html",
-                //controller: "workController"
-            })
-            .when("/approvalClassify2", {
-                templateUrl: "./public/template/approvalClassify2Tpl.html",
-                //controller: "workController"
-            })
-            .when("/projectVerify", {
-                templateUrl: "./public/template/projectVerify.html",
             })
             .otherwise({ redirectTo: "/index" });
 

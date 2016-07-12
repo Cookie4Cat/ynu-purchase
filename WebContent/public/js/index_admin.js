@@ -41,10 +41,6 @@
             .otherwise({ redirectTo: "/index" });
 
     }]);
-    /**
-     *  刘嘉航 任皓 2016-06-19
-     *  起始
-     */
 
     //admin首页控制器
     app.controller('indexController', function($scope, $http) {
@@ -62,6 +58,7 @@
             window.location.href='#/adminSetUp?projectId='+ pid;
         }
     });
+    
     //admin历史控制器
     app.controller('historyController', function($scope, $http) {
         //获取历史列表
