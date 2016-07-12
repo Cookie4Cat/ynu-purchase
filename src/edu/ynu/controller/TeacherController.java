@@ -25,21 +25,7 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 
-
-	@RequestMapping(value = "/history/completed",method = RequestMethod.GET)
-	public List<PurchaseApplySubmit> listCompletedProjects(HttpServletRequest request,
-														   Integer countPerPage,
-														   Integer pageNum) throws Exception {
-		String teacherId = (String) request.getAttribute("userId");
-		return teacherService.listHistorySubmit(teacherId,countPerPage,pageNum);
-	}
-
-	@RequestMapping(value = "/history/completed/count",method = RequestMethod.GET)
-	public Integer countCompletedProjects(HttpServletRequest request) throws Exception {
-		String teacherId = (String) request.getAttribute("userId");
-		return teacherService.countHistorySubmit(teacherId);
-	}
-
+	//下载文件，暂时没用到
 	@RequestMapping("/PurchaseApplySheet/download")
 	public ResponseEntity<byte[]> downloadPurchaseApplySheet(HttpServletRequest request, String projectId)
 	        throws Exception {
@@ -53,6 +39,7 @@ public class TeacherController {
 		return new ResponseEntity<byte[]>(file, headers, HttpStatus.CREATED);
 	}
 
+	//提交项目表单
 	@RequestMapping(value = "/PurchaseApplySheet/submit",method = RequestMethod.POST)
 	public Integer PurchaseApplySheetSubmit(HttpServletRequest request,
 											@RequestBody PurchaseApplySubmit purchaseApplySheet) throws Exception {
@@ -61,6 +48,7 @@ public class TeacherController {
 		return 1;
 	}
 
+	//提交草稿
 	@RequestMapping(value = "/PurchaseApplySheet/submitDraft",method = RequestMethod.POST)
 	public Integer PurchaseApplySheetSubmitDraft(HttpServletRequest request,
 												 @RequestBody PurchaseApplySubmit submit) throws Exception {
@@ -69,16 +57,20 @@ public class TeacherController {
 		return 1;
 	}
 
+	//返回草稿
 	@RequestMapping(value = "/PurchaseApplySheet/draft",method = RequestMethod.GET)
 	public PurchaseApplySubmit getPurchaseApplySheetDraft(HttpServletRequest request) throws Exception {
 		String userId = (String) request.getAttribute("userId");
 		return teacherService.findDraftByUID(userId);
 	}
+
+	//获取项目信息
 	@RequestMapping(value = "/projects/{pid}",method=RequestMethod.GET)
 	public PurchaseApplySubmit getById(@PathVariable String pid){
 		return teacherService.findByPID(pid);
 	}
 
+	//更新（其实是新建）项目信息
 	@RequestMapping(value = "/projects/{pid}",method=RequestMethod.POST)
 	public Integer updatePurchaseApply(@RequestBody PurchaseApplySubmit submit,@PathVariable String pid){
 		System.out.print(submit);
@@ -86,23 +78,14 @@ public class TeacherController {
 		return 1;
 	}
 
-	@RequestMapping(value = "/projects/handling/count",method = RequestMethod.GET)
-	public Integer countHandlingProjects(HttpServletRequest request)throws Exception{
-		String teacherId = (String) request.getAttribute("userId");
-		return teacherService.countHandingProjects(teacherId);
-	}
-	@RequestMapping(value = "/projects/handling",method = RequestMethod.GET)
-	public List<PurchaseApplySubmit> listHandlingProjects(HttpServletRequest request,
-														  Integer countPerPage,
-														  Integer pageNum)throws Exception{
-		String teacherId = (String) request.getAttribute("userId");
-		return teacherService.listHandlingProjects(teacherId,countPerPage,pageNum);
-	}
+	//返回待处理列表
 	@RequestMapping(value = "/projects/handling/all",method = RequestMethod.GET)
 	public List<PurchaseApplySubmit> listAllHandlingProjects(HttpServletRequest request)throws Exception{
 		String teacherId = (String) request.getAttribute("userId");
 		return teacherService.listAllHandlingProjects(teacherId);
 	}
+
+	//返回历史列表
 	@RequestMapping(value = "/projects/history/all",method = RequestMethod.GET)
 	public List<PurchaseApplySubmit> listAllHistoryProjects(HttpServletRequest request)throws Exception{
 		String teacherId = (String) request.getAttribute("userId");

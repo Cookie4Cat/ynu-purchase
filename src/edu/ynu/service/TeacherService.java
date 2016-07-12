@@ -7,25 +7,20 @@ import java.util.List;
 
 public interface TeacherService {
 
+	//保存草稿
 	void saveDraftByUID(String userId, PurchaseApplySubmit submit);
-
+	//返回草稿
 	PurchaseApplySubmit findDraftByUID(String userId);
-
+	//返回项目信息
 	PurchaseApplySubmit findByPID(String pid);
-
-	List<PurchaseApplySubmit> listHandlingProjects(String teacherId,Integer countPerPage,Integer pageNum);
-
-	Integer countHandingProjects(String teacherId);
-
-	Integer countHistorySubmit(String teacherId);
-
-	List<PurchaseApplySubmit> listHistorySubmit(String teacherId,Integer count,Integer pageNum);
-
+	//提交项目信息
 	void submitPurchaseApply(PurchaseApplySubmit submit,String userId);
-
+	//更新项目信息
 	void updatePurchaseApply(PurchaseApplySubmit submit,String projectId);
+
 	String getCurrentProjectId();
-	//----------------------------重构后的接口----------------------//
+	//返回待处理列表
 	List<PurchaseApplySubmit> listAllHandlingProjects(String teacherId);
+	//返回历史列表
 	List<PurchaseApplySubmit> listAllHistoryProjects(String teacherId);
 }

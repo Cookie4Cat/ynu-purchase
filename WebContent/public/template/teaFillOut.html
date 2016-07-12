@@ -1,23 +1,21 @@
 <div class="teaIndex">
+    <div class="col-md-12">
+        <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
+            <label class="btn btn-primary">
+                <a href="#/teaViewHanding" class="LittleNav">查看待处理</a>
+            </label>
+            <label class="btn btn-primary active">
+                <a href="#/teacherIndex" class="LittleNav">申请信息填写</a>
+            </label>
+            <label class="btn btn-primary ">
+                <a href="#/TeaHistory" class="LittleNav">查看历史申请</a>
+            </label>
+        </div>
+    </div>
     <form class="form-horizontal" name="teaForm">
-        <div class="row">
-        <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
-            <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
-                <label class="btn btn-primary ">
-                   <a href="#/teaViewHanding"class="LittleNav">查看待处理</a>
-                </label>
-                <label class="btn btn-primary active ">
-                    <a href="#/teacherIndex" class="LittleNav">申请信息填写</a>
-                </label>
-                <label class="btn btn-primary ">
-                    <a href="#/TeaHistory" class="LittleNav">查看历史申请</a>
-                </label>
-            </div>
-        </div>
-        </div>
-        <div class="form-group" >
-            <label class="col-md-2 control-label" for="">采购类型</label>
-            <div class="col-md-16">
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-10">
+                <label class="radio-inline"><strong>采购类型</strong></label>
                 <label class="radio-inline">G-货物（</label>
                 <label class="radio-inline">
                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="国产" ng-model="project.purchaseType" ng-change="change()" required>国产</label>
@@ -32,55 +30,55 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-9 col-md-offset-1">
+            <div class="col-md-9">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon1">&nbsp&nbsp项目名称&nbsp&nbsp</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon1" ng-model="project.projectName" required>
+                    <span class="input-group-addon biaodan">&nbsp&nbsp项目名称&nbsp&nbsp</span>
+                    <input type="text" class="form-control" ng-model="project.projectName" required>
                 </div>
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon2" >项目负责人</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon2"  ng-model="project.leader" required>
+                    <span class="input-group-addon biaodan">项目负责人</span>
+                    <input type="text" class="form-control" ng-model="project.leader" required>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon3" >经办人电话</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon3"  ng-model="project.agentMobile" required>
+                    <span class="input-group-addon biaodan">经办人电话</span>
+                    <input type="text" class="form-control" ng-model="project.agentMobile" required>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon9" >经办人固话</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon9" ng-model="project.s_tel" required>
+                    <span class="input-group-addon biaodan">经办人固话</span>
+                    <input type="text" class="form-control" ng-model="project.s_tel" required>
                 </div>
             </div>
 
         </div>
         <div class="row" style="margin-top: 10px">
-            <div class="col-md-3 col-md-offset-1">
+            <div class="col-md-3">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon4" >&nbsp&nbsp预算总额&nbsp&nbsp</span>
-                    <input type="number" class="form-control"aria-describedby="basic-addon4"  ng-model="project.totalMoney_pre" disabled required>
+                    <span class="input-group-addon biaodan">&nbsp&nbsp预算总额&nbsp&nbsp</span>
+                    <input type="number" class="form-control" ng-model="project.totalMoney_pre" disabled required>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="input-group ">
-                    <span class="input-group-addon biaodan" id="basic-addon5"  >&nbsp&nbsp资金来源&nbsp&nbsp</span>
-                    <input type="text" class="form-control"aria-describedby="basic-addon5" ng-model="project.comeFrom" required>
+                    <span class="input-group-addon biaodan">&nbsp&nbsp资金来源&nbsp&nbsp</span>
+                    <input type="text" class="form-control" ng-model="project.comeFrom" required>
                 </div>
             </div>
 
-        <div class="col-md-10" style="margin-top: 10px;margin-left: 7%;width:77%">
+        <div class="col-md-9" style="margin-top: 10px;">
             <div class="input-group ">
-                <span class="input-group-addon biaodan" id="basic-addon7">&nbsp&nbsp购置理由&nbsp&nbsp</span>
-                <textarea name="" id="" rows="5" class="form-control" aria-describedby="basic-addon7"  ng-model="project.reason" required></textarea>
+                <span class="input-group-addon biaodan">&nbsp&nbsp购置理由&nbsp&nbsp</span>
+                <textarea name="" id="" rows="5" class="form-control"ng-model="project.reason" required></textarea>
             </div>
         </div>
         <div class="form-group" style="TEXT-ALIGN: center;">

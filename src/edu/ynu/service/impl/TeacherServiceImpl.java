@@ -66,36 +66,6 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public List<PurchaseApplySubmit> listHandlingProjects(String teacherId, Integer countPerPage, Integer pageNum) {
-        String[] status = {"待审核","初审被驳","待立项"};
-        List<ProjectEntity> list = projectDao.findProjectListByUidAndStatus(teacherId,status,countPerPage,pageNum);
-        return TransformUtil.transformToMessageList(list);
-    }
-
-    @Override
-    public Integer countHandingProjects(String teacherId) {
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        String[] status = {"待审核","初审被驳","待立项"};
-        dc.add(Restrictions.in("status",status));
-        return projectDao.countByCriteria(dc);
-    }
-
-    @Override
-    public List<PurchaseApplySubmit> listHistorySubmit(String teacherId, Integer count, Integer pageNum) {
-        String[] status = {"已立项","待采购", "采购完成"};
-        List<ProjectEntity> list = projectDao.findProjectListByUidAndStatus(teacherId,status,count,pageNum);
-        return TransformUtil.transformToMessageList(list);
-    }
-
-    @Override
-    public Integer countHistorySubmit(String teacherId) {
-        DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);
-        String[] status = {"已立项","待采购", "采购完成"};
-        dc.add(Restrictions.in("status",status));
-        return projectDao.countByCriteria(dc);
-    }
-
-    @Override
     public String getCurrentProjectId(){
         final String PRESTR = "XN";
         DetachedCriteria dc = DetachedCriteria.forClass(ProjectEntity.class);

@@ -210,19 +210,19 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
 
     @Override
     public List<ProjectEntity> listProjectsByUidAndStatus(String userId, String[] status) {
-        String hql = "from ProjectEntity projects where projects.status in :status and projects.userId=:userId";
+        String hql = "from ProjectEntity projects where projects.status in :status and projects.userId=:userId order by projects.submitTime desc ";
         Query query = this.currentSession().createQuery(hql);
         query.setString("userId",userId);
-        query.setParameter("status",status);
+        query.setParameterList("status",status);
         List<ProjectEntity> list = query.list();
         return list;
     }
 
     @Override
     public List<ProjectEntity> listProjectByStatus(String[] status) {
-        String hql = "from ProjectEntity projects where projects.status in :status";
+        String hql = "from ProjectEntity projects where projects.status in :status order by projects.submitTime desc ";
         Query query = this.currentSession().createQuery(hql);
-        query.setParameter("status",status);
+        query.setParameterList("status",status);
         List<ProjectEntity> list = query.list();
         return list;
     }

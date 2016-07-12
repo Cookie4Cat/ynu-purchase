@@ -23,13 +23,6 @@ public class TeacherServiceTest {
         teacherService = (TeacherService) ctx.getBean("teacherService");
     }
     @Test
-    public void testListHandlingProjects(){
-        List<PurchaseApplySubmit> list = teacherService.listHandlingProjects("laohuang",8,1);
-        for(PurchaseApplySubmit submit:list){
-            print(submit.getProjectId());
-        }
-    }
-    @Test
     public void testFindDaft(){
         PurchaseApplySubmit submit = teacherService.findDraftByUID("laohuang");
         print(submit.getPurchaseType());

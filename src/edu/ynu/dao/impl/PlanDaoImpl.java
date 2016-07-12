@@ -27,9 +27,9 @@ public class PlanDaoImpl extends BaseDao<PlanEntity> implements PlanDao {
 
     @Override
     public List<PlanEntity> listPlansByStatus(String[] status) {
-        String hql = "from PlanEntity plan where plan.status in :status";
+        String hql = "from PlanEntity plan where plan.status in :status order by plan.time desc ";
         Query query = this.currentSession().createQuery(hql);
-        query.setParameter("status",status);
+        query.setParameterList("status",status);
         List<PlanEntity> list = query.list();
         return list;
     }
