@@ -70,4 +70,12 @@ public class AdminController {
         adminService.setProjectUp(id);
         return 1;
     }
+    @RequestMapping("/projects/handling/all")
+    public List<PurchaseApplySubmit> listAllHandling() throws Exception{
+        return adminService.listAllHandlingProjects();
+    }
+    @RequestMapping("/projects/history/all")
+    public List<PurchaseApplySubmit> listAllHistory() throws Exception{
+        return adminService.listAllHistoryProjects();
+    }
 }

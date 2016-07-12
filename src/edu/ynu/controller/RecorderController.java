@@ -26,7 +26,6 @@ public class RecorderController {
 
     @RequestMapping(value = "/plans/handling",method = RequestMethod.GET)
     public List<PlanMessage> listHandlingPlans(Integer countPerPage, Integer pageNum){
-        System.out.println("呵呵" + countPerPage + pageNum);
         return recorderService.listHandlingPlan(countPerPage,pageNum);
     }
 
@@ -72,5 +71,10 @@ public class RecorderController {
     public Integer submitPlan(@RequestBody PlanSubmit submit){
         recorderService.submitPlan(submit);
         return 1;
+    }
+
+    @RequestMapping(value = "/plans/handling/all",method = RequestMethod.GET)
+    public List<PlanMessage> listAllHandlingPlans(Integer countPerPage, Integer pageNum){
+        return recorderService.listHandlingPlan(countPerPage,pageNum);
     }
 }

@@ -1,6 +1,7 @@
 package edu.ynu.dao;
 
 import edu.ynu.entity.ProjectEntity;
+import edu.ynu.message.PurchaseApplySubmit;
 import org.hibernate.criterion.DetachedCriteria;
 
 import java.util.List;
@@ -137,4 +138,8 @@ public interface ProjectDao {
     void save(ProjectEntity projectEntity);
     ProjectEntity find(Integer id);
     List<ProjectEntity> listProjectByCondition(String pid,String status,String type,Integer countPerPage,Integer pageNum);
+
+    //=============重构后的接口==========
+    List<ProjectEntity> listProjectsByUidAndStatus(String userId,String[] status);
+    List<ProjectEntity> listProjectByStatus(String[] status);
 }

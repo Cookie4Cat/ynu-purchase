@@ -1,5 +1,5 @@
 ! function(angular, window, b) {
-    var app = angular.module('myApp', ['ngRoute']);
+    var app = angular.module('myApp', ['ngRoute','smart-table']);
 
     app.directive("navbar", function() {
         return {
@@ -103,22 +103,6 @@
     }]);
 
     app.controller("handingController", function($scope, $http,$timeout) {
-        $scope.currentPageNum = 1;
-        $http.get("/teacher/projects/handling/count?token=" + sessionStorage.getItem("token"))
-            .success(function(response){
-                console.log("response " + response);
-                $scope.indexList = [];
-                $scope.pageNum = Math.ceil(response/8);
-                if($scope.pageNum<=1){
-                    $scope.hidePagination = true;
-                }else{
-                    $scope.hidePagination = false;
-                }
-                for(var i=0;i<$scope.pageNum;i++){
-                    $scope.indexList.push(i+1);
-                }
-
-            });
         $scope.getProjectList = function (currentPageNum) {
             $http.get("/teacher/projects/handling?token=" + sessionStorage.getItem("token")
                     + "&pageNum=" + currentPageNum + "&countPerPage=8")
@@ -127,18 +111,6 @@
                     $scope.handle = response;
                 });
         };
-        $scope.changePage = function (pageNum) {
-            //防止越界
-            if(pageNum < 1){
-                pageNum = 1;
-            }else if(pageNum > $scope.pageNum){
-                pageNum = $scope.pageNum;
-            }
-            $scope.getProjectList(pageNum);
-            console.log(pageNum);
-            $scope.currentPageNum = pageNum;
-        };
-        
         $scope.showProject = function (projectId) {
             location.href = "/index_teacher.html#/teaViewDetail?projectId="+projectId;
         };
@@ -153,9 +125,6 @@
                 location.href="/index_teacher.html#/teaUpdate?projectId=" + projectId;
             },500);
         };
-
-        //此处获取第一页
-        $scope.getProjectList($scope.currentPageNum);
 
         $scope.methods = {
             showDetail: function(message,projectId,action) {

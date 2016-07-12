@@ -143,4 +143,18 @@ public class TeacherServiceImpl implements TeacherService{
         }
         submitPurchaseApply(submit,userId);
     }
+
+    private final String[] handlingStatus = {"待审核","待立项","初审被驳"};
+    private final String[] historyStatus = {"已立项","待采购", "采购完成"};
+    @Override
+    public List<PurchaseApplySubmit> listAllHandlingProjects(String teacherId) {
+        List<ProjectEntity> list = projectDao.listProjectsByUidAndStatus(teacherId,handlingStatus);
+        return TransformUtil.transformToMessageList(list);
+    }
+    @Override
+    public List<PurchaseApplySubmit> listAllHistoryProjects(String teacherId) {
+        List<ProjectEntity> list = projectDao.listProjectsByUidAndStatus(teacherId,historyStatus);
+        return TransformUtil.transformToMessageList(list);
+    }
+
 }

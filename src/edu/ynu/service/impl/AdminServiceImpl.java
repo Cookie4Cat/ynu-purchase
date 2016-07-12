@@ -133,4 +133,16 @@ public class AdminServiceImpl implements AdminService {
         entity.setStatus("已立项");
         projectDao.update(entity);
     }
+
+    @Override
+    public List<PurchaseApplySubmit> listAllHandlingProjects() {
+        List<ProjectEntity> list = projectDao.listProjectByStatus(handlingStatusList);
+        return TransformUtil.transformToMessageList(list);
+    }
+
+    @Override
+    public List<PurchaseApplySubmit> listAllHistoryProjects() {
+        List<ProjectEntity> list = projectDao.listProjectByStatus(historyStatusList);
+        return TransformUtil.transformToMessageList(list);
+    }
 }

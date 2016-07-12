@@ -2,6 +2,7 @@ package edu.ynu.dao.impl;
 
 import edu.ynu.dao.ProjectDao;
 import edu.ynu.entity.ProjectEntity;
+import edu.ynu.message.PurchaseApplySubmit;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -205,6 +206,25 @@ public class ProjectDaoImpl extends BaseDao<ProjectEntity> implements ProjectDao
     public List<ProjectEntity> listProjectByCondition(String pid, String status, String type,
                                                       Integer countPerPage,Integer pageNum) {
         return null;
-
     }
+
+    @Override
+    public List<ProjectEntity> listProjectsByUidAndStatus(String userId, String[] status) {
+        String hql = "from ProjectEntity projects where projects.status in :status and projects.userId=:userId";
+        Query query = this.currentSession().createQuery(hql);
+        query.setString("userId",userId);
+        query.setParameter("status",status);
+        List<ProjectEntity> list = query.list();
+        return list;
+    }
+
+    @Override
+    public List<ProjectEntity> listProjectByStatus(String[] status) {
+        String hql = "from ProjectEntity projects where projects.status in :status";
+        Query query = this.currentSession().createQuery(hql);
+        query.setParameter("status",status);
+        List<ProjectEntity> list = query.list();
+        return list;
+    }
+
 }

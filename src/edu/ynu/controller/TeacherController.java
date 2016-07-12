@@ -98,4 +98,14 @@ public class TeacherController {
 		String teacherId = (String) request.getAttribute("userId");
 		return teacherService.listHandlingProjects(teacherId,countPerPage,pageNum);
 	}
+	@RequestMapping(value = "/projects/handling/all",method = RequestMethod.GET)
+	public List<PurchaseApplySubmit> listAllHandlingProjects(HttpServletRequest request)throws Exception{
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.listAllHandlingProjects(teacherId);
+	}
+	@RequestMapping(value = "/projects/history/all",method = RequestMethod.GET)
+	public List<PurchaseApplySubmit> listAllHistoryProjects(HttpServletRequest request)throws Exception{
+		String teacherId = (String) request.getAttribute("userId");
+		return teacherService.listAllHistoryProjects(teacherId);
+	}
 }

@@ -173,4 +173,16 @@ public class RecorderServiceImpl implements RecorderService {
         detailMessage.setBidTime(contract.getBidTime());
         return detailMessage;
     }
+
+    @Override
+    public List<PlanMessage> listAllHandlingPlan() {
+        List<PlanEntity> list = planDao.listPlansByStatus(handlingStatus);
+        return TransformUtil.transformToPlanMessageList(list);
+    }
+
+    @Override
+    public List<PlanMessage> listAllHistoryPlan() {
+        List<PlanEntity> list = planDao.listPlansByStatus(historyStatus);
+        return TransformUtil.transformToPlanMessageList(list);
+    }
 }

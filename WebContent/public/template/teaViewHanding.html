@@ -1,6 +1,6 @@
 <div class="">
     <!--<h2 class="page-header subhead">查看待处理</h2>-->
-    <div class="col-md-7" style="margin-left: 10%">
+    <div class="col-md-7">
         <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
             <label class="btn btn-primary active">
                 <a href="#/teaViewHanding" class="LittleNav">查看待处理</a>
@@ -26,79 +26,76 @@
         .fontGreen{
             color:limegreen;
         }
-    </style>
-    <!-- <form class="form-horizontal" ng-controller="CheckMessageController"> -->
-    <div class="form-group" style="TEXT-ALIGN: center;">
-        <div class="table-responsive col-md-10 col-md-offset-1">
-            <table class="table table-striped table-hover teacherTable ">
-                <tr class="" style="text-align: center;vertical-align: middle;">
-                    <td>序号</td>
-                    <td>项目编号</td>
-                    <td>项目名称</td>
-                    <td>采购类型</td>
-                    <td>总计金额（万元）</td>
-                    <td>上次提交日期</td>
-                    <td>当前状态</td>
-                    <td>操作</td>
-                    <td>下载申请表</td>
-                </tr>
-                <tr ng-repeat="han in handle">
-                    <td>
-                        <p>{{$index+1}}</p>
-                    </td>
-                    <td>
-                        <p>{{han.projectId}}</p>
-                    </td>
-                    <td>
-                        <p>{{han.projectName}}</p>
-                    </td>
-                    <td>
-                        <p>{{han.purchaseType}}</p>
-                    </td>
-                    <td>
-                        <p>{{han.totalMoney_pre}}</p>
-                    </td>
-                    <td>
-                        <p>{{han.updateTime | limitTo:10}}</p>
-                    </td>
-                    <td ng-switch="han.status">
-                        <p ng-switch-when="待审核" class="fontBlue">{{han.status}}</p>
-                        <p ng-switch-when="初审被驳" class="fontRed">{{han.status}}</p>
-                        <p ng-switch-when="待立项" class="fontGreen">{{han.status}}</p>
-                    </td>
-                    <td ng-switch="han.status">
-                        <button ng-switch-when="待立项" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,han.projectId,'查看详情')">查看</button>
-                        <button ng-switch-when="初审被驳" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(han.suggestion,han.projectId,'重新提交')">查看</button>
-                        <button ng-switch-when="待审核" class="btn btn-info " type="button" ng-click="showProject(han.projectId)">查看</button>
-                    </td>
-                    <td ng-if="han.status == '待立项'">
-                        <a class="btn btn-info " type="button" href="{{han.fileUrl}}" download>下载</a>
-                    </td>
-                    <td ng-if="han.status != '待立项'">
-                        <button class="btn btn-info " type="button" disabled="disabled" >下载</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-            <ul class="pagination" ng-hide="hidePagination">
-                <li>
-                    <a ng-click="changePage(currentPageNum-1)">
-                        <span >&laquo;</span>
-                    </a>
-                </li>
-                <li ng-repeat="index in indexList">
-                    <a ng-click="changePage(index)" ng-bind="index"></a>
-                </li>
+        .st-sort-ascent:before{
+            content: '\25B2';
+        }
 
-                <li>
-                    <a ng-click="changePage(currentPageNum+1)">
-                        <span >&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+        .st-sort-descent:before{
+            content: '\25BC';
+        }
+    </style>
+    <table st-table="displayedCollection" st-safe-src="handle" class="table table-striped">
+        <thead>
+        <tr>
+            <th colspan="4">
+                <input st-search placeholder="全局搜索" class="input-sm form-control" type="search"/>
+            </th>
+            <th colspan="2">
+                根据状态搜索：
+                <select st-search="status">
+                    <option value="">不限</option>
+                    <option value="待审核">待审核</option>
+                    <option value="待立项">待立项</option>
+                    <option value="初审被驳">初审被驳</option>
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th>序号</th>
+            <th st-sort="projectId">项目编号</th>
+            <th st-sort="projectName">项目名称</th>
+            <th st-sort="purchaseType">采购类型</th>
+            <th st-sort="totalMoney_pre">总计金额</th>
+            <th st-sort="updateTime">上次提交日期</th>
+            <th st-sort="status">当前状态</th>
+            <th>操作</th>
+            <th>下载申请表</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in displayedCollection">
+            <td>{{$index+1}}</td>
+            <td>{{row.projectId}}</td>
+            <td>{{row.projectName}}</td>
+            <td>{{row.purchaseType}}</td>
+            <td>{{row.totalMoney_pre}}</td>
+            <td>{{row.updateTime|limitTo:10}}</td>
+            <td ng-switch="row.status">
+                <p ng-switch-when="待审核" class="fontBlue">{{row.status}}</p>
+                <p ng-switch-when="初审被驳" class="fontRed">{{row.status}}</p>
+                <p ng-switch-when="待立项" class="fontGreen">{{row.status}}</p>
+            </td>
+            <td ng-switch="row.status">
+                <button ng-switch-when="待立项" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(row.suggestion,row.projectId,'查看详情')">查看</button>
+                <button ng-switch-when="初审被驳" class="btn btn-info " type="button" data-toggle="modal" data-target="#Modal1" ng-click="methods.showDetail(row.suggestion,row.projectId,'重新提交')">查看</button>
+                <button ng-switch-when="待审核" class="btn btn-info " type="button" ng-click="showProject(row.projectId)">查看</button>
+            </td>
+            <td ng-if="row.status == '待立项'">
+                <a class="btn btn-info " type="button" href="{{row.fileUrl}}" download>下载</a>
+            </td>
+            <td ng-if="row.status != '待立项'">
+                <button class="btn btn-info " type="button" disabled="disabled" >下载</button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="9" class="text-center">
+                <div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
     <!-- </form> -->
     <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

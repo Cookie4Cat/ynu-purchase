@@ -25,4 +25,7 @@ public interface TeacherService {
 
 	void updatePurchaseApply(PurchaseApplySubmit submit,String projectId);
 	String getCurrentProjectId();
+	//----------------------------重构后的接口----------------------//
+	List<PurchaseApplySubmit> listAllHandlingProjects(String teacherId);
+	List<PurchaseApplySubmit> listAllHistoryProjects(String teacherId);
 }

@@ -14,4 +14,6 @@ public interface PlanDao {
     void delete(PlanEntity planEntity);
     PlanEntity findByCriteria(DetachedCriteria criteria);
     PlanEntity findByPId(String planID);
+    //====重构后的接口
+    List<PlanEntity> listPlansByStatus(String[] status);
 }

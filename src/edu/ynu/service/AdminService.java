@@ -22,4 +22,8 @@ public interface AdminService {
     PurchaseApplySubmit findOneProject(String projectId);
     void addProjectSuggestion(String projectId,String suggestion,String result);
     void setProjectUp(String projectId);
+    //=============重构后的方法
+    List<PurchaseApplySubmit> listAllHandlingProjects();
+    List<PurchaseApplySubmit> listAllHistoryProjects();
+
 }
