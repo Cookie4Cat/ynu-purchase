@@ -1,7 +1,6 @@
 package edu.ynu.service;
 
 import edu.ynu.message.PurchaseApplySubmit;
-import edu.ynu.message.PurchaseHistoryRecord;
 
 import java.util.List;
 

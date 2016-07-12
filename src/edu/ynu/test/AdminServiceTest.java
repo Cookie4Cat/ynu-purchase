@@ -23,30 +23,6 @@ public class AdminServiceTest {
         adminService = (AdminService)ctx.getBean("adminService");
     }
     @Test
-    public void testFindAllProjects(){
-        List<PurchaseApplySubmit> list = adminService.listHandlingProjects(2,2);
-        for(PurchaseApplySubmit p:list){
-            System.out.println(p.getLeader());
-        }
-    }
-    @Test
-    public void  testFindAllByCondition(){
-        List<PurchaseApplySubmit> list = adminService.listHandlingProjectsByCondition("","","待审核",8,1);
-        for(PurchaseApplySubmit p:list){
-            System.out.println(p.getTable()+"   "+p.getProjectId()+"    "+p.getStatus() );
-        }
-    }
-    @Test
-    public void testFindOne(){
-        adminService.countHandlingProjects();
-    }
-    @Test
-    public void testFindAllCount(){
-        Integer count = adminService.countHistoryProjectsByCondition("","","采购完成");
-        adminService.countHandlingProjects();
-        print(count);
-    }
-    @Test
     public void testSetUp(){
         adminService.setProjectUp("2016062814");
     }

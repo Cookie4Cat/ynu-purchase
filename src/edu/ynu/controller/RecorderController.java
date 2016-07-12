@@ -19,26 +19,6 @@ public class RecorderController {
         return recorderService.findByPlanId(pid);
     }
 
-    @RequestMapping(value = "/plans/handling/count",method = RequestMethod.GET)
-    public Integer countHandlingPlans()throws Exception{
-        return recorderService.countHandlingPlan();
-    }
-
-    @RequestMapping(value = "/plans/handling",method = RequestMethod.GET)
-    public List<PlanMessage> listHandlingPlans(Integer countPerPage, Integer pageNum){
-        return recorderService.listHandlingPlan(countPerPage,pageNum);
-    }
-
-    @RequestMapping(value = "/plans/history/count",method = RequestMethod.GET)
-    public Integer countHistoryPlans(){
-        return recorderService.countHistoryPlan();
-    }
-
-    @RequestMapping(value = "/plans/history",method = RequestMethod.GET)
-    public List<PlanMessage> listHistoryPlans(Integer countPerPage, Integer pageNum){
-        return recorderService.listHistoryPlan(countPerPage,pageNum);
-    }
-
     @RequestMapping(value = "/plans/{pid}/reply",method = RequestMethod.POST)
     public Integer replyPlan(@RequestBody PlanSubmit submit,@PathVariable String pid){
         submit.setPlanId(pid);
@@ -74,7 +54,11 @@ public class RecorderController {
     }
 
     @RequestMapping(value = "/plans/handling/all",method = RequestMethod.GET)
-    public List<PlanMessage> listAllHandlingPlans(Integer countPerPage, Integer pageNum){
-        return recorderService.listHandlingPlan(countPerPage,pageNum);
+    public List<PlanMessage> listAllHandlingPlans(){
+        return recorderService.listAllHandlingPlan();
+    }
+    @RequestMapping(value = "/plans/history/all",method = RequestMethod.GET)
+    public List<PlanMessage> listAllHistoryPlans(){
+        return recorderService.listAllHistoryPlan();
     }
 }

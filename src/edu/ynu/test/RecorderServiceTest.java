@@ -36,28 +36,6 @@ public class RecorderServiceTest {
         recorderService.submitPlan(submit);
     }
     @Test
-    public void testCountHandlingPlan(){
-        print(recorderService.countHandlingPlan());
-    }
-    @Test
-    public void testListHandlingPlan(){
-        List<PlanMessage> planList = recorderService.listHandlingPlan(1,1);
-        for(PlanMessage plan:planList){
-            print(plan.getPlanId());
-        }
-    }
-    @Test
-    public void testCountHistoryPlan(){
-        print(recorderService.countHistoryPlan());
-    }
-    @Test
-    public void testListHistoryPlan(){
-        List<PlanMessage> planList = recorderService.listHistoryPlan(1,1);
-        for(PlanMessage plan:planList){
-            print(plan.getPlanId());
-        }
-    }
-    @Test
     public void testReplyPlan(){
         PlanSubmit submit = new PlanSubmit();
         submit.setPlanId("PC20160626");
@@ -84,11 +62,4 @@ public class RecorderServiceTest {
         recorderService.replyPlan(submit);
         System.out.print(recorderService.findByPlanId("8888").getTime());
     }
-//    @Test
-//    public void testSubmitContract(){
-//        ContractEntity contract = new ContractEntity();
-//        contract.setPlanNum("PC20160626");
-//        contract.setConstractName("合同名字1");
-//        recorderService.submitContract(contract);
-//    }
 }

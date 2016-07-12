@@ -10,7 +10,6 @@ import edu.ynu.entity.PlanEntity;
 import edu.ynu.entity.ProjectEntity;
 import edu.ynu.message.*;
 import edu.ynu.service.RecorderService;
-import edu.ynu.util.DateUtil;
 import edu.ynu.util.TransformUtil;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -53,35 +52,6 @@ public class RecorderServiceImpl implements RecorderService {
         plan.setStatus("待审批");
         planDao.save(plan);
     }
-
-    @Override
-    public Integer countHandlingPlan() {
-        DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
-        dc.add(Restrictions.in("status",handlingStatus));
-        return planDao.countByCriteria(dc);
-    }
-
-    @Override
-    public List<PlanMessage> listHandlingPlan(Integer countPerPage, Integer pageNum) {
-        DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
-        dc.add(Restrictions.in("status",handlingStatus));
-        return TransformUtil.transformToPlanMessageList(planDao.listByCriteria(dc,countPerPage,pageNum));
-    }
-
-    @Override
-    public Integer countHistoryPlan() {
-        DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
-        dc.add(Restrictions.in("status",historyStatus));
-        return planDao.countByCriteria(dc);
-    }
-
-    @Override
-    public List<PlanMessage> listHistoryPlan(Integer countPerPage, Integer pageNum) {
-        DetachedCriteria dc = DetachedCriteria.forClass(PlanEntity.class);
-        dc.add(Restrictions.in("status",historyStatus));
-        return TransformUtil.transformToPlanMessageList(planDao.listByCriteria(dc,countPerPage,pageNum));
-    }
-
     @Override
     public void replyPlan(PlanSubmit submit) {
         PlanEntity plan = findByPId(submit.getPlanId());

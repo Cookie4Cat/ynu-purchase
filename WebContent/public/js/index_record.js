@@ -1,5 +1,5 @@
 ! function(angular, window, b) {
-    var app = angular.module('myApp', ['ngRoute']);
+    var app = angular.module('myApp', ['ngRoute','smart-table']);
 
     app.directive("navbar", function() {
         return {
@@ -47,45 +47,12 @@
     }]);
     //首页
     app.controller('indexController', function($scope,$http) {
-        //获取总数以分页
-        $scope.getPageCount = function (url) {
-            $http.get(url)
+            $http.get("recorder/plans/handling/all?token=" + sessionStorage.getItem("token"))
                 .success(function(response){
-                    $scope.indexList = [];
-                    $scope.pageNum = Math.ceil(response/8);
-                    if($scope.pageNum<=1){
-                        $scope.hidePagination = true;
-                    }
-                    for(var i=0;i<$scope.pageNum;i++){
-                        $scope.indexList.push(i+1);
-                    }
+                    console.log(response);
+                    $scope.handlingPlanList = response;
                 });
-        };
 
-        //根据页码获取项目列表
-        $scope.getProjectList = function (pageNum) {
-            $http.get("/recorder/plans/handling?token=" + sessionStorage.getItem("token")
-                + "&countPerPage=8&pageNum=" + pageNum
-            ).success(function (response) {
-                $scope.handlingPlanList = response;
-            });
-        };
-
-        //进入页面先加载第一页
-        $scope.getPageCount("/recorder/plans/handling/count?token=" + sessionStorage.getItem("token"));
-        $scope.getProjectList(1);
-
-        //换页
-        $scope.changePage = function (pageNum) {
-            //防止越界
-            if(pageNum < 1){
-                pageNum = 1;
-            }else if(pageNum > $scope.pageNum){
-                pageNum = $scope.pageNum;
-            }
-            $scope.currentPageNum = pageNum;
-            $scope.getProjectList(pageNum);
-        };
         $scope.approval = function (pid) {
             location.href = "/index_record.html#/recorderApproval?planId=" + pid;
         };
@@ -177,44 +144,11 @@
     
     //历史纪录
     app.controller("historyController", function ($scope,$http) {
-        $scope.currentPageNum = 1;
-        $http.get("/recorder/plans/history/count?token="+sessionStorage.getItem("token"))
+        $http.get("/recorder/plans/history/all?token="+sessionStorage.getItem("token"))
             .success(function (response) {
-                $scope.indexList = [];
                 console.log(response);
-                $scope.pageNum = Math.ceil(response/8);
-                if($scope.pageNum<=1){
-                    $scope.hidePagination = true;
-                }else{
-                    $scope.hidePagination = false;
-                }
-                for(var i=0;i<$scope.pageNum;i++){
-                    $scope.indexList.push(i+1);
-                }
+                $scope.historyItems = response;
             });
-
-        
-        $scope.getHistoryList = function (pageNum) {
-            $http.get("/recorder/plans/history?token=" + sessionStorage.getItem("token")
-                + "&pageNum=" + pageNum + "&countPerPage=8")
-                .success(function (response) {
-                    $scope.historyItems = response;
-                    console.log(response);
-                });
-        }
-        //获取第一页
-        $scope.getHistoryList($scope.currentPageNum);
-        
-        $scope.changePage = function (pageNum) {
-            //防止越界
-            if(pageNum < 1){
-                pageNum = 1;
-            }else if(pageNum > $scope.pageNum){
-                pageNum = $scope.pageNum;
-            }
-            $scope.getProjectList(pageNum);
-            $scope.currentPageNum = pageNum;
-        };
        });
 
 

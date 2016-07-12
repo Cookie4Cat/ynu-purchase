@@ -1,7 +1,7 @@
 <div class="teaIndex">
     <form class="form-horizontal">
         <div class="row">
-            <div class="col-md-6 col-md-offset-1"style="margin-left:10%">
+            <div class="col-md-6" style="margin-left:10px">
                 <div class="btn-group" style="margin-top:3%;margin-bottom: 3%;margin-left: -14px;">
                     <label class="btn btn-primary active">
                         <a href="#/recorderIndex" class="LittleNav">查看待处理</a>
@@ -15,56 +15,56 @@
                 </div>
                 </div>
             </div>
-    <!-- <form class="form-horizontal" ng-controller="CheckMessageController"> -->
-    <div class="form-group" style="TEXT-ALIGN: center;">
-        <div class="table-responsive col-md-6 col-md-offset-1">
-            <table class="table table-striped table-hover teacherTable ">
-                <tr class="" style="text-align: center;vertical-align: middle;">
-                    <td>序号</td>
-                    <td>采购计划编号</td>
-                    <td>时间</td>
-                    <td>状态</td>
-                    <td>操作</td>
-                </tr>
-                <tr ng-repeat="plan in handlingPlanList">
-                    <td>
-                        <p>{{$index+1}}</p>
-                    </td>
-                    <td>
-                        <p>{{plan.planId}}</p>
-                    </td>
-                    <td>
-                        <p>{{plan.time | limitTo:10}}</p>
-                    </td>
-                    <td>
-                        <p>{{plan.status}}</p>
-                    </td>
-                    <td ng-switch="plan.status">
-                        <button ng-switch-when="待审批" class="btn btn-success " type="button"  ng-click="approval(plan.planId)">审查批复</button>
-                        <button ng-switch-when="待采购" class="btn btn-primary " type="button"  ng-click="addInfo(plan.planId)">录入合同</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-            <ul class="pagination" ng-hide="hidePagination">
-                <li>
-                    <a ng-click="changePage(currentPageNum-1)">
-                        <span >&laquo;</span>
-                    </a>
-                </li>
-                <li ng-repeat="index in indexList">
-                    <a ng-click="changePage(index)" ng-bind="index"></a>
-                </li>
-
-                <li>
-                    <a ng-click="changePage(currentPageNum+1)">
-                        <span >&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- </form> -->
+        <table st-table="displayedCollection" st-safe-src="handlingPlanList" class="table table-striped">
+            <thead>
+            <tr>
+                <th colspan="3">
+                    <input st-search placeholder="全局搜索" class="input-sm form-control" type="search"/>
+                </th>
+                <th colspan="2">
+                    根据状态搜索：
+                    <select st-search="status">
+                        <option value="">不限</option>
+                        <option value="待审批">待审批</option>
+                        <option value="待采购">待采购</option>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>序号</th>
+                <th st-sort="planId">采购计划编号</th>
+                <th st-sort="time">时间</th>
+                <th st-sort="status">状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="plan in displayedCollection">
+                <td>
+                    <p>{{$index+1}}</p>
+                </td>
+                <td>
+                    <p>{{plan.planId}}</p>
+                </td>
+                <td>
+                    <p>{{plan.time | limitTo:10}}</p>
+                </td>
+                <td>
+                    <p>{{plan.status}}</p>
+                </td>
+                <td ng-switch="plan.status">
+                    <button ng-switch-when="待审批" class="btn btn-success " type="button"  ng-click="approval(plan.planId)">审查批复</button>
+                    <button ng-switch-when="待采购" class="btn btn-primary " type="button"  ng-click="addInfo(plan.planId)">录入合同</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="9" class="text-center">
+                    <div st-pagination="" st-items-by-page="8" st-displayed-pages="5"></div>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
     </form>
 </div>
