@@ -1,5 +1,5 @@
 ! function(angular, window) {
-    var app = angular.module('myApp', ['ngRoute']);
+    var app = angular.module('myApp', ['ngRoute','smart-table']);
 
     app.directive("navbar", function() {
         return {
@@ -48,81 +48,11 @@
 
     //admin首页控制器
     app.controller('indexController', function($scope, $http) {
-
-        //获取总数以分页
-        $scope.getPageCount = function (url) {
-            $http.get(url)
-                .success(function(response){
-                    $scope.indexList = [];
-                    $scope.pageNum = Math.ceil(response/8);
-                    if($scope.pageNum<=1){
-                        $scope.hidePagination = true;
-                    }else{
-                        $scope.hidePagination = false;
-                    }
-                    for(var i=0;i<$scope.pageNum;i++){
-                        $scope.indexList.push(i+1);
-                    }
-                    console.log(response);
-                    console.log($scope.pageNum);
-                    console.log($scope.hidePagination);
-                    console.log($scope.indexList);
-                });
-        };
-
-        //根据页码获取项目列表
-        $scope.getProjectList = function (pageNum) {
-            $http.get("/admin/projects/handling?token=" + sessionStorage.getItem("token")
-                + "&countPerPage=8&pageNum=" + pageNum
-            ).success(function (response) {
+        //获取待处理列表
+        $http.get("admin/projects/handling/all?token=" + sessionStorage.getItem("token"))
+            .success(function (response) {
                 $scope.handlingProjectList = response;
             });
-        };
-
-
-        //进入页面先加载第一页
-        $scope.getPageCount("/admin/projects/handling/count?token=" + sessionStorage.getItem("token"));
-        $scope.getProjectList(1);
-
-        //换页
-        $scope.changePage = function (pageNum) {
-            //防止越界
-            if(pageNum < 1){
-                pageNum = 1;
-            }else if(pageNum > $scope.pageNum){
-                pageNum = $scope.pageNum;
-            }
-            //如果搜索框中存在值
-            if($scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
-                $scope.getPageCount("/admin/projects/handling/search/count?projectId="+$scope.pidSearch+"&type="
-                    + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
-                $scope.search(pageNum);
-            }else{
-                $scope.getPageCount("/admin/projects/handling/count?token="+sessionStorage.getItem("token"));
-                $scope.getProjectList(pageNum);
-            }
-        };
-
-        //init
-        $scope.typeSearch = "";
-        $scope.statusSearch = "";
-        $scope.pidSearch = "";
-        //根据查询条件获取项目列表
-        $scope.search = function(pageNum) {
-            if(!$scope.pidSearch&&!$scope.statusSearch&&!$scope.typeSearch){
-                $scope.getPageCount("/admin/projects/handling/count?token=" + sessionStorage.getItem("token"));
-                $scope.getProjectList(1);
-                return;
-            }
-            $scope.getPageCount("/admin/projects/handling/search/count?projectId="+$scope.pidSearch+"&type="
-                + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
-            $http.get("/admin/projects/handling/search?token=" + sessionStorage.getItem("token")
-                + "&countPerPage=8&pageNum=" + pageNum + "&type=" + $scope.typeSearch
-                + "&status=" + $scope.statusSearch + "&projectId=" + $scope.pidSearch
-            ).success(function (response) {
-                $scope.handlingProjectList = response;
-            });
-        };
         //审核
         $scope.verify = function(pid){
             window.location.href='#/adminVerify?projectId='+ pid;
@@ -134,75 +64,11 @@
     });
     //admin历史控制器
     app.controller('historyController', function($scope, $http) {
-
-        //获取总数以分页
-        $scope.getPageCount = function (url) {
-            $http.get(url)
-                .success(function(response){
-                    $scope.indexList = [];
-                    $scope.pageNum = Math.ceil(response/8);
-                    if($scope.pageNum<=1){
-                        $scope.hidePagination = true;
-                    }else{
-                        $scope.hidePagination = false;
-                    }
-                    for(var i=0;i<$scope.pageNum;i++){
-                        $scope.indexList.push(i+1);
-                    }
-                });
-        };
-
-        //根据页码获取项目列表
-        $scope.getProjectList = function (pageNum) {
-            $http.get("/admin/projects/history?token=" + sessionStorage.getItem("token")
-                + "&countPerPage=8&pageNum=" + pageNum
-            ).success(function (response) {
+        //获取历史列表
+        $http.get("admin/projects/history/all?token=" + sessionStorage.getItem("token"))
+            .success(function (response) {
                 $scope.handlingProjectList = response;
             });
-        };
-
-
-        //进入页面先加载第一页
-        $scope.getPageCount("/admin/projects/history/count?token=" + sessionStorage.getItem("token"));
-        $scope.getProjectList(1);
-
-        //换页
-        $scope.changePage = function (pageNum) {
-            //防止越界
-            if(pageNum < 1){
-                pageNum = 1;
-            }else if(pageNum > $scope.pageNum){
-                pageNum = $scope.pageNum;
-            }
-            //如果搜索框中存在值
-            if($scope.pidSearch||$scope.statusSearch||$scope.typeSearch){
-                $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
-                    + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
-                $scope.search(pageNum);
-            }else{
-                $scope.getPageCount("/admin/projects/history/count?token="+sessionStorage.getItem("token"));
-                $scope.getProjectList(pageNum);
-            }
-        };
-
-        //init
-        $scope.typeSearch = "";
-        $scope.statusSearch = "";
-        $scope.pidSearch = "";
-
-        //根据查询条件获取项目列表
-        $scope.search = function(pageNum) {
-            $scope.getPageCount("/admin/projects/history/search/count?projectId="+$scope.pidSearch+"&type="
-                + $scope.typeSearch + "&status=" + $scope.statusSearch +"&token=" + sessionStorage.getItem("token"));
-
-            $http.get("/admin/projects/history/search?token=" + sessionStorage.getItem("token")
-                + "&countPerPage=8&pageNum=" + pageNum + "&type=" + $scope.typeSearch
-                + "&status=" + $scope.statusSearch + "&projectId=" + $scope.pidSearch
-            ).success(function (response) {
-                $scope.handlingProjectList = response;
-            });
-        };
-        
         //查看
         $scope.view = function (pid) {
             location.href = "/index_admin.html#/adminView?projectId=" + pid;
